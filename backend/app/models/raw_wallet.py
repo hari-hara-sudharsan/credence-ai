@@ -8,4 +8,4 @@ class RawWallet(BaseModel):
 
     tx_count: int
 
-    first_seen_block: int
+    first_tx_timestamp: str | None = None
