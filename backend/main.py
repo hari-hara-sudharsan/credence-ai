@@ -12,6 +12,9 @@ from app.api.oracle import (
 from app.api.insights import (
     router as insights_router
 )
+from app.api.report import (
+    router as report_router
+)
 
 app = FastAPI(
     title="Credence AI",
@@ -34,4 +37,7 @@ app.include_router(
 )
 app.include_router(
     insights_router
+)
+app.include_router(
+    report_router
 )
