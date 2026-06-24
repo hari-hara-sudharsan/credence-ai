@@ -11,6 +11,9 @@ class BlockscoutClient:
 
         response = requests.get(url, timeout=15)
 
+        if response.status_code in [404, 422]:
+            return {}
+
         response.raise_for_status()
 
         return response.json()
@@ -20,6 +23,9 @@ class BlockscoutClient:
         url = f"{self.BASE_URL}/addresses/{address}/transactions"
 
         response = requests.get(url, timeout=15)
+
+        if response.status_code in [404, 422]:
+            return {"items": []}
 
         response.raise_for_status()
 

@@ -10,6 +10,10 @@ from app.services.blockchain_publisher import (
     BlockchainPublisher
 )
 
+from app.services.history_service import (
+    HistoryService
+)
+
 
 class OracleEngine:
 
@@ -30,6 +34,12 @@ class OracleEngine:
 
         profile = credit_engine.calculate(
             features
+        )
+
+        HistoryService.add_record(
+            wallet,
+            profile.credit_score,
+            profile.rating
         )
 
         tx_hash = publisher.publish_score(

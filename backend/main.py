@@ -16,6 +16,36 @@ from app.api.insights import (
 from app.api.report import (
     router as report_router
 )
+from app.api.history import (
+    router as history_router
+)
+from app.api.compare import (
+    router as compare_router
+)
+from app.api.passport_nft import (
+    router as passport_nft_router
+)
+from app.api.simulator import (
+    router as simulator_router
+)
+from app.api.oracle_public import (
+    router as oracle_public_router
+)
+from app.api.badges import (
+    router as badges_router
+)
+from app.api.segments import (
+    router as segments_router
+)
+from app.api.leaderboard import (
+    router as leaderboard_router
+)
+from app.api.protocol_models import (
+    router as protocol_models_router
+)
+from app.api.marketplace import (
+    router as marketplace_router
+)
 
 app = FastAPI(
     title="Credence AI",
@@ -49,4 +79,34 @@ app.include_router(
 )
 app.include_router(
     report_router
+)
+app.include_router(
+    history_router
+)
+app.include_router(
+    compare_router
+)
+app.include_router(
+    passport_nft_router
+)
+app.include_router(
+    simulator_router
+)
+app.include_router(
+    oracle_public_router
+)
+app.include_router(
+    badges_router
+)
+app.include_router(
+    segments_router
+)
+app.include_router(
+    leaderboard_router
+)
+app.include_router(
+    protocol_models_router
+)
+app.include_router(
+    marketplace_router
 )

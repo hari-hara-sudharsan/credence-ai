@@ -1,15 +1,20 @@
 "use client";
 
 import { useState } from "react";
+import { useRouter } from "next/navigation";
 import API from "@/lib/api";
 import WalletForm from "@/components/WalletForm";
 import CreditCard from "@/components/CreditCard";
+import { useWallet } from "@/context/WalletContext";
 import ReportCard from "@/components/ReportCard";
 import LendingCard from "@/components/LendingCard";
 import RegistryCard from "@/components/RegistryCard";
 import RiskCard from "@/components/RiskCard";
+import PassportSearch from "@/components/PassportSearch";
 
 export default function Home() {
+  const router = useRouter();
+  const { wallet } = useWallet();
   const [credit, setCredit] = useState<any>(null);
   const [report, setReport] = useState<any>(null);
   const [lending, setLending] = useState<any>(null);
@@ -30,6 +35,8 @@ export default function Home() {
       setReport(reportRes.data);
       setLending(lendingRes.data);
       setRegistry(registryRes.data);
+
+      router.push(`/passport/${wallet}`);
     } catch (error) {
       console.error(error);
     } finally {
@@ -474,6 +481,8 @@ export default function Home() {
             </p>
           </header>
 
+          <PassportSearch />
+
           {/* STAT PILLS */}
           <div className="stat-row">
             {[
@@ -494,6 +503,14 @@ export default function Home() {
           <div className="form-section">
             <div className="form-label">Wallet Address</div>
             <WalletForm onAnalyze={analyze} />
+            {wallet && (
+              <button
+                className="mt-4 border border-[var(--cyan-border)] bg-[var(--cyan-faint)] hover:bg-[rgba(0,229,255,0.15)] text-[var(--cyan)] px-4 py-2 font-medium rounded transition"
+                onClick={() => router.push(`/passport/${wallet}`)}
+              >
+                Open My Passport
+              </button>
+            )}
           </div>
 
           {/* LOADING */}

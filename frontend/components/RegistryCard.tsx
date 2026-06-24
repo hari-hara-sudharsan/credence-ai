@@ -20,6 +20,16 @@ export default function RegistryCard({
 
       </div>
 
+      <a
+        href={`https://hashkey.blockscout.com/tx/${txHash}`}
+        target="_blank"
+        className="underline mt-4 block"
+      >
+
+        View On Explorer
+
+      </a>
+
     </Card>
   );
 }

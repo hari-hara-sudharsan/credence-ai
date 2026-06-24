@@ -4,19 +4,19 @@ async function main() {
 
     const { ethers } = await network.create();
 
-    const registry = await ethers.deployContract("CreditRegistry");
+    const passport = await ethers.deployContract("CreditPassportNFT");
 
-    await registry.waitForDeployment();
+    await passport.waitForDeployment();
 
     console.log(
-        "CreditRegistry deployed:",
-        await registry.getAddress()
+        "CreditPassportNFT deployed:",
+        await passport.getAddress()
     );
 }
 
-main().catch((error) => {
-
-    console.error(error);
-
-    process.exitCode = 1;
-});
+main().catch(
+    (error) => {
+        console.error(error);
+        process.exitCode = 1;
+    }
+);
