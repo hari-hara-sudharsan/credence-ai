@@ -25,35 +25,33 @@ class LLMCreditReport:
     ):
 
         prompt = f"""
-You are a professional DeFi credit analyst.
+You are an expert DeFi credit underwriter writing an institutional-grade Credit Underwriting Report for:
+Wallet Address: {wallet}
+Credit Score: {profile.credit_score}
+Rating: {profile.rating}
+Probability Of Default: {profile.probability_of_default}%
 
-Wallet Address:
-{wallet}
-
-Credit Score:
-{profile.credit_score}
-
-Rating:
-{profile.rating}
-
-Probability Of Default:
-{profile.probability_of_default}
-
-Wallet Features:
-
+Wallet Metrics and Features:
 {features}
 
-Generate a professional institutional credit report.
+Please write a highly detailed, professional, and well-crafted report. You must use the exact markdown headers below and write a custom, specific analysis for each:
 
-Include:
+**Wallet Overview**
+Provide a concise summary of this wallet's profile. Describe its age, active duration, transaction count, and balance. Mention what kind of user this is based on their features.
 
-1. Wallet overview
-2. Risk assessment
-3. Strengths
-4. Weaknesses
-5. Lending recommendation
+**Risk Assessment**
+Assess the security and default risks. Analyze the probability of default and Sybil risk score. Detail how the transaction behavior and age contribute to the overall risk.
 
-Keep the report under 300 words.
+**Strengths**
+List the specific positive characteristics (e.g., solid longevity, active transacting, protocol diversity, asset stability). If there are no major strengths, explain why the wallet has failed to build positive indicators.
+
+**Weaknesses**
+Identify the vulnerabilities (e.g., high default probability, sybil characteristics, low transaction count, empty balance, short wallet age). Be specific about what metrics are concerning.
+
+**Lending Recommendation**
+State a clear recommendation on whether a lender should allocate capital to this borrower, explaining the interest rate and collateral ratio logic based on their risk profile.
+
+Keep the report concise, professional, and within 300 words. Do not use generic placeholders.
 """
 
         completion = (
