@@ -1,11 +1,16 @@
+from app.database.persistence import read_json, write_json
+
+
 class MarketplaceService:
-    listings = []
 
     @classmethod
     def create_listing(cls, listing):
-        cls.listings.append(listing)
+        listings = read_json("marketplace.json", [])
+        listings.append(listing)
+        write_json("marketplace.json", listings)
         return listing
 
     @classmethod
     def get_listings(cls):
-        return cls.listings
+        return read_json("marketplace.json", [])
+
