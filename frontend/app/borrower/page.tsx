@@ -1,184 +1,323 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useRef, useState } from "react";
 
 import API from "@/lib/api";
 import { useWallet } from "@/context/WalletContext";
 
-export default function BorrowerPage() {
+/**
+ * Borrower Dashboard — Credence AI
+ *
+ * Same ledger language as the About page: ink background, bone text,
+ * a single verified-green accent, Fraunces for numbers, mono for data.
+ * The one new move here is the analysis sequence — instead of a spinner,
+ * the loading state narrates the actual pipeline (reading the wallet,
+ * scoring behavior, checking lending terms), because that pipeline is
+ * the product.
+ */
 
-  const { wallet } = useWallet();
+type Insight = {
+  credit_score: number;
+  rating: string;
+  recommendations: string[];
+};
 
-  const [data, setData] =
-    useState<any>(null);
+type Lending = {
+  eligible: boolean;
+  interest_rate: number;
+  collateral_ratio: number;
+};
 
-  const analyze =
-    async () => {
+type DashboardData = {
+  insight: Insight;
+  lending: Lending;
+};
 
-      const insight =
-        await API.post(
-          "/insights",
-          { wallet }
-        );
+const PIPELINE_STEPS = [
+  "Reading wallet history",
+  "Scoring on-chain behavior",
+  "Checking lending terms",
+];
 
-      const lending =
-        await API.post(
-          "/lending/decision",
-          { wallet }
-        );
+function useCountUp(target: number, durationMs = 1100) {
+  const [value, setValue] = useState(0);
 
-      setData({
-        insight:
-          insight.data,
-
-        lending:
-          lending.data,
-      });
+  useEffect(() => {
+    let raf: number;
+    const start = performance.now();
+    const tick = (now: number) => {
+      const progress = Math.min((now - start) / durationMs, 1);
+      const eased = 1 - Math.pow(1 - progress, 3);
+      setValue(Math.round(eased * target));
+      if (progress < 1) raf = requestAnimationFrame(tick);
     };
+    raf = requestAnimationFrame(tick);
+    return () => cancelAnimationFrame(raf);
+  }, [target, durationMs]);
+
+  return value;
+}
+
+function PipelineLoader() {
+  const [stepIndex, setStepIndex] = useState(0);
+
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setStepIndex((i) => Math.min(i + 1, PIPELINE_STEPS.length - 1));
+    }, 700);
+    return () => clearInterval(interval);
+  }, []);
 
   return (
-
-    <main className="max-w-6xl mx-auto p-8">
-
-      <h1 className="text-5xl font-bold mb-8">
-
-        Borrower Dashboard
-
-      </h1>
-
-      <div className="flex gap-4 mb-8">
-
-        <button
-          className="border px-6"
-          onClick={analyze}
-        >
-
-          Analyze
-
-        </button>
-
+    <div className="border border-[#2A3142] bg-[#1A1F2B]/60 rounded-sm px-6 sm:px-8 py-8 mb-10">
+      <div className="flex flex-col gap-4">
+        {PIPELINE_STEPS.map((step, i) => {
+          const state =
+            i < stepIndex ? "done" : i === stepIndex ? "active" : "pending";
+          return (
+            <div key={step} className="flex items-center gap-3">
+              <span
+                className={[
+                  "inline-flex items-center justify-center w-4 h-4 rounded-full border font-mono text-[10px] shrink-0 transition-colors duration-300",
+                  state === "done"
+                    ? "border-[#3DDC97] bg-[#3DDC97] text-[#0B0E14]"
+                    : state === "active"
+                    ? "border-[#3DDC97] text-[#3DDC97] pulse-ring"
+                    : "border-[#2A3142] text-[#6B7280]",
+                ].join(" ")}
+              >
+                {state === "done" ? "✓" : ""}
+              </span>
+              <span
+                className={[
+                  "font-mono text-sm tracking-[0.04em] transition-colors duration-300",
+                  state === "pending" ? "text-[#6B7280]" : "text-[#E8E6DE]",
+                ].join(" ")}
+              >
+                {step}
+                {state === "active" ? "…" : ""}
+              </span>
+            </div>
+          );
+        })}
       </div>
+    </div>
+  );
+}
 
-      {data && (
+export default function BorrowerPage() {
+  const { wallet } = useWallet();
 
-        <div className="space-y-6">
+  const [data, setData] = useState<DashboardData | null>(null);
+  const [status, setStatus] = useState<"idle" | "loading" | "error">("idle");
+  const [errorMessage, setErrorMessage] = useState<string | null>(null);
+  const resultsRef = useRef<HTMLDivElement | null>(null);
 
-          <div className="border rounded-lg p-6">
+  const analyze = async () => {
+    setStatus("loading");
+    setErrorMessage(null);
 
-            <h2 className="font-bold text-2xl">
+    try {
+      const [insight, lending] = await Promise.all([
+        API.post("/insights", { wallet }),
+        API.post("/lending/decision", { wallet }),
+      ]);
 
-              Credit Score
+      setData({
+        insight: insight.data,
+        lending: lending.data,
+      });
+      setStatus("idle");
+    } catch (err) {
+      setStatus("error");
+      setErrorMessage(
+        "Could not analyze this wallet. Check the connection and try again."
+      );
+    }
+  };
 
-            </h2>
+  const score = useCountUp(data?.insight.credit_score ?? 0);
 
-            <div className="text-6xl mt-4">
+  return (
+    <main className="min-h-screen bg-[#0B0E14] text-[#E8E6DE] antialiased">
+      <style>{`
+        @import url('https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,300..700&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap');
 
-              {
-                data.insight
-                  .credit_score
-              }
+        .font-display { font-family: 'Fraunces', serif; font-optical-sizing: auto; }
+        .font-mono { font-family: 'JetBrains Mono', monospace; }
+        .font-sans { font-family: 'Inter', sans-serif; }
 
-            </div>
+        @keyframes pulse-ring {
+          0%, 100% { box-shadow: 0 0 0 0 rgba(61, 220, 151, 0.45); }
+          50% { box-shadow: 0 0 0 4px rgba(61, 220, 151, 0); }
+        }
+        .pulse-ring { animation: pulse-ring 1.4s ease-in-out infinite; }
 
-            <div className="text-xl mt-2">
+        @keyframes rise-in {
+          from { opacity: 0; transform: translateY(14px); }
+          to { opacity: 1; transform: translateY(0); }
+        }
+        .rise-in { animation: rise-in 0.6s cubic-bezier(0.16, 1, 0.3, 1) both; }
 
-              {
-                data.insight
-                  .rating
-              }
+        @keyframes shake {
+          10%, 90% { transform: translateX(-1px); }
+          20%, 80% { transform: translateX(2px); }
+          30%, 50%, 70% { transform: translateX(-3px); }
+          40%, 60% { transform: translateX(3px); }
+        }
+        .shake-once { animation: shake 0.45s ease-in-out; }
 
-            </div>
+        @media (prefers-reduced-motion: reduce) {
+          .pulse-ring, .rise-in, .shake-once { animation: none !important; }
+        }
+      `}</style>
 
-          </div>
-
-          <div className="border rounded-lg p-6">
-
-            <h2 className="font-bold text-xl mb-4">
-
-              Improvement Plan
-
-            </h2>
-
-            <ul className="space-y-2">
-
-              {data.insight
-                .recommendations
-                .map(
-                  (
-                    rec: string,
-                    index: number
-                  ) => (
-
-                    <li
-                      key={index}
-                    >
-
-                      ✓ {rec}
-
-                    </li>
-
-                  )
-                )}
-
-            </ul>
-
-          </div>
-
-          <div className="border rounded-lg p-6">
-
-            <h2 className="font-bold text-xl">
-
-              Lending Status
-
-            </h2>
-
-            <p className="mt-4">
-
-              Eligible:
-
-              {" "}
-
-              {
-                String(
-                  data.lending
-                    .eligible
-                )
-              }
-
-            </p>
-
-            <p>
-
-              Interest Rate:
-
-              {" "}
-
-              {
-                data.lending
-                  .interest_rate
-              }%
-
-            </p>
-
-            <p>
-
-              Collateral Ratio:
-
-              {" "}
-
-              {
-                data.lending
-                  .collateral_ratio
-              }%
-
-            </p>
-
-          </div>
-
+      <div className="relative max-w-5xl mx-auto px-6 sm:px-8 py-20 sm:py-28">
+        {/* Eyebrow */}
+        <div className="flex items-center gap-2 mb-10 font-mono text-xs tracking-[0.18em] text-[#6B7280] uppercase">
+          <span>Borrower record — live analysis</span>
         </div>
 
-      )}
+        {/* Header + wallet row */}
+        <div className="mb-10 flex flex-col sm:flex-row sm:items-end sm:justify-between gap-6">
+          <div>
+            <h1 className="font-display text-5xl sm:text-6xl font-medium leading-[1.05] mb-3">
+              Borrower Dashboard
+            </h1>
+            <p className="font-sans text-[#6B7280] text-base sm:text-lg">
+              Run a fresh read on this wallet&apos;s on-chain credit standing.
+            </p>
+          </div>
 
+          <div className="font-mono text-xs text-[#6B7280] sm:text-right">
+            <div className="uppercase tracking-[0.14em] mb-1">Wallet</div>
+            <div className="text-[#E8E6DE]/80">
+              {wallet ? wallet : "Not connected"}
+            </div>
+          </div>
+        </div>
+
+        {/* Action row */}
+        <div className="flex flex-wrap items-center gap-4 mb-12">
+          <button
+            onClick={analyze}
+            disabled={status === "loading" || !wallet}
+            className="font-mono text-sm tracking-[0.08em] uppercase px-7 py-3 rounded-sm border border-[#3DDC97] text-[#0B0E14] bg-[#3DDC97] transition-all duration-200 hover:bg-[#34c688] disabled:opacity-40 disabled:cursor-not-allowed disabled:hover:bg-[#3DDC97] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#3DDC97]"
+          >
+            {status === "loading" ? "Analyzing…" : "Analyze wallet"}
+          </button>
+
+          {!wallet && (
+            <span className="font-mono text-xs text-[#6B7280]">
+              Connect a wallet to run an analysis.
+            </span>
+          )}
+        </div>
+
+        {/* Loading state — narrates the pipeline */}
+        {status === "loading" && <PipelineLoader />}
+
+        {/* Error state */}
+        {status === "error" && errorMessage && (
+          <div className="shake-once border border-[#B85C5C] bg-[#B85C5C]/10 rounded-sm px-6 py-5 mb-10 flex items-center gap-3">
+            <span className="font-mono text-xs tracking-[0.12em] uppercase text-[#E08585]">
+              Error
+            </span>
+            <span className="font-sans text-sm text-[#E8E6DE]/90">
+              {errorMessage}
+            </span>
+          </div>
+        )}
+
+        {/* Results */}
+        {data && status === "idle" && (
+          <div ref={resultsRef} className="space-y-10">
+            {/* Credit score — same readout pattern as the About page */}
+            <div className="rise-in border border-[#2A3142] bg-[#1A1F2B]/60 rounded-sm px-6 sm:px-8 py-7 flex flex-col sm:flex-row sm:items-end sm:justify-between gap-6">
+              <div>
+                <div className="font-mono text-xs tracking-[0.14em] text-[#6B7280] uppercase mb-2">
+                  Credit score
+                </div>
+                <div className="flex items-baseline gap-3">
+                  <span className="font-display text-6xl sm:text-7xl font-medium tabular-nums tracking-tight text-[#E8E6DE]">
+                    {score}
+                  </span>
+                  <span className="font-mono text-sm text-[#6B7280]">
+                    / 850
+                  </span>
+                </div>
+              </div>
+
+              <div className="flex items-center gap-2">
+                <span className="inline-block w-1.5 h-1.5 rounded-full bg-[#3DDC97]" />
+                <span className="font-mono text-sm tracking-[0.1em] text-[#3DDC97] uppercase">
+                  {data.insight.rating}
+                </span>
+              </div>
+            </div>
+
+            {/* Improvement plan — ledger rows, not a checklist card */}
+            <div className="rise-in border border-[#2A3142] rounded-sm px-6 sm:px-8 py-7">
+              <h2 className="font-mono text-xs tracking-[0.14em] text-[#6B7280] uppercase mb-5">
+                Improvement plan
+              </h2>
+              <ul className="divide-y divide-[#2A3142]">
+                {data.insight.recommendations.map((rec, index) => (
+                  <li
+                    key={index}
+                    className="flex items-start gap-3 py-3 first:pt-0 last:pb-0"
+                  >
+                    <span className="font-mono text-xs text-[#3DDC97] mt-0.5 shrink-0">
+                      ✓
+                    </span>
+                    <span className="font-sans text-base leading-7 text-[#E8E6DE]/90">
+                      {rec}
+                    </span>
+                  </li>
+                ))}
+              </ul>
+            </div>
+
+            {/* Lending status — terms laid out like a record, not paragraphs */}
+            <div className="rise-in border border-[#2A3142] rounded-sm px-6 sm:px-8 py-7">
+              <div className="flex items-center justify-between mb-6">
+                <h2 className="font-mono text-xs tracking-[0.14em] text-[#6B7280] uppercase">
+                  Lending status
+                </h2>
+                <span
+                  className={[
+                    "font-mono text-xs tracking-[0.1em] uppercase px-2.5 py-1 rounded-sm border",
+                    data.lending.eligible
+                      ? "border-[#3DDC97] text-[#3DDC97]"
+                      : "border-[#6B7280] text-[#6B7280]",
+                  ].join(" ")}
+                >
+                  {data.lending.eligible ? "Eligible" : "Not eligible"}
+                </span>
+              </div>
+
+              <div className="grid grid-cols-2 sm:grid-cols-2 gap-px bg-[#2A3142] rounded-sm overflow-hidden">
+                <div className="bg-[#0B0E14] px-5 py-5">
+                  <div className="font-mono text-xs tracking-[0.1em] text-[#6B7280] uppercase mb-2">
+                    Interest rate
+                  </div>
+                  <div className="font-display text-3xl font-medium tabular-nums">
+                    {data.lending.interest_rate}%
+                  </div>
+                </div>
+                <div className="bg-[#0B0E14] px-5 py-5">
+                  <div className="font-mono text-xs tracking-[0.1em] text-[#6B7280] uppercase mb-2">
+                    Collateral ratio
+                  </div>
+                  <div className="font-display text-3xl font-medium tabular-nums">
+                    {data.lending.collateral_ratio}%
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        )}
+      </div>
     </main>
   );
 }
