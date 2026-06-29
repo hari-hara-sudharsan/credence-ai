@@ -14,7 +14,24 @@ def test_url(url, data=None):
         print(f"ERROR: {url} -> {e}")
 
 test_url("http://127.0.0.1:8000/docs")
-test_url("http://127.0.0.1:8000/credit/score", {"wallet":"0x123"})
-test_url("http://127.0.0.1:8000/report/", {"wallet":"0x123"})
-test_url("http://127.0.0.1:8000/lending/decision", {"wallet":"0x123"})
-test_url("http://127.0.0.1:8000/history/0x123")
+
+print("\n--- Testing Valid Checksum Address ---")
+wallet_checksum = "0xf39Fd6e51aad88F6F4ce6aB8827279cffFb92266"
+test_url("http://127.0.0.1:8000/credit/score", {"wallet": wallet_checksum})
+test_url("http://127.0.0.1:8000/report/", {"wallet": wallet_checksum})
+test_url("http://127.0.0.1:8000/lending/decision", {"wallet": wallet_checksum})
+test_url("http://127.0.0.1:8000/history/0xf39Fd6e51aad88F6F4ce6aB8827279cffFb92266")
+test_url("http://127.0.0.1:8000/oracle/refresh", {"wallet": wallet_checksum})
+
+print("\n--- Testing Valid Lowercase Address ---")
+wallet_lower = "0xf39fd6e51aad88f6f4ce6ab8827279cfffb92266"
+test_url("http://127.0.0.1:8000/credit/score", {"wallet": wallet_lower})
+test_url("http://127.0.0.1:8000/report/", {"wallet": wallet_lower})
+test_url("http://127.0.0.1:8000/lending/decision", {"wallet": wallet_lower})
+test_url("http://127.0.0.1:8000/oracle/refresh", {"wallet": wallet_lower})
+
+print("\n--- Testing Invalid Address (Expected to Fail with 422) ---")
+test_url("http://127.0.0.1:8000/credit/score", {"wallet": "0x123"})
+test_url("http://127.0.0.1:8000/oracle/refresh", {"wallet": "0x123"})
+
+
