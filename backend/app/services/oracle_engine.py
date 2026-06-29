@@ -42,6 +42,10 @@ class OracleEngine:
             profile.rating
         )
 
+        from app.services.leaderboard_service import LeaderboardService
+        LeaderboardService.update_for_wallet(wallet)
+
+
         tx_hash = publisher.publish_score(
             wallet,
             profile.credit_score,
