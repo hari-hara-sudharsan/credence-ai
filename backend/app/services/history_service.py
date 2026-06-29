@@ -1,9 +1,12 @@
 from datetime import datetime
+from app.database.persistence import read_json, write_json
 
 
 class HistoryService:
 
-    history_store = []
+    @classmethod
+    def _get_store(cls):
+        return read_json("history.json", [])
 
     @classmethod
     def add_record(
@@ -12,8 +15,8 @@ class HistoryService:
         score,
         rating
     ):
-
-        cls.history_store.append(
+        store = cls._get_store()
+        store.append(
             {
                 "wallet": wallet,
                 "score": score,
@@ -22,15 +25,16 @@ class HistoryService:
                 datetime.utcnow().isoformat()
             }
         )
+        write_json("history.json", store)
 
     @classmethod
     def get_history(
         cls,
         wallet
     ):
-
+        store = cls._get_store()
         return [
             item
-            for item in cls.history_store
+            for item in store
             if item["wallet"] == wallet
-        ]
+        ]
