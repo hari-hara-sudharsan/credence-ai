@@ -486,7 +486,7 @@ export default function Home() {
           {/* STAT PILLS */}
           <div className="stat-row">
             {[
-              { label: "Network", value: "Ethereum Mainnet" },
+              { label: "Network", value: "HashKey Chain Mainnet" },
               { label: "Oracle", value: "Chainlink" },
               { label: "Latency", value: "~1.2s" },
               { label: "Status", value: "Live" },
