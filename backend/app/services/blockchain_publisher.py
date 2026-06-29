@@ -46,7 +46,7 @@ class BlockchainPublisher:
         confidence
 
     ):
-
+        checksum_wallet = Web3.to_checksum_address(wallet)
         nonce = self.w3.eth.get_transaction_count(
             self.account.address
         )
@@ -54,7 +54,7 @@ class BlockchainPublisher:
         tx = (
             self.contract.functions
             .updateCreditProfile(
-                wallet,
+                checksum_wallet,
                 score,
                 rating,
                 confidence
