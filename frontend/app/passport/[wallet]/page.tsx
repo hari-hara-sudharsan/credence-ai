@@ -341,7 +341,7 @@ export default function PassportPage() {
       try {
         const [credit, report, lending, history] = await Promise.all([
           API.post("/credit/score", { wallet }),
-          API.post("/report/", { wallet }),
+          API.post("/report", { wallet }),
           API.post("/lending/decision", { wallet }),
           API.get(`/history/${wallet}`),
         ]);

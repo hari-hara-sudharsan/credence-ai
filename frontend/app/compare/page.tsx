@@ -66,7 +66,7 @@ export default function ComparePage() {
     setErrorMessage(null);
 
     try {
-      const res = await API.post("/compare/", {
+      const res = await API.post("/compare", {
         wallet_a: walletA,
         wallet_b: walletB,
       });
