@@ -17,7 +17,7 @@ class SimulatorRequest(BaseModel):
     staking_enabled: bool
 
 
-@router.post("/")
+@router.post("")
 def simulate(request: SimulatorRequest):
 
     score = request.current_score

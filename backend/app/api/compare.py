@@ -19,7 +19,7 @@ class CompareRequest(BaseModel):
     wallet_b: str
 
 
-@router.post("/")
+@router.post("")
 def compare_wallets(
     request: CompareRequest
 ):

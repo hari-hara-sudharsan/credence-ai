@@ -24,7 +24,7 @@ class BadgeRequest(
     wallet: str
 
 
-@router.post("/")
+@router.post("")
 def get_badges(
     request: BadgeRequest
 ):

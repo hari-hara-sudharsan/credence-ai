@@ -1,0 +1,20 @@
+[
+    {
+        "wallet": "0xf39Fd6e51aad88F6F4ce6aB8827279cffFb92266",
+        "score": 585,
+        "rating": "BB",
+        "timestamp": "2026-06-29T05:00:01.004719"
+    },
+    {
+        "wallet": "0xf39Fd6e51aad88F6F4ce6aB8827279cffFb92266",
+        "score": 585,
+        "rating": "BB",
+        "timestamp": "2026-06-29T05:00:14.176963"
+    },
+    {
+        "wallet": "0x5bb83E60a7a05A0e1b077B66412a26306e334208",
+        "score": 412,
+        "rating": "HIGH_RISK",
+        "timestamp": "2026-06-30T06:28:14.383904"
+    }
+]

@@ -6,5 +6,4 @@ artifacts/
 cache/
 types/
 ignition/deployments/
-backend/data/
 

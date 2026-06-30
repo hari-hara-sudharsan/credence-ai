@@ -6,7 +6,7 @@ router = APIRouter(
     tags=["Leaderboard"]
 )
 
-@router.get("/")
+@router.get("")
 def leaderboard():
     rankings = LeaderboardService.get_rankings()
     result = []

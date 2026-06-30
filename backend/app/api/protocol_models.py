@@ -13,7 +13,7 @@ router = APIRouter(
 class ProtocolRequest(BaseModel):
     wallet: str
 
-@router.post("/")
+@router.post("")
 def compare_protocols(request: ProtocolRequest):
     analyzer = WalletAnalyzer()
     features = analyzer.analyze(request.wallet)
