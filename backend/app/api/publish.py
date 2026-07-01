@@ -16,7 +16,7 @@ router = APIRouter(
 )
 
 
-@router.post("")
+@router.post("/")
 def publish_score(
     request: WalletRequest
 ):

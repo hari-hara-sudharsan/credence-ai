@@ -12,7 +12,7 @@ router = APIRouter(
 class SegmentRequest(BaseModel):
     wallet: str
 
-@router.post("")
+@router.post("/")
 def classify_wallet(request: SegmentRequest):
     analyzer = WalletAnalyzer()
     features = analyzer.analyze(request.wallet)

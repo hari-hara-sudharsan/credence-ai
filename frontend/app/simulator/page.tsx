@@ -49,7 +49,7 @@ export default function SimulatorPage() {
   const simulate = async () => {
     setStatus("loading");
     try {
-      const res = await API.post("/simulator", {
+      const res = await API.post("/simulator/", {
         current_score: score,
         extra_transactions: txs,
         extra_protocols: protocols,

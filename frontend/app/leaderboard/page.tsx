@@ -57,7 +57,7 @@ export default function LeaderboardPage() {
   );
 
   useEffect(() => {
-    API.get("/leaderboard")
+    API.get("/leaderboard/")
       .then((res) => {
         setData(res.data);
         setStatus("idle");

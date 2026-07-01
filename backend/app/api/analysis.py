@@ -14,7 +14,7 @@ router = APIRouter(
 )
 
 
-@router.post("")
+@router.post("/")
 def analyze_wallet(
     request: WalletRequest
 ):

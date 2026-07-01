@@ -22,7 +22,7 @@ router = APIRouter(
 )
 
 
-@router.post("")
+@router.post("/")
 def insights(
     request: WalletRequest
 ):

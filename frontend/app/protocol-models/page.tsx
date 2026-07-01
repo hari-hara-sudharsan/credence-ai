@@ -224,7 +224,7 @@ export default function ProtocolModelsPage() {
     if (!canAnalyze) return;
     setStatus("loading");
     try {
-      const res = await API.post("/protocol-models", { wallet });
+      const res = await API.post("/protocol-models/", { wallet });
       setData(res.data);
       setStatus("idle");
     } catch {

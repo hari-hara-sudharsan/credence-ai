@@ -204,7 +204,7 @@ export default function LenderPage() {
       const [credit, lending, report] = await Promise.all([
         API.post("/credit/score", { wallet }),
         API.post("/lending/decision", { wallet }),
-        API.post("/report", { wallet }),
+        API.post("/report/", { wallet }),
       ]);
 
       setData({

@@ -119,7 +119,7 @@ export default function BorrowerPage() {
 
     try {
       const [insight, lending] = await Promise.all([
-        API.post("/insights", { wallet }),
+        API.post("/insights/", { wallet }),
         API.post("/lending/decision", { wallet }),
       ]);
 

@@ -49,8 +49,7 @@ from app.api.marketplace import (
 
 app = FastAPI(
     title="Credence AI",
-    version="1.0.0",
-    redirect_slashes=False
+    version="1.0.0"
 )
 
 app.add_middleware(
