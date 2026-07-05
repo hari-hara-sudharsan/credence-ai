@@ -5,7 +5,7 @@ import API from "@/lib/api";
 
 export default function DevelopersPage() {
   const [wallet, setWallet] = useState("0x5bb83E60a7a05A0e1b077B66412a26306e334208");
-  const [endpoint, setEndpoint] = useState("/api/v1/trust");
+  const [endpoint, setEndpoint] = useState("GET /reputation");
   const [responsePayload, setResponsePayload] = useState<any>(null);
   const [loading, setLoading] = useState(false);
   const [apiKey, setApiKey] = useState("credence_live_test_7f28c9b01e3");
@@ -14,47 +14,18 @@ export default function DevelopersPage() {
     setLoading(true);
     setResponsePayload(null);
     try {
-      const res = await API.get(`${endpoint}/${wallet.trim()}`);
+      let res;
+      if (endpoint === "POST /credit/score") {
+        res = await API.post("/credit/score", { wallet: wallet.trim() });
+      } else if (endpoint === "GET /reputation") {
+        res = await API.get(`/reputation/${wallet.trim()}`);
+      } else {
+        res = await API.get(`/profiles/${wallet.trim()}`);
+      }
       setResponsePayload(res.data);
     } catch (err: any) {
-      console.warn("Sandbox API request failed, applying frontend fallback:", err);
-      
-      const address = wallet.trim().toLowerCase();
-      let fallbackData: any = {};
-      
-      if (endpoint.includes("trust")) {
-        fallbackData = {
-          wallet: address,
-          trustScore: 742,
-          tier: "PRIME",
-          risk: "LOW",
-          verified: true,
-          passportId: 418
-        };
-      } else if (endpoint.includes("credit")) {
-        fallbackData = {
-          limit: 5000,
-          interest: 5.0,
-          defaultProbability: 2.2
-        };
-      } else if (endpoint.includes("reputation")) {
-        fallbackData = {
-          repayments: 12,
-          defaults: 0,
-          history: [
-            { protocol: "Credence Pool", type: "Repayment", amount: 500, status: "Clean" },
-            { protocol: "HashKey Lending", type: "Repayment", amount: 1000, status: "Clean" }
-          ]
-        };
-      } else {
-        fallbackData = {
-          lending_score: 752,
-          payment_score: 722,
-          rwa_score: 747,
-          institution_score: 727
-        };
-      }
-      setResponsePayload(fallbackData);
+      console.warn("Sandbox API request failed:", err);
+      setResponsePayload(err?.response?.data || { error: "API Sandbox call failed" });
     } finally {
       setLoading(false);
     }
@@ -194,7 +165,7 @@ if (profile.trustScore > 800) {
                   SELECT TRUST ENDPOINT
                 </label>
                 <div style={{ display: "flex", gap: 10 }}>
-                  {["/api/v1/trust", "/api/v1/credit", "/api/v1/reputation", "/api/profiles"].map((ep) => (
+                  {["GET /reputation", "POST /credit/score", "GET /profiles"].map((ep) => (
                     <button
                       key={ep}
                       onClick={() => setEndpoint(ep)}
@@ -210,7 +181,7 @@ if (profile.trustScore > 800) {
                         cursor: "pointer",
                       }}
                     >
-                      {ep.replace("/api/", "")}
+                      {ep}
                     </button>
                   ))}
                 </div>

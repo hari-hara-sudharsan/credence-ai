@@ -1,5 +1,7 @@
 "use client";
 
+import { useRouter } from "next/navigation";
+
 interface Props {
   request: {
     request_id: string;
@@ -36,6 +38,7 @@ const RISK_COLORS: Record<string, string> = {
 };
 
 export default function BorrowRequestCard({ request, onFund, showFundButton = true }: Props) {
+  const router = useRouter();
   const badgeColor = BADGE_COLORS[request.badge || "UNRATED"] || "#64748B";
   const riskColor = RISK_COLORS[request.risk_level] || "#64748B";
   const shortWallet = `${request.borrower.slice(0, 6)}...${request.borrower.slice(-4)}`;
@@ -43,6 +46,7 @@ export default function BorrowRequestCard({ request, onFund, showFundButton = tr
 
   return (
     <div
+      onClick={() => router.push(`/passport/${request.borrower}`)}
       style={{
         background: "rgba(15, 23, 42, 0.6)",
         border: "1px solid rgba(100, 116, 139, 0.15)",

@@ -24,6 +24,10 @@ class DemoEngine:
         start_time = time.time()
         scen_id_upper = scenario_id.upper()
 
+        # Fallback to standard test wallet if wallet is empty or invalid
+        if not wallet or len(wallet) < 40 or not wallet.startswith("0x"):
+            wallet = "0x5bb83E60a7a05A0e1b077B66412a26306e334208"
+
         steps = []
         result_desc = ""
 

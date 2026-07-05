@@ -7,51 +7,13 @@ class CreditEngine:
         self,
         wallet_features: dict
     ):
+        from app.services.transparent_underwriting_engine import TransparentUnderwritingEngine
+        underwriting_engine = TransparentUnderwritingEngine()
+        factors = underwriting_engine._score_factors(wallet_features)
+        credit_score = underwriting_engine.calculate_credit_score(factors)
 
-        age_days = wallet_features["wallet_age_days"]
-
-        activity_score = wallet_features["activity_score"]
-
-        tx_count = wallet_features["transaction_count"]
-
-        longevity = self.longevity_score(
-            age_days
-        )
-
-        activity = activity_score * 1.5
-
-        stability = (
-            wallet_features[
-                "asset_stability_score"
-            ] * 1.5
-        )
-
-        diversity = (
-            wallet_features[
-                "protocol_diversity_score"
-            ] * 2
-        )
-
-        reliability = (
-            wallet_features[
-                "financial_reliability_score"
-            ] * 2.5
-        )
-
-        sybil = (
-            wallet_features[
-                "sybil_risk_score"
-            ]
-        )
-
-        credit_score = int(
-            longevity +
-            activity +
-            stability +
-            diversity +
-            reliability +
-            sybil
-        )
+        tx_count = wallet_features.get("transaction_count", 0)
+        age_days = wallet_features.get("wallet_age_days", 0)
 
         confidence = self.calculate_confidence(
             tx_count,
