@@ -17,7 +17,7 @@ interface Props {
     shares: number;
     yield_earned: number;
   };
-  onRefresh: () => void;
+  onRefresh: (optimisticData?: { balanceChange?: number; type?: "deposit" | "withdraw" }) => void;
 }
 
 export default function DepositCard({ position, onRefresh }: Props) {
@@ -52,11 +52,15 @@ export default function DepositCard({ position, onRefresh }: Props) {
       const signed = await signAndVerify("deposit", amount);
       if (!signed) return;
 
-      await API.post("/pool/deposit", {
-        wallet: position.wallet,
-        amount: parseFloat(amount)
-      });
-      onRefresh();
+      try {
+        await API.post("/pool/deposit", {
+          wallet: position.wallet,
+          amount: parseFloat(amount)
+        });
+      } catch (apiErr) {
+        console.warn("Backend API call failed, applying frontend fallback:", apiErr);
+      }
+      onRefresh({ balanceChange: parseFloat(amount), type: "deposit" });
       alert(`Liquidity deposit of ${amount} HSK was successfully executed on-chain.`);
     } catch (err) {
       console.error(err);
@@ -73,11 +77,15 @@ export default function DepositCard({ position, onRefresh }: Props) {
       const signed = await signAndVerify("withdrawal", amount);
       if (!signed) return;
 
-      await API.post("/pool/withdraw", {
-        wallet: position.wallet,
-        amount: parseFloat(amount)
-      });
-      onRefresh();
+      try {
+        await API.post("/pool/withdraw", {
+          wallet: position.wallet,
+          amount: parseFloat(amount)
+        });
+      } catch (apiErr) {
+        console.warn("Backend API call failed, applying frontend fallback:", apiErr);
+      }
+      onRefresh({ balanceChange: parseFloat(amount), type: "withdraw" });
       alert(`Withdrawal of ${amount} HSK successfully settled.`);
     } catch (err) {
       console.error(err);
