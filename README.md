@@ -348,30 +348,6 @@ uvicorn main:app --reload
 
 ---
 
-# 📈 Roadmap
-
-### Near Term
-
-- SDK
-- Better Analytics
-- Trust APIs
-- Improved HSP Integration
-
-### Mid Term
-
-- AI Fraud Detection
-- DAO Trust Scoring
-- Institutional Lending
-- Multi-chain Support
-
-### Long Term
-
-- Universal Trust Layer
-- Cross-chain Reputation
-- Global Financial Identity
-- Programmable Credit Infrastructure
-
----
 
 # 📊 Impact
 
