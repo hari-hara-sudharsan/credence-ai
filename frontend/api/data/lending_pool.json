@@ -1,0 +1,23 @@
+{
+    "stats": {
+        "total_liquidity": 100.0,
+        "borrowed_amount": 0.0,
+        "available_liquidity": 115.0,
+        "total_interest_earned": 15.0,
+        "average_interest": 0.0
+    },
+    "lenders": {
+        "": {
+            "wallet": "",
+            "balance": 0.0,
+            "shares": 0.0,
+            "yield_earned": 0.0
+        },
+        "0x5bb83e60a7a05a0e1b077b66412a26306e334208": {
+            "wallet": "0x5bb83e60a7a05a0e1b077b66412a26306e334208",
+            "balance": 100.0,
+            "shares": 100.0,
+            "yield_earned": 0.0
+        }
+    }
+}

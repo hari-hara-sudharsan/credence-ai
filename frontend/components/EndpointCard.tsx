@@ -30,7 +30,10 @@ export default function EndpointCard() {
   }, []);
 
   const copyUrl = (path: string, index: number) => {
-    const fullUrl = `http://127.0.0.1:8000${path}`;
+    const baseUrl = typeof window !== "undefined" && (window.location.hostname === "localhost" || window.location.hostname === "127.0.0.1")
+      ? "http://127.0.0.1:8000"
+      : `${window.location.origin}/api`;
+    const fullUrl = `${baseUrl}${path}`;
     navigator.clipboard.writeText(fullUrl);
     setCopiedIndex(index);
     setTimeout(() => setCopiedIndex(null), 2000);

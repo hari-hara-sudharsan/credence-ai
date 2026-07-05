@@ -1785,6 +1785,7 @@
               "application/json": {
                 "schema": {
                   "items": {
+                    "additionalProperties": true,
                     "type": "object"
                   },
                   "type": "array",
@@ -3978,7 +3979,8 @@
                 "schema": {
                   "type": "array",
                   "items": {
-                    "type": "object"
+                    "type": "object",
+                    "additionalProperties": true
                   },
                   "title": "Response Get Conversation History Agents History  Wallet  Get"
                 }
@@ -4302,6 +4304,7 @@
           "content": {
             "application/json": {
               "schema": {
+                "additionalProperties": true,
                 "type": "object",
                 "title": "Request"
               }
@@ -4815,6 +4818,7 @@
             "application/json": {
               "schema": {
                 "type": "object",
+                "additionalProperties": true,
                 "title": "Body"
               }
             }
@@ -4882,6 +4886,7 @@
             "application/json": {
               "schema": {
                 "type": "object",
+                "additionalProperties": true,
                 "title": "Body"
               }
             }
@@ -4940,6 +4945,7 @@
             "application/json": {
               "schema": {
                 "type": "object",
+                "additionalProperties": true,
                 "title": "Body"
               }
             }
@@ -5007,6 +5013,7 @@
             "application/json": {
               "schema": {
                 "type": "object",
+                "additionalProperties": true,
                 "title": "Body"
               }
             }
@@ -5084,6 +5091,7 @@
             "application/json": {
               "schema": {
                 "type": "object",
+                "additionalProperties": true,
                 "title": "Body"
               }
             }
@@ -6107,6 +6115,7 @@
             "title": "Question"
           },
           "context": {
+            "additionalProperties": true,
             "type": "object",
             "title": "Context",
             "default": {}
@@ -6355,6 +6364,7 @@
           },
           "protocol_profiles": {
             "items": {
+              "additionalProperties": true,
               "type": "object"
             },
             "type": "array",
@@ -6658,6 +6668,7 @@
           },
           "highest_risk_wallets": {
             "items": {
+              "additionalProperties": true,
               "type": "object"
             },
             "type": "array",
@@ -6876,6 +6887,7 @@
             "title": "Trust Score"
           },
           "metadata": {
+            "additionalProperties": true,
             "type": "object",
             "title": "Metadata"
           }
@@ -6951,6 +6963,7 @@
             "title": "Expected Risk"
           },
           "suggested_terms": {
+            "additionalProperties": true,
             "type": "object",
             "title": "Suggested Terms"
           }
@@ -7238,6 +7251,7 @@
           },
           "detected_events": {
             "items": {
+              "additionalProperties": true,
               "type": "object"
             },
             "type": "array",
@@ -7476,6 +7490,7 @@
           },
           "protocol_profiles": {
             "items": {
+              "additionalProperties": true,
               "type": "object"
             },
             "type": "array",
@@ -8606,6 +8621,7 @@
           },
           "protocol_profiles": {
             "items": {
+              "additionalProperties": true,
               "type": "object"
             },
             "type": "array",

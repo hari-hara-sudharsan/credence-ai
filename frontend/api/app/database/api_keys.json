@@ -1,0 +1,38 @@
+{
+  "crd_test_247d32e2370ccce91ac17a564480aea8": {
+    "is_active": false,
+    "is_live": false,
+    "created_at": "2026-07-02T07:41:48.546792Z",
+    "last_used": null
+  },
+  "crd_live_9f3ff1978a93c28b96a42c4e0c196c17": {
+    "is_active": true,
+    "is_live": true,
+    "created_at": "2026-07-02T07:41:48.578749Z",
+    "last_used": null
+  },
+  "crd_test_75dd9ce05628d6b36f3e62633cfff1c0": {
+    "is_active": false,
+    "is_live": false,
+    "created_at": "2026-07-02T08:00:34.738402Z",
+    "last_used": null
+  },
+  "crd_live_e826abd6ece847c2ed2de5feaf7e23a5": {
+    "is_active": true,
+    "is_live": true,
+    "created_at": "2026-07-02T08:00:34.770129Z",
+    "last_used": null
+  },
+  "crd_test_d95c7db280878839405bf46cc3ef67dc": {
+    "is_active": false,
+    "is_live": false,
+    "created_at": "2026-07-02T15:08:37.255142Z",
+    "last_used": null
+  },
+  "crd_live_3d449fea37be175577f68020b08bf5fa": {
+    "is_active": true,
+    "is_live": true,
+    "created_at": "2026-07-02T15:08:37.269804Z",
+    "last_used": null
+  }
+}

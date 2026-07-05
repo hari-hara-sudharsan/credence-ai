@@ -7,7 +7,7 @@ from main import app
 
 client = TestClient(app)
 try:
-    response = client.get("/underwriting/report/0x5bb83E60a7a05A0e1b077B66412a26306e334208")
+    response = client.get("/underwriting/report/0x0000000000000000000000000000000000000000")
     print("STATUS CODE:", response.status_code)
     print("RESPONSE JSON:", response.json())
 except Exception as e:

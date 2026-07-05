@@ -1,0 +1,110 @@
+{
+    "loan_dc2dfe8dd803": {
+        "settlement_id": "hsp_f1ccfa0b9e2d",
+        "loan_id": "loan_dc2dfe8dd803",
+        "borrower": "0xf39fd6e51aad88f6f4ce6ab8827279cfffb92266",
+        "amount": 500.0,
+        "status": "SETTLED",
+        "tx_hash": "0ad6b370ce28d5e4f88b98b322b144765756157b3a4f8c1e4991ca27f864103d",
+        "timestamp": "2026-07-03T16:24:54.125072+00:00"
+    },
+    "loan_8a54fa483f17": {
+        "settlement_id": "hsp_9f8e6c8bed19",
+        "loan_id": "loan_8a54fa483f17",
+        "borrower": "0xf39fd6e51aad88f6f4ce6ab8827279cfffb92266",
+        "amount": 500.0,
+        "status": "SETTLED",
+        "tx_hash": "3666d3498c95efbaaf099d99593e287f669fb1af992a91b54c3647953e551a23",
+        "timestamp": "2026-07-03T16:27:38.124647+00:00"
+    },
+    "demo_loan_rf9f1u": {
+        "settlement_id": "hsp_b54851e50624",
+        "loan_id": "demo_loan_rf9f1u",
+        "borrower": "0xf39fd6e51aad88f6f4ce6ab8827279cfffb92266",
+        "amount": 500.0,
+        "status": "SETTLED",
+        "tx_hash": "edc6398f3ba0ad66a1e5a82aa3c6ef910edfe94188fcc6a30e5b800126d3dad0",
+        "timestamp": "2026-07-04T05:52:03.696158+00:00"
+    },
+    "demo_loan_697aiq": {
+        "settlement_id": "hsp_75bbf0e9d2ff",
+        "loan_id": "demo_loan_697aiq",
+        "borrower": "0xf39fd6e51aad88f6f4ce6ab8827279cfffb92266",
+        "amount": 500.0,
+        "status": "SETTLED",
+        "tx_hash": "c204cc5e1cee3438c8806bddb8e7aa920974cd19a32eb35df2c7fc286fabd332",
+        "timestamp": "2026-07-04T06:03:29.760510+00:00"
+    },
+    "loan_mr6lg3lt_vvwqon": {
+        "settlement_id": "hsp_6bd32bff26ce0793641396c7",
+        "loan_id": "loan_mr6lg3lt_vvwqon",
+        "borrower": "0x5bb83e60a7a05a0e1b077b66412a26306e334208",
+        "amount": 500.0,
+        "status": "SETTLED",
+        "tx_hash": "60602712836acb1e0562dc92242ec60d2f3b852b74eb352f75008b410543d17a",
+        "timestamp": "2026-07-04T16:46:23.105447+00:00"
+    },
+    "loan_mr6lkwak_gks5i8": {
+        "settlement_id": "hsp_0cb0938d61b8f914cd2c0f81",
+        "loan_id": "loan_mr6lkwak_gks5i8",
+        "borrower": "0x5bb83e60a7a05a0e1b077b66412a26306e334208",
+        "amount": 500.0,
+        "status": "SETTLED",
+        "tx_hash": "0x894555887d58b929b13a7e4eec3c6adaba7db17c1df1bb49a634429041a4bb95",
+        "timestamp": "2026-07-04T16:49:56.687606+00:00"
+    },
+    "loan_mr7b0a50_jrqe5v": {
+        "settlement_id": "hsp_1a3866f26e389327b38e28b2",
+        "loan_id": "loan_mr7b0a50_jrqe5v",
+        "borrower": "0x5bb83e60a7a05a0e1b077b66412a26306e334208",
+        "amount": 500.0,
+        "status": "SETTLED",
+        "tx_hash": "0x8154396bfd97e0540e17b64a33cb294c55d327f84975a8ed945a55b7ab681f3d",
+        "timestamp": "2026-07-05T04:41:36.988306+00:00"
+    },
+    "loan_mr7dd7a4_sltatr": {
+        "settlement_id": "hsp_637398559172cdc1e37df3c6",
+        "loan_id": "loan_mr7dd7a4_sltatr",
+        "borrower": "0x5bb83e60a7a05a0e1b077b66412a26306e334208",
+        "amount": 500.0,
+        "status": "SETTLED",
+        "tx_hash": "0x163ad2000deeabc62f7a6687880377ac304500910bf0886e52cae326517f91cf",
+        "timestamp": "2026-07-05T05:49:48.932522+00:00"
+    },
+    "loan_debug_1": {
+        "settlement_id": "hsp_447f1d4df97d0e2c3d184a19",
+        "loan_id": "loan_debug_1",
+        "borrower": "0x5bb83e60a7a05a0e1b077b66412a26306e334208",
+        "amount": 500.0,
+        "status": "SETTLED",
+        "tx_hash": "0xfd952b65a4af1d1736580ee3e703ecc9948efdf59f017461d6231de4a55aceba",
+        "timestamp": "2026-07-05T12:52:30.697645+00:00"
+    },
+    "loan_mr7sncie_9wpojw": {
+        "settlement_id": "hsp_44896f111a060357a49d5bed",
+        "loan_id": "loan_mr7sncie_9wpojw",
+        "borrower": "0x5bb83e60a7a05a0e1b077b66412a26306e334208",
+        "amount": 500.0,
+        "status": "SETTLED",
+        "tx_hash": "0x4211e935eff3aab5e17bf77515466db409b081fe263a5258054d8ca4b21fe31e",
+        "timestamp": "2026-07-05T12:55:31.484895+00:00"
+    },
+    "loan_mr7sxe9a_gbze2c": {
+        "settlement_id": "hsp_69f221490998d15b839d6695",
+        "loan_id": "loan_mr7sxe9a_gbze2c",
+        "borrower": "0x5bb83e60a7a05a0e1b077b66412a26306e334208",
+        "amount": 500.0,
+        "status": "SETTLED",
+        "tx_hash": "0x1ee264a24d1b25f3c27e1e32d2fa8e99e264da6db68c4699e5ae7d2ee557e414",
+        "timestamp": "2026-07-05T13:03:21.281832+00:00"
+    },
+    "loan_mr7y4huz_ikj2h1": {
+        "settlement_id": "hsp_f2d4a334a4ed96bd14da60d3",
+        "loan_id": "loan_mr7y4huz_ikj2h1",
+        "borrower": "0x5bb83e60a7a05a0e1b077b66412a26306e334208",
+        "amount": 500.0,
+        "status": "SETTLED",
+        "tx_hash": "0xb489c09d66880d43e6fd8b4fd0f460f45906907d0f50ff316366d6c6a543fd0a",
+        "timestamp": "2026-07-05T15:28:56.961030+00:00"
+    }
+}

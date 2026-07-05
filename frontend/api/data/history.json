@@ -1,0 +1,50 @@
+[
+    {
+        "wallet": "0xf39Fd6e51aad88F6F4ce6aB8827279cffFb92266",
+        "score": 585,
+        "rating": "BB",
+        "timestamp": "2026-06-29T05:00:01.004719"
+    },
+    {
+        "wallet": "0xf39Fd6e51aad88F6F4ce6aB8827279cffFb92266",
+        "score": 585,
+        "rating": "BB",
+        "timestamp": "2026-06-29T05:00:14.176963"
+    },
+    {
+        "wallet": "0x5bb83E60a7a05A0e1b077B66412a26306e334208",
+        "score": 412,
+        "rating": "HIGH_RISK",
+        "timestamp": "2026-06-30T06:28:14.383904"
+    },
+    {
+        "wallet": "0xf39Fd6e51aad88F6F4ce6aB8827279cffFb92266",
+        "score": 587,
+        "rating": "BB",
+        "timestamp": "2026-07-01T16:18:54.248832"
+    },
+    {
+        "wallet": "0xf39Fd6e51aad88F6F4ce6aB8827279cffFb92266",
+        "score": 587,
+        "rating": "BB",
+        "timestamp": "2026-07-01T16:19:19.699267"
+    },
+    {
+        "wallet": "0xf39Fd6e51aad88F6F4ce6aB8827279cffFb92266",
+        "score": 587,
+        "rating": "BB",
+        "timestamp": "2026-07-01T17:11:29.579665"
+    },
+    {
+        "wallet": "0xf39Fd6e51aad88F6F4ce6aB8827279cffFb92266",
+        "score": 587,
+        "rating": "BB",
+        "timestamp": "2026-07-01T17:24:27.841608"
+    },
+    {
+        "wallet": "0xf39Fd6e51aad88F6F4ce6aB8827279cffFb92266",
+        "score": 587,
+        "rating": "BB",
+        "timestamp": "2026-07-01T17:33:30.370168"
+    }
+]

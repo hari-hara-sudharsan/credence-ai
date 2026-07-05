@@ -1,0 +1,287 @@
+{
+    "sess_734084db0d21": {
+        "session_id": "sess_734084db0d21",
+        "wallet": "0xf39fd6e51aad88f6f4ce6ab8827279cfffb92266",
+        "current_stage": "ANALYZING",
+        "completed_steps": [
+            "CONNECT_WALLET"
+        ],
+        "started_at": "2026-07-03T17:25:43.292535+00:00"
+    },
+    "sess_a8845a4ae917": {
+        "session_id": "sess_a8845a4ae917",
+        "wallet": "0xf39fd6e51aad88f6f4ce6ab8827279cfffb92266",
+        "current_stage": "IMPROVED",
+        "completed_steps": [
+            "CONNECT_WALLET",
+            "ANALYZING",
+            "CREDIT_READY",
+            "OFFER_GENERATED",
+            "ORACLE_VERIFIED",
+            "LOAN_APPROVED",
+            "SETTLED",
+            "REPAID"
+        ],
+        "started_at": "2026-07-04T05:51:31.527530+00:00"
+    },
+    "sess_c29213a3c409": {
+        "session_id": "sess_c29213a3c409",
+        "wallet": "0xf39fd6e51aad88f6f4ce6ab8827279cfffb92266",
+        "current_stage": "CREDIT_READY",
+        "completed_steps": [
+            "CONNECT_WALLET",
+            "ANALYZING"
+        ],
+        "started_at": "2026-07-04T05:53:24.898058+00:00"
+    },
+    "sess_443492425215": {
+        "session_id": "sess_443492425215",
+        "wallet": "0xf39fd6e51aad88f6f4ce6ab8827279cfffb92266",
+        "current_stage": "CREDIT_READY",
+        "completed_steps": [
+            "CONNECT_WALLET",
+            "ANALYZING"
+        ],
+        "started_at": "2026-07-04T05:56:07.486434+00:00"
+    },
+    "sess_deb39f6b2ac8": {
+        "session_id": "sess_deb39f6b2ac8",
+        "wallet": "0x5bb83e60a7a05a0e1b077b66412a26306e334208",
+        "current_stage": "CREDIT_READY",
+        "completed_steps": [
+            "CONNECT_WALLET",
+            "ANALYZING"
+        ],
+        "started_at": "2026-07-04T05:56:34.610716+00:00"
+    },
+    "sess_741d11b91603": {
+        "session_id": "sess_741d11b91603",
+        "wallet": "0xf39fd6e51aad88f6f4ce6ab8827279cfffb92266",
+        "current_stage": "REPAID",
+        "completed_steps": [
+            "CONNECT_WALLET",
+            "ANALYZING",
+            "CREDIT_READY",
+            "OFFER_GENERATED",
+            "ORACLE_VERIFIED",
+            "LOAN_APPROVED",
+            "SETTLED"
+        ],
+        "started_at": "2026-07-04T06:02:54.680189+00:00"
+    },
+    "sess_4b9ed60f1bb1": {
+        "session_id": "sess_4b9ed60f1bb1",
+        "wallet": "0x5bb83e60a7a05a0e1b077b66412a26306e334208",
+        "current_stage": "SETTLED",
+        "completed_steps": [
+            "CONNECT_WALLET",
+            "ANALYZING",
+            "CREDIT_READY",
+            "OFFER_GENERATED",
+            "ORACLE_VERIFIED",
+            "LOAN_APPROVED"
+        ],
+        "started_at": "2026-07-04T09:46:34.290483+00:00"
+    },
+    "sess_39ff78e49214": {
+        "session_id": "sess_39ff78e49214",
+        "wallet": "0x5bb83e60a7a05a0e1b077b66412a26306e334208",
+        "current_stage": "SETTLED",
+        "completed_steps": [
+            "CONNECT_WALLET",
+            "ANALYZING",
+            "CREDIT_READY",
+            "OFFER_GENERATED",
+            "ORACLE_VERIFIED",
+            "LOAN_APPROVED"
+        ],
+        "started_at": "2026-07-04T10:33:15.621964+00:00"
+    },
+    "sess_d2c9c6e29a3a": {
+        "session_id": "sess_d2c9c6e29a3a",
+        "wallet": "0x5bb83e60a7a05a0e1b077b66412a26306e334208",
+        "current_stage": "SETTLED",
+        "completed_steps": [
+            "CONNECT_WALLET",
+            "ANALYZING",
+            "CREDIT_READY",
+            "OFFER_GENERATED",
+            "ORACLE_VERIFIED",
+            "LOAN_APPROVED"
+        ],
+        "started_at": "2026-07-04T10:33:53.935272+00:00"
+    },
+    "sess_7f231b7f31e2": {
+        "session_id": "sess_7f231b7f31e2",
+        "wallet": "0x5bb83e60a7a05a0e1b077b66412a26306e334208",
+        "current_stage": "SETTLED",
+        "completed_steps": [
+            "CONNECT_WALLET",
+            "ANALYZING",
+            "CREDIT_READY",
+            "OFFER_GENERATED",
+            "ORACLE_VERIFIED",
+            "LOAN_APPROVED"
+        ],
+        "started_at": "2026-07-04T15:54:11.215708+00:00"
+    },
+    "sess_e07605e5a756": {
+        "session_id": "sess_e07605e5a756",
+        "wallet": "0x5bb83e60a7a05a0e1b077b66412a26306e334208",
+        "current_stage": "SETTLED",
+        "completed_steps": [
+            "CONNECT_WALLET",
+            "ANALYZING",
+            "CREDIT_READY",
+            "OFFER_GENERATED",
+            "ORACLE_VERIFIED",
+            "LOAN_APPROVED"
+        ],
+        "started_at": "2026-07-04T16:40:39.927790+00:00"
+    },
+    "sess_af43c7402dd4": {
+        "session_id": "sess_af43c7402dd4",
+        "wallet": "0x5bb83e60a7a05a0e1b077b66412a26306e334208",
+        "current_stage": "CREDIT_READY",
+        "completed_steps": [
+            "CONNECT_WALLET",
+            "ANALYZING"
+        ],
+        "started_at": "2026-07-04T16:41:44.251561+00:00"
+    },
+    "sess_2216e7c00ffc": {
+        "session_id": "sess_2216e7c00ffc",
+        "wallet": "0x5bb83e60a7a05a0e1b077b66412a26306e334208",
+        "current_stage": "SETTLED",
+        "completed_steps": [
+            "CONNECT_WALLET",
+            "ANALYZING",
+            "CREDIT_READY",
+            "OFFER_GENERATED",
+            "ORACLE_VERIFIED",
+            "LOAN_APPROVED"
+        ],
+        "started_at": "2026-07-04T16:45:18.097240+00:00"
+    },
+    "sess_1c266de854eb": {
+        "session_id": "sess_1c266de854eb",
+        "wallet": "0x5bb83e60a7a05a0e1b077b66412a26306e334208",
+        "current_stage": "SETTLED",
+        "completed_steps": [
+            "CONNECT_WALLET",
+            "ANALYZING",
+            "CREDIT_READY",
+            "OFFER_GENERATED",
+            "ORACLE_VERIFIED",
+            "LOAN_APPROVED"
+        ],
+        "started_at": "2026-07-04T16:49:06.733804+00:00"
+    },
+    "sess_dca71adbe4e8": {
+        "session_id": "sess_dca71adbe4e8",
+        "wallet": "0x5bb83e60a7a05a0e1b077b66412a26306e334208",
+        "current_stage": "IMPROVED",
+        "completed_steps": [
+            "CONNECT_WALLET",
+            "ANALYZING",
+            "CREDIT_READY",
+            "OFFER_GENERATED",
+            "ORACLE_VERIFIED",
+            "LOAN_APPROVED",
+            "SETTLED",
+            "REPAID"
+        ],
+        "started_at": "2026-07-05T04:41:00.292850+00:00"
+    },
+    "sess_1e6d21728cd1": {
+        "session_id": "sess_1e6d21728cd1",
+        "wallet": "0x5bb83e60a7a05a0e1b077b66412a26306e334208",
+        "current_stage": "IMPROVED",
+        "completed_steps": [
+            "CONNECT_WALLET",
+            "ANALYZING",
+            "CREDIT_READY",
+            "OFFER_GENERATED",
+            "ORACLE_VERIFIED",
+            "LOAN_APPROVED",
+            "SETTLED",
+            "REPAID"
+        ],
+        "started_at": "2026-07-05T05:46:54.451408+00:00"
+    },
+    "sess_166d2d87ea26": {
+        "session_id": "sess_166d2d87ea26",
+        "wallet": "0x5bb83e60a7a05a0e1b077b66412a26306e334208",
+        "current_stage": "CREDIT_READY",
+        "completed_steps": [
+            "CONNECT_WALLET",
+            "ANALYZING"
+        ],
+        "started_at": "2026-07-05T12:02:28.331060+00:00"
+    },
+    "sess_e16abe8a9946": {
+        "session_id": "sess_e16abe8a9946",
+        "wallet": "0x5bb83e60a7a05a0e1b077b66412a26306e334208",
+        "current_stage": "OFFER_GENERATED",
+        "completed_steps": [
+            "CONNECT_WALLET",
+            "ANALYZING",
+            "CREDIT_READY"
+        ],
+        "started_at": "2026-07-05T12:37:41.857908+00:00"
+    },
+    "sess_68e0072f1952": {
+        "session_id": "sess_68e0072f1952",
+        "wallet": "0x5bb83e60a7a05a0e1b077b66412a26306e334208",
+        "current_stage": "CREDIT_READY",
+        "completed_steps": [
+            "CONNECT_WALLET",
+            "ANALYZING"
+        ],
+        "started_at": "2026-07-05T12:49:33.804189+00:00"
+    },
+    "sess_6c84f5b8bbb2": {
+        "session_id": "sess_6c84f5b8bbb2",
+        "wallet": "0x5bb83e60a7a05a0e1b077b66412a26306e334208",
+        "current_stage": "SETTLED",
+        "completed_steps": [
+            "CONNECT_WALLET",
+            "ANALYZING",
+            "CREDIT_READY",
+            "OFFER_GENERATED",
+            "ORACLE_VERIFIED",
+            "LOAN_APPROVED"
+        ],
+        "started_at": "2026-07-05T12:53:32.027523+00:00"
+    },
+    "sess_f80361cace6f": {
+        "session_id": "sess_f80361cace6f",
+        "wallet": "0x5bb83e60a7a05a0e1b077b66412a26306e334208",
+        "current_stage": "SETTLED",
+        "completed_steps": [
+            "CONNECT_WALLET",
+            "ANALYZING",
+            "CREDIT_READY",
+            "OFFER_GENERATED",
+            "ORACLE_VERIFIED",
+            "LOAN_APPROVED"
+        ],
+        "started_at": "2026-07-05T13:01:29.961772+00:00"
+    },
+    "sess_4468552f970e": {
+        "session_id": "sess_4468552f970e",
+        "wallet": "0x5bb83e60a7a05a0e1b077b66412a26306e334208",
+        "current_stage": "IMPROVED",
+        "completed_steps": [
+            "CONNECT_WALLET",
+            "ANALYZING",
+            "CREDIT_READY",
+            "OFFER_GENERATED",
+            "ORACLE_VERIFIED",
+            "LOAN_APPROVED",
+            "SETTLED",
+            "REPAID"
+        ],
+        "started_at": "2026-07-05T15:25:09.689083+00:00"
+    }
+}

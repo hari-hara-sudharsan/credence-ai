@@ -1,0 +1,74 @@
+{
+    "0xf39Fd6e51aad88F6F4ce6aB8827279cffFb92266": {
+        "wallet": "0xf39Fd6e51aad88F6F4ce6aB8827279cffFb92266",
+        "trust_score": 59,
+        "history": [
+            {
+                "version": 1,
+                "credit_score": 587,
+                "trust_score": 50,
+                "timestamp": "2026-07-02T06:17:38Z",
+                "trigger": "Initial Registration"
+            },
+            {
+                "version": 2,
+                "credit_score": 587,
+                "trust_score": 47,
+                "timestamp": "2026-07-02T06:17:39Z",
+                "trigger": "Loan Created"
+            },
+            {
+                "version": 3,
+                "credit_score": 587,
+                "trust_score": 59,
+                "timestamp": "2026-07-02T06:18:20Z",
+                "trigger": "Loan repaid on time"
+            }
+        ],
+        "events": [
+            {
+                "timestamp": "2026-07-02T06:17:38Z",
+                "previous_score": 0,
+                "current_score": 50,
+                "delta": 50,
+                "reason": "Baseline trust score allocated."
+            },
+            {
+                "timestamp": "2026-07-02T06:17:39Z",
+                "previous_score": 50,
+                "current_score": 47,
+                "delta": -3,
+                "reason": "New loan liability created: #113e0052."
+            },
+            {
+                "timestamp": "2026-07-02T06:18:20Z",
+                "previous_score": 47,
+                "current_score": 59,
+                "delta": 12,
+                "reason": "Loan #113e0052 repaid successfully on time."
+            }
+        ]
+    },
+    "0x5bb83E60a7a05A0e1b077B66412a26306e334208": {
+        "wallet": "0x5bb83E60a7a05A0e1b077B66412a26306e334208",
+        "trust_score": 50,
+        "history": [
+            {
+                "version": 1,
+                "credit_score": 600,
+                "trust_score": 50,
+                "timestamp": "2026-07-04T10:33:57Z",
+                "trigger": "Initial Registration"
+            }
+        ],
+        "events": [
+            {
+                "timestamp": "2026-07-04T10:33:57Z",
+                "previous_score": 0,
+                "current_score": 50,
+                "delta": 50,
+                "reason": "Baseline trust score allocated."
+            }
+        ]
+    }
+}

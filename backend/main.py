@@ -122,15 +122,18 @@ def save_openapi_json():
     import json
     import os
     from fastapi.openapi.utils import get_openapi
-    spec_path = "c:/Users/Windows/credence-ai/backend/openapi/credence_openapi.json"
-    os.makedirs(os.path.dirname(spec_path), exist_ok=True)
-    schema = get_openapi(
-        title=app.title,
-        version=app.version,
-        routes=app.routes
-    )
-    with open(spec_path, "w") as f:
-        json.dump(schema, f, indent=2)
+    try:
+        spec_path = os.path.abspath(os.path.join(os.path.dirname(__file__), "openapi", "credence_openapi.json"))
+        os.makedirs(os.path.dirname(spec_path), exist_ok=True)
+        schema = get_openapi(
+            title=app.title,
+            version=app.version,
+            routes=app.routes
+        )
+        with open(spec_path, "w") as f:
+            json.dump(schema, f, indent=2)
+    except Exception as e:
+        print(f"Skipping save_openapi_json: {e}")
 
 app.add_middleware(
     CORSMiddleware,

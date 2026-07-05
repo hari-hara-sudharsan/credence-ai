@@ -1,0 +1,144 @@
+{
+    "0xf39fd6e51aad88f6f4ce6ab8827279cfffb92266": {
+        "passport_id": "cp_v2_9b41aa2ce29b",
+        "wallet": "0xf39Fd6e51aad88F6F4ce6aB8827279cffFb92266",
+        "passport_version": "2.0.0",
+        "passport_status": "ACTIVE",
+        "credit_score": 585,
+        "trust_score": 59,
+        "risk_level": "HIGH",
+        "protocol_profiles": [
+            {
+                "protocol": "LENDING",
+                "data": {
+                    "protocol": "LENDING",
+                    "max_ltv": 68,
+                    "interest_rate": 13,
+                    "max_loan": 908,
+                    "eligible": true
+                }
+            },
+            {
+                "protocol": "INSURANCE",
+                "data": {
+                    "protocol": "INSURANCE",
+                    "risk_class": "MEDIUM",
+                    "coverage_limit": 6750,
+                    "premium_discount": 18
+                }
+            },
+            {
+                "protocol": "RWA",
+                "data": {
+                    "protocol": "RWA",
+                    "asset_limit": 11135,
+                    "risk": "MEDIUM",
+                    "institutional_grade": false
+                }
+            },
+            {
+                "protocol": "DAO",
+                "data": {
+                    "protocol": "DAO",
+                    "voting_weight": "MEDIUM",
+                    "delegate_recommended": false
+                }
+            },
+            {
+                "protocol": "INSTITUTIONAL",
+                "data": {
+                    "protocol": "INSTITUTIONAL",
+                    "approved": false,
+                    "confidence": 54,
+                    "risk": "HIGH"
+                }
+            }
+        ],
+        "badges": [
+            "New Wallet"
+        ],
+        "segments": [
+            "New Wallet"
+        ],
+        "oracle_attestation_id": "att_9333b18190694e8c",
+        "oracle_verified": true,
+        "passport_hash": "0x13218233adc821688b5a6f2a1455068fe50a3cc3bffe89cc153f2aafbc012a46",
+        "issued_at": "2026-07-02T17:22:46.167403Z",
+        "expires_at": "2026-09-30T17:22:46.167403Z",
+        "metadata_uri": "/passport/v2/0xf39Fd6e51aad88F6F4ce6aB8827279cffFb92266/credential",
+        "signature": "0x6dcd8c75dc13dc215d8ca7cee450117b08d271bcbba5fccfa2063175918100a45e2d7ccd04a198a5ff05a59c41285504911a3dff1eb9a101513ae6dc18ad5d881c",
+        "attestation_hash": "0xf07efd54acaa9d063c63e1e735bb1b8780c28e070b8f7725f4d717c28ef2d03e",
+        "refresh_tx": "0x22a433146493e39472d9c4955bc0ad451279eacb01953ab5124cb43d5d1bc303"
+    },
+    "0x5bb83e60a7a05a0e1b077b66412a26306e334208": {
+        "passport_id": "cp_v2_d48272fdb558",
+        "wallet": "0x5bb83E60a7a05A0e1b077B66412a26306e334208",
+        "passport_version": "2.0.0",
+        "passport_status": "ACTIVE",
+        "credit_score": 237,
+        "trust_score": 50,
+        "risk_level": "VERY_HIGH",
+        "protocol_profiles": [
+            {
+                "protocol": "LENDING",
+                "data": {
+                    "protocol": "LENDING",
+                    "max_ltv": 0,
+                    "interest_rate": 24,
+                    "max_loan": 0,
+                    "eligible": false
+                }
+            },
+            {
+                "protocol": "INSURANCE",
+                "data": {
+                    "protocol": "INSURANCE",
+                    "risk_class": "MEDIUM",
+                    "coverage_limit": 4300,
+                    "premium_discount": 12
+                }
+            },
+            {
+                "protocol": "RWA",
+                "data": {
+                    "protocol": "RWA",
+                    "asset_limit": 1000,
+                    "risk": "HIGH",
+                    "institutional_grade": false
+                }
+            },
+            {
+                "protocol": "DAO",
+                "data": {
+                    "protocol": "DAO",
+                    "voting_weight": "MEDIUM",
+                    "delegate_recommended": false
+                }
+            },
+            {
+                "protocol": "INSTITUTIONAL",
+                "data": {
+                    "protocol": "INSTITUTIONAL",
+                    "approved": false,
+                    "confidence": 40,
+                    "risk": "HIGH"
+                }
+            }
+        ],
+        "badges": [
+            "New Wallet"
+        ],
+        "segments": [
+            "New Wallet"
+        ],
+        "oracle_attestation_id": "att_55c9853853ba4b73",
+        "oracle_verified": true,
+        "passport_hash": "0x0c5b66b748f6053d639015ed2d095fc275b231121f7843408dc5ce29d1f35ea4",
+        "issued_at": "2026-07-04T10:34:06.807002Z",
+        "expires_at": "2026-10-02T10:34:06.807002Z",
+        "metadata_uri": "/passport/v2/0x5bb83E60a7a05A0e1b077B66412a26306e334208/credential",
+        "signature": "0x1fbf3022afb8b1b0b21fe26ce788087d70f3a81052497ced12a9898eff2e1ab5464e15cf45351c8b8735ce39fda2701a7cf80611d01898c111d47cc9266598fb1b",
+        "attestation_hash": "0xc720011b1fa46117d523fcc034aff9d0eaf1019300327c9aca507da5f1286663",
+        "mint_tx": "0x49356bca36436e153e729d9f29f463cf96b0329b89b29a4a11a5053cea6990e9"
+    }
+}

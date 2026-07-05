@@ -1,0 +1,69 @@
+{
+  "0x5bb83e60a7a05a0e1b077b66412a26306e334208": {
+    "wallet": "0x5bb83E60a7a05A0e1b077B66412a26306e334208",
+    "verification_id": "vf_5c54e619d531",
+    "passport_valid": true,
+    "oracle_verified": true,
+    "credit_score": 237,
+    "trust_score": 50,
+    "risk_level": "VERY_HIGH",
+    "protocol_profiles": [
+      {
+        "protocol": "LENDING",
+        "data": {
+          "protocol": "LENDING",
+          "max_ltv": 0,
+          "interest_rate": 24,
+          "max_loan": 0,
+          "eligible": false
+        }
+      },
+      {
+        "protocol": "INSURANCE",
+        "data": {
+          "protocol": "INSURANCE",
+          "risk_class": "MEDIUM",
+          "coverage_limit": 4300,
+          "premium_discount": 12
+        }
+      },
+      {
+        "protocol": "RWA",
+        "data": {
+          "protocol": "RWA",
+          "asset_limit": 1000,
+          "risk": "HIGH",
+          "institutional_grade": false
+        }
+      },
+      {
+        "protocol": "DAO",
+        "data": {
+          "protocol": "DAO",
+          "voting_weight": "MEDIUM",
+          "delegate_recommended": false
+        }
+      },
+      {
+        "protocol": "INSTITUTIONAL",
+        "data": {
+          "protocol": "INSTITUTIONAL",
+          "approved": false,
+          "confidence": 40,
+          "risk": "HIGH"
+        }
+      }
+    ],
+    "attestation_id": "att_55c9853853ba4b73",
+    "passport_id": "cp_v2_d48272fdb558",
+    "verified_at": "2026-07-04T10:34:10.806770Z",
+    "expires_at": "2026-08-03T10:34:10.806770Z",
+    "network_version": "1.0.0",
+    "trust_seal": "BRONZE",
+    "verification_hash": "0xb037de9ca9c114937eec9a16413722dc01042306450b3c2d11f8b38e14ee7a92",
+    "passport_hash": "0x0c5b66b748f6053d639015ed2d095fc275b231121f7843408dc5ce29d1f35ea4",
+    "attestation_hash": "0xc720011b1fa46117d523fcc034aff9d0eaf1019300327c9aca507da5f1286663",
+    "oracle_signature": "0x390eaf9746c61eeb146181151e4fa55f4da167d08f0f0af47337a96a9cd9a57538902ce477e121fe8f46cdf7a0f1f5d6899533318d5044405ec2a25b52ba862e1b",
+    "registry_tx": "0x1e7e7cd5b4b6c6bceea9b6872ed07ec5805c229fe01ed55264908615410fee62"
+  }
+}

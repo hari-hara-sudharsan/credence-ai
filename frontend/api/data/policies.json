@@ -1,0 +1,114 @@
+{
+    "pol_cb027e3f8292": {
+        "policy_id": "pol_cb027e3f8292",
+        "policy_name": "Prime Borrower Eligibility",
+        "protocol": "LENDING",
+        "version": "1.0.0",
+        "rules": [
+            {
+                "parameter": "credit_score",
+                "operator": "GREATER_THAN",
+                "value": 600
+            }
+        ],
+        "created_at": "2026-07-03T15:21:37.603183Z"
+    },
+    "pol_8ab4d1145f2c": {
+        "policy_id": "pol_8ab4d1145f2c",
+        "policy_name": "Prime Borrower Eligibility",
+        "protocol": "LENDING",
+        "version": "1.0.0",
+        "rules": [
+            {
+                "parameter": "credit_score",
+                "operator": "GREATER_THAN",
+                "value": 600
+            }
+        ],
+        "created_at": "2026-07-03T15:22:24.674837Z"
+    },
+    "pol_2ac563a60c1a": {
+        "policy_id": "pol_2ac563a60c1a",
+        "policy_name": "Prime Borrower Eligibility",
+        "protocol": "LENDING",
+        "version": "1.0.0",
+        "rules": [
+            {
+                "parameter": "credit_score",
+                "operator": "GREATER_THAN",
+                "value": 600
+            }
+        ],
+        "created_at": "2026-07-03T15:22:24.985548Z"
+    },
+    "pol_54089229d162": {
+        "policy_id": "pol_54089229d162",
+        "policy_name": "Prime Borrower Eligibility",
+        "protocol": "LENDING",
+        "version": "1.0.0",
+        "rules": [
+            {
+                "parameter": "credit_score",
+                "operator": "GREATER_THAN",
+                "value": 600
+            }
+        ],
+        "created_at": "2026-07-03T15:23:48.793986Z"
+    },
+    "pol_86fb7bda52ed": {
+        "policy_id": "pol_86fb7bda52ed",
+        "policy_name": "Prime Borrower Eligibility",
+        "protocol": "LENDING",
+        "version": "1.0.0",
+        "rules": [
+            {
+                "parameter": "credit_score",
+                "operator": "GREATER_THAN",
+                "value": 600
+            }
+        ],
+        "created_at": "2026-07-03T15:24:35.085751Z"
+    },
+    "pol_65aa20edce97": {
+        "policy_id": "pol_65aa20edce97",
+        "policy_name": "Prime Borrower Eligibility",
+        "protocol": "LENDING",
+        "version": "1.0.0",
+        "rules": [
+            {
+                "parameter": "credit_score",
+                "operator": "GREATER_THAN",
+                "value": 600
+            }
+        ],
+        "created_at": "2026-07-03T15:24:35.393714Z"
+    },
+    "pol_6ec71ceb4e39": {
+        "policy_id": "pol_6ec71ceb4e39",
+        "policy_name": "Prime Borrower Eligibility",
+        "protocol": "LENDING",
+        "version": "1.0.0",
+        "rules": [
+            {
+                "parameter": "credit_score",
+                "operator": "GREATER_THAN",
+                "value": 600
+            }
+        ],
+        "created_at": "2026-07-03T15:24:45.466385Z"
+    },
+    "prime_borrower_check": {
+        "policy_id": "prime_borrower_check",
+        "policy_name": "Prime Borrower Eligibility",
+        "protocol": "LENDING",
+        "version": "1.0.0",
+        "rules": [
+            {
+                "field": "credit_score",
+                "operator": "GREATER_THAN",
+                "value": 600
+            }
+        ],
+        "created_at": "2026-07-01T00:00:00Z"
+    }
+}

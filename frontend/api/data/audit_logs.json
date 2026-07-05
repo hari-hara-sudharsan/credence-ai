@@ -1,0 +1,98 @@
+[
+    {
+        "log_id": "aud_9078b1efc80b",
+        "action": "APPROVE_ORACLE",
+        "performed_by": "0xf39fd6e51aad88f6f4ce6ab8827279cfffb92266",
+        "resource": "0x70997970c51812dc3a010c7d01b50e0d17dc79c8",
+        "result": "Oracle set to ACTIVE. Proof TX: 0x7d3280924dddfabebc719156a38d9536307720038359c02e33761938893f8d49",
+        "timestamp": "2026-07-03T13:43:13.662272+00:00"
+    },
+    {
+        "log_id": "aud_31f3ee981af2",
+        "action": "CREATE_PROPOSAL",
+        "performed_by": "0xf39fd6e51aad88f6f4ce6ab8827279cfffb92266",
+        "resource": "gov_fa295427e035",
+        "result": "Proposal submitted and status set to UNDER_REVIEW",
+        "timestamp": "2026-07-03T13:43:13.744992+00:00"
+    },
+    {
+        "log_id": "aud_d44d48566e76",
+        "action": "APPROVE_PROPOSAL",
+        "performed_by": "0xf39fd6e51aad88f6f4ce6ab8827279cfffb92266",
+        "resource": "gov_fa295427e035",
+        "result": "Proposal marked as APPROVED",
+        "timestamp": "2026-07-03T13:43:13.856460+00:00"
+    },
+    {
+        "log_id": "aud_ea98f0f3ba9d",
+        "action": "EXECUTE_PROPOSAL",
+        "performed_by": "0xf39fd6e51aad88f6f4ce6ab8827279cfffb92266",
+        "resource": "gov_fa295427e035",
+        "result": "Proposal marked as EXECUTED",
+        "timestamp": "2026-07-03T13:43:13.980012+00:00"
+    },
+    {
+        "log_id": "aud_3d99d36306ae",
+        "action": "CREATE_PROPOSAL",
+        "performed_by": "",
+        "resource": "gov_db67e0ef7ef7",
+        "result": "Proposal submitted and status set to UNDER_REVIEW",
+        "timestamp": "2026-07-04T10:36:07.634220+00:00"
+    },
+    {
+        "log_id": "aud_b75def2e063b",
+        "action": "APPROVE_PROPOSAL",
+        "performed_by": "",
+        "resource": "gov_db67e0ef7ef7",
+        "result": "Proposal marked as APPROVED",
+        "timestamp": "2026-07-04T10:36:16.336264+00:00"
+    },
+    {
+        "log_id": "aud_67e551556b6a",
+        "action": "EXECUTE_PROPOSAL",
+        "performed_by": "",
+        "resource": "gov_db67e0ef7ef7",
+        "result": "Proposal marked as EXECUTED",
+        "timestamp": "2026-07-04T10:36:20.919315+00:00"
+    },
+    {
+        "log_id": "aud_2bc0f6d3ab18",
+        "action": "APPROVE_ORACLE",
+        "performed_by": "0x5bb83e60a7a05a0e1b077b66412a26306e334208",
+        "resource": "0x1234567890abcdef1234567890abcdef12345678",
+        "result": "Oracle set to ACTIVE. Proof TX: 0xc803169c8ac66994f1392db6a03360b76f7ff9605caa4590f67bcf21dc11596e",
+        "timestamp": "2026-07-04T15:36:44.742434+00:00"
+    },
+    {
+        "log_id": "aud_e7bba3108a11",
+        "action": "APPROVE_ORACLE",
+        "performed_by": "0x5bb83e60a7a05a0e1b077b66412a26306e334208",
+        "resource": "0xe7c6bf469e97eeb0bfb74c8dbff5bd47d4c1c98a",
+        "result": "Oracle set to ACTIVE. Proof TX: 0x747e238d431c3f036f3aa22072eaecc19ba9c47c5ae92238f632048d0f41f35f",
+        "timestamp": "2026-07-04T17:02:36.733448+00:00"
+    },
+    {
+        "log_id": "aud_72b704b09e73",
+        "action": "REVOKE_ORACLE",
+        "performed_by": "0x5bb83e60a7a05a0e1b077b66412a26306e334208",
+        "resource": "0x5bb83e60a7a05a0e1b077b66412a26306e334208",
+        "result": "Oracle set to REVOKED. Proof TX: 0x6a15aaaf8cd62330490ed47d8c22ff09ea4c252a0b38bb50e0e425bf303fcad2",
+        "timestamp": "2026-07-05T04:44:57.662304+00:00"
+    },
+    {
+        "log_id": "aud_644a746d32a3",
+        "action": "REVOKE_ORACLE",
+        "performed_by": "0x5bb83e60a7a05a0e1b077b66412a26306e334208",
+        "resource": "0x5bb83e60a7a05a0e1b077b66412a26306e334208",
+        "result": "Oracle set to REVOKED. Proof TX: None",
+        "timestamp": "2026-07-05T04:44:58.912472+00:00"
+    },
+    {
+        "log_id": "aud_06939da187f5",
+        "action": "APPROVE_ORACLE",
+        "performed_by": "0x5bb83e60a7a05a0e1b077b66412a26306e334208",
+        "resource": "0x5bb83E60a7a05A0e1b077B66412a26306e334208",
+        "result": "Oracle set to ACTIVE. Proof TX: 0x06ca058a483b824e81e897292605c913b248604c9c270c691fccc2ea21d36538",
+        "timestamp": "2026-07-05T04:45:06.630034+00:00"
+    }
+]

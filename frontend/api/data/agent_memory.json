@@ -1,0 +1,230 @@
+{
+    "0xf39fd6e51aad88f6f4ce6ab8827279cfffb92266": [
+        {
+            "agent_type": "BORROWER_AGENT",
+            "question": "How can I improve my credit score trajectory index?",
+            "answer": "Your current credit score of 585 and trust score of 59 indicate a high risk level, primarily due to declining wallet activity and low balance reserves. However, your successful repayment history is a positive factor. To improve your credit score trajectory index, focus on increasing your wallet activity and maintaining a healthy balance. Since your predicted score is 595 and your trajectory is improving, continuing to make timely repayments will also be beneficial. Consider diversifying your protocol engagements and maintaining a good standing across all protocols.",
+            "confidence": 95.0,
+            "recommendations": [
+                "Increase wallet activity by making regular transactions to demonstrate financial engagement and responsibility",
+                "Maintain a healthy balance in your wallet to mitigate dormancy risks and improve your overall financial health"
+            ],
+            "decision_trace": [
+                "Initializing AI agent network session",
+                "Retrieving live on-chain credentials & verification states",
+                "Loading credit score and risk profiling metrics",
+                "Computing forward-looking predictive risk trajectories",
+                "Scanning ecosystem registries and policies mapping",
+                "Routing reasoning context to LLM neural pipeline",
+                "Generated grounded advice report and decision trace"
+            ],
+            "generated_at": "2026-07-03T08:35:26.598203Z"
+        },
+        {
+            "agent_type": "LENDER_AGENT",
+            "question": "Is it safe to lend funds to this wallet address?",
+            "answer": "Lending to this wallet address poses significant risks due to the borrower's high default probability of 48.2% and a high risk level. However, the borrower's credit score is improving, and they have a history of successful repayments. The presence of a verified passport and oracle verification provides some security. The leverage ratio is not explicitly stated, but the max LTV of 68% suggests a moderate level of risk. Considering these factors, it's crucial to weigh the potential returns against the risks and consider additional security measures or a higher interest rate to mitigate potential losses.",
+            "confidence": 92.0,
+            "recommendations": [
+                "Require additional collateral to reduce the loan-to-value ratio",
+                "Charge a higher interest rate to account for the increased risk",
+                "Implement stricter repayment terms and monitoring",
+                "Consider offering a smaller loan amount to reduce exposure"
+            ],
+            "decision_trace": [
+                "Initializing AI agent network session",
+                "Retrieving live on-chain credentials & verification states",
+                "Loading credit score and risk profiling metrics",
+                "Computing forward-looking predictive risk trajectories",
+                "Scanning ecosystem registries and policies mapping",
+                "Routing reasoning context to LLM neural pipeline",
+                "Generated grounded advice report and decision trace"
+            ],
+            "generated_at": "2026-07-03T08:35:53.664133Z"
+        },
+        {
+            "agent_type": "BORROWER",
+            "question": "What is my credit standing?",
+            "answer": "Your current credit score is 585, which is below the threshold for prime borrower eligibility. However, your predicted score is 595, indicating an improving trajectory. Considering your trust score of 59 and high risk level, it's essential to monitor your credit activity and maintain a stable financial profile.",
+            "confidence": 92.0,
+            "recommendations": [
+                "Maintain a stable income and avoid late payments to improve your credit score",
+                "Diversify your investment portfolio to reduce risk and increase potential returns",
+                "Regularly review and adjust your financial strategy to ensure alignment with your long-term goals"
+            ],
+            "decision_trace": [
+                "Initializing AI agent network session",
+                "Retrieving live on-chain credentials & verification states",
+                "Loading credit score and risk profiling metrics",
+                "Computing forward-looking predictive risk trajectories",
+                "Scanning ecosystem registries and policies mapping",
+                "Routing reasoning context to LLM neural pipeline",
+                "Generated grounded advice report and decision trace"
+            ],
+            "generated_at": "2026-07-03T15:56:17.395683Z"
+        },
+        {
+            "agent_type": "BORROWER",
+            "question": "What is my credit standing?",
+            "answer": "Your current credit score is 585, which is below the prime borrower eligibility threshold of 600. However, your predicted score is 595, indicating an improving trajectory. Despite a high risk level, you have a history of successful repayments, which is a positive signal. Your trust score is 59, and you have a high default probability of 48.2%. Considering these factors, your credit standing is subprime, but with potential for improvement.",
+            "confidence": 92.0,
+            "recommendations": [
+                "Continue to make timely repayments to improve your credit score",
+                "Monitor and address the 'Declining Wallet Activity' signal to mitigate potential dormancy risks",
+                "Consider applying for loans with more lenient credit score requirements or exploring alternative credit options"
+            ],
+            "decision_trace": [
+                "Initializing AI agent network session",
+                "Retrieving live on-chain credentials & verification states",
+                "Loading credit score and risk profiling metrics",
+                "Computing forward-looking predictive risk trajectories",
+                "Scanning ecosystem registries and policies mapping",
+                "Routing reasoning context to LLM neural pipeline",
+                "Generated grounded advice report and decision trace"
+            ],
+            "generated_at": "2026-07-03T16:01:42.146919Z"
+        },
+        {
+            "agent_type": "BORROWER",
+            "question": "What is my credit standing?",
+            "answer": "Your credit standing is currently below the prime borrower threshold, with a credit score of 585. However, your predicted score is 595, and your trajectory is improving. You have a high risk level, but you have successfully repaid 2 loan offers on-time, which is a positive signal. Your trust score is 59, and your default probability is 48.2% currently and 46.4% in the future.",
+            "confidence": 95.0,
+            "recommendations": [
+                "Consider improving your credit score to meet the prime borrower eligibility threshold of 600",
+                "Continue to make timely repayments to maintain a positive repayment history and improve your credit standing"
+            ],
+            "decision_trace": [
+                "Initializing AI agent network session",
+                "Retrieving live on-chain credentials & verification states",
+                "Loading credit score and risk profiling metrics",
+                "Computing forward-looking predictive risk trajectories",
+                "Scanning ecosystem registries and policies mapping",
+                "Routing reasoning context to LLM neural pipeline",
+                "Generated grounded advice report and decision trace"
+            ],
+            "generated_at": "2026-07-03T16:03:04.702369Z"
+        },
+        {
+            "agent_type": "BORROWER",
+            "question": "What is my credit standing?",
+            "answer": "Your credit standing is currently below the prime borrower threshold, with a credit score of 585. However, your predicted score is 595, indicating an improving trajectory. Despite this, your default probability is still relatively high at 48.2%. You have successfully repaid 2 loan offers on-time, which is a positive signal. Nevertheless, your low balance reserves and declining wallet activity are areas of concern. Overall, your credit standing is considered high-risk, but with potential for improvement.",
+            "confidence": 95.0,
+            "recommendations": [
+                "Increase your credit score by maintaining a good repayment history and reducing your default probability",
+                "Improve your wallet activity by making regular transactions to demonstrate financial stability",
+                "Consider applying for loans with more favorable terms, such as lower interest rates, to reduce your debt burden"
+            ],
+            "decision_trace": [
+                "Initializing AI agent network session",
+                "Retrieving live on-chain credentials & verification states",
+                "Loading credit score and risk profiling metrics",
+                "Computing forward-looking predictive risk trajectories",
+                "Scanning ecosystem registries and policies mapping",
+                "Routing reasoning context to LLM neural pipeline",
+                "Generated grounded advice report and decision trace"
+            ],
+            "generated_at": "2026-07-03T16:04:16.446174Z"
+        },
+        {
+            "agent_type": "BORROWER",
+            "question": "What is my credit standing?",
+            "answer": "Your credit standing is currently below the prime borrower threshold, with a credit score of 585. However, your predicted score is 595, indicating an improving trajectory. You have a high risk level, but you have successfully repaid 2 loan offers on-time, which is a positive signal. Your wallet activity has been declining, which may indicate potential dormancy risks.",
+            "confidence": 92.0,
+            "recommendations": [
+                "Consider increasing your credit score by making timely payments and reducing debt to improve your eligibility for better loan terms",
+                "Monitor your wallet activity to prevent dormancy risks and maintain a healthy credit profile"
+            ],
+            "decision_trace": [
+                "Initializing AI agent network session",
+                "Retrieving live on-chain credentials & verification states",
+                "Loading credit score and risk profiling metrics",
+                "Computing forward-looking predictive risk trajectories",
+                "Scanning ecosystem registries and policies mapping",
+                "Routing reasoning context to LLM neural pipeline",
+                "Generated grounded advice report and decision trace"
+            ],
+            "generated_at": "2026-07-03T16:10:50.311413Z"
+        },
+        {
+            "agent_type": "BORROWER",
+            "question": "What is my credit standing?",
+            "answer": "Your credit standing is currently suboptimal, with a credit score of 585, which is below the threshold for prime borrower eligibility. However, your trust score is 59, and your predicted score is 595, indicating an improving trajectory. You have a high risk level, but you have successfully repaid 2 loan offers on-time, which is a positive signal.",
+            "confidence": 92.0,
+            "recommendations": [
+                "Consider improving your credit score by maintaining a good repayment history and reducing your debt-to-income ratio.",
+                "Monitor your active signals, such as declining wallet activity, and take corrective action to mitigate potential risks."
+            ],
+            "decision_trace": [
+                "Initializing AI agent network session",
+                "Retrieving live on-chain credentials & verification states",
+                "Loading credit score and risk profiling metrics",
+                "Computing forward-looking predictive risk trajectories",
+                "Scanning ecosystem registries and policies mapping",
+                "Routing reasoning context to LLM neural pipeline",
+                "Generated grounded advice report and decision trace"
+            ],
+            "generated_at": "2026-07-03T17:17:45.038044Z"
+        },
+        {
+            "agent_type": "BORROWER",
+            "question": "What is my credit standing?",
+            "answer": "Your credit standing is currently suboptimal, with a credit score of 585, which is below the threshold for prime borrower eligibility. However, your trust score is 59, and your predicted score is 595, indicating an improving trajectory. You have a high risk level, but you have successfully repaid 2 loan offers on-time, which is a positive signal.",
+            "confidence": 92.0,
+            "recommendations": [
+                "Consider improving your credit score by making timely payments and reducing debt to increase your eligibility for better loan terms",
+                "Monitor your wallet activity and balance reserves to mitigate potential dormancy risks and ensure a healthy financial profile"
+            ],
+            "decision_trace": [
+                "Initializing AI agent network session",
+                "Retrieving live on-chain credentials & verification states",
+                "Loading credit score and risk profiling metrics",
+                "Computing forward-looking predictive risk trajectories",
+                "Scanning ecosystem registries and policies mapping",
+                "Routing reasoning context to LLM neural pipeline",
+                "Generated grounded advice report and decision trace"
+            ],
+            "generated_at": "2026-07-03T17:30:50.690445Z"
+        },
+        {
+            "agent_type": "BORROWER",
+            "question": "What is my credit standing?",
+            "answer": "Your credit standing is currently below the prime borrower threshold, with a credit score of 585. However, your predicted score is 595, and your trajectory is improving. You have a high risk level, but you have successfully repaid 2 loan offers on-time, which is a positive signal. Your wallet activity has been declining, which may indicate potential dormancy risks. Considering these factors, you may not be eligible for prime borrower benefits, but you can work on improving your credit score and maintaining a good repayment history to enhance your credit standing.",
+            "confidence": 92.0,
+            "recommendations": [
+                "Continue to make timely repayments to improve your credit score",
+                "Increase your wallet activity to reduce dormancy risks",
+                "Monitor your credit score and predicted score to track your progress"
+            ],
+            "decision_trace": [
+                "Initializing AI agent network session",
+                "Retrieving live on-chain credentials & verification states",
+                "Loading credit score and risk profiling metrics",
+                "Computing forward-looking predictive risk trajectories",
+                "Scanning ecosystem registries and policies mapping",
+                "Routing reasoning context to LLM neural pipeline",
+                "Generated grounded advice report and decision trace"
+            ],
+            "generated_at": "2026-07-03T17:58:33.612651Z"
+        },
+        {
+            "agent_type": "BORROWER",
+            "question": "What is my credit standing?",
+            "answer": "Your credit standing is currently below the prime borrower threshold, with a credit score of 585. However, your predicted score is 595, indicating an improving trajectory. You have a high risk level, but you have successfully repaid 2 loan offers on-time, which is a positive signal. Your trust score is 59, and your default probability is 48.2% currently and 46.4% in the future.",
+            "confidence": 95.0,
+            "recommendations": [
+                "Consider improving your credit score to meet the prime borrower eligibility threshold of 600",
+                "Continue to make timely repayments to maintain a positive repayment history and improve your credit standing"
+            ],
+            "decision_trace": [
+                "Initializing AI agent network session",
+                "Retrieving live on-chain credentials & verification states",
+                "Loading credit score and risk profiling metrics",
+                "Computing forward-looking predictive risk trajectories",
+                "Scanning ecosystem registries and policies mapping",
+                "Routing reasoning context to LLM neural pipeline",
+                "Generated grounded advice report and decision trace"
+            ],
+            "generated_at": "2026-07-04T05:35:54.910081Z"
+        }
+    ]
+}

@@ -1,0 +1,28 @@
+[
+    {
+        "wallet": "0x5bb83E60a7a05A0e1b077B66412a26306e334208",
+        "loan_amount": 1000.0,
+        "purpose": "Education",
+        "credit_score": 410,
+        "rating": "HIGH_RISK",
+        "segment": "New Wallet",
+        "badges": [
+            "New Wallet"
+        ],
+        "interest_rate": 15.0,
+        "collateral_ratio": 150
+    },
+    {
+        "wallet": "0x5bb83E60a7a05A0e1b077B66412a26306e334208",
+        "loan_amount": 1000.0,
+        "purpose": "Education",
+        "credit_score": 417,
+        "rating": "HIGH_RISK",
+        "segment": "New Wallet",
+        "badges": [
+            "New Wallet"
+        ],
+        "interest_rate": 15.0,
+        "collateral_ratio": 150
+    }
+]

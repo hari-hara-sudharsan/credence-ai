@@ -1,0 +1,1114 @@
+[
+    {
+        "scenario_id": "BORROWER_JOURNEY",
+        "steps": [
+            {
+                "step_id": "b_1",
+                "service": "Wallet Connector",
+                "input": {
+                    "wallet": "0xf39fd6e51aad88f6f4ce6ab8827279cfffb92266"
+                },
+                "output": {
+                    "connected": true,
+                    "address": "0xf39fd6e51aad88f6f4ce6ab8827279cfffb92266"
+                },
+                "success": true,
+                "execution_time": 0.0
+            },
+            {
+                "step_id": "b_2",
+                "service": "Wallet Collector",
+                "input": {
+                    "wallet": "0xf39fd6e51aad88f6f4ce6ab8827279cfffb92266"
+                },
+                "output": {
+                    "wallet": "0xf39fd6e51aad88f6f4ce6ab8827279cfffb92266",
+                    "balance": 102.79565396100881,
+                    "tx_count": 50,
+                    "first_tx_timestamp": "2026-06-03T09:44:52.000000Z"
+                },
+                "success": true,
+                "execution_time": 1817.95
+            },
+            {
+                "step_id": "b_3",
+                "service": "Credit Engine",
+                "input": {
+                    "wallet": "0xf39fd6e51aad88f6f4ce6ab8827279cfffb92266"
+                },
+                "output": {
+                    "credit_score": 587
+                },
+                "success": true,
+                "execution_time": 4085.55
+            },
+            {
+                "step_id": "b_4",
+                "service": "Universal Verification Network",
+                "input": {
+                    "wallet": "0xf39fd6e51aad88f6f4ce6ab8827279cfffb92266"
+                },
+                "output": {
+                    "wallet": "0xf39Fd6e51aad88F6F4ce6aB8827279cffFb92266",
+                    "verification_id": "vf_9b3950d83a81",
+                    "passport_valid": true,
+                    "oracle_verified": true,
+                    "credit_score": 585,
+                    "trust_score": 59,
+                    "risk_level": "HIGH",
+                    "protocol_profiles": [
+                        {
+                            "protocol": "LENDING",
+                            "data": {
+                                "protocol": "LENDING",
+                                "max_ltv": 68,
+                                "interest_rate": 13,
+                                "max_loan": 908,
+                                "eligible": true
+                            }
+                        },
+                        {
+                            "protocol": "INSURANCE",
+                            "data": {
+                                "protocol": "INSURANCE",
+                                "risk_class": "MEDIUM",
+                                "coverage_limit": 6750,
+                                "premium_discount": 18
+                            }
+                        },
+                        {
+                            "protocol": "RWA",
+                            "data": {
+                                "protocol": "RWA",
+                                "asset_limit": 11135,
+                                "risk": "MEDIUM",
+                                "institutional_grade": false
+                            }
+                        },
+                        {
+                            "protocol": "DAO",
+                            "data": {
+                                "protocol": "DAO",
+                                "voting_weight": "MEDIUM",
+                                "delegate_recommended": false
+                            }
+                        },
+                        {
+                            "protocol": "INSTITUTIONAL",
+                            "data": {
+                                "protocol": "INSTITUTIONAL",
+                                "approved": false,
+                                "confidence": 54,
+                                "risk": "HIGH"
+                            }
+                        }
+                    ],
+                    "attestation_id": "att_9333b18190694e8c",
+                    "passport_id": "cp_v2_9b41aa2ce29b",
+                    "verified_at": "2026-07-03T15:18:30.821199Z",
+                    "expires_at": "2026-08-02T15:18:30.821199Z",
+                    "network_version": "1.0.0",
+                    "trust_seal": "SILVER",
+                    "verification_hash": "0x6d025acf42ceaa47a5c0c49e27a56bad248b614d9d997e4d202838126c9c7170",
+                    "passport_hash": "0x13218233adc821688b5a6f2a1455068fe50a3cc3bffe89cc153f2aafbc012a46",
+                    "attestation_hash": "0xf07efd54acaa9d063c63e1e735bb1b8780c28e070b8f7725f4d717c28ef2d03e",
+                    "oracle_signature": "0xb59159bb257f7dbd769842a35fb07d07508bc2c885fefc92dc442f6a1e908d4a54df902ec3c6927a053b1a346551bf37edde9005d1aa7f8baf9dee98c7fc32521b",
+                    "registry_tx": "0xe4731c05309126eb7248d723b3400018f47a392ac7e1502da4e296aab66622da"
+                },
+                "success": true,
+                "execution_time": 5280.14
+            },
+            {
+                "step_id": "b_5",
+                "service": "Loan Offer Engine",
+                "input": {
+                    "wallet": "0xf39fd6e51aad88f6f4ce6ab8827279cfffb92266"
+                },
+                "output": {
+                    "offer_hash": "0xfddb76adb7ece066565214f433a71f95a0dce6c62ed74b4082a5a5b3881e5429",
+                    "approved": true,
+                    "approved_amount": 61.67739227421169
+                },
+                "success": true,
+                "execution_time": 4801.63
+            },
+            {
+                "step_id": "b_6",
+                "service": "AI Agent Network",
+                "input": {
+                    "wallet": "0xf39fd6e51aad88f6f4ce6ab8827279cfffb92266"
+                },
+                "output": {
+                    "wallet": "0xf39Fd6e51aad88F6F4ce6aB8827279cffFb92266",
+                    "agent_type": "BORROWER",
+                    "answer": "Your credit standing is currently suboptimal, with a credit score of 585, which is below the average. However, your trust score of 59 and improving trajectory with a predicted score of 595 indicate potential for growth. The high risk level and default probability of 48.2% suggest caution, but successful repayments of 2 loan offers on-time are a positive signal.",
+                    "confidence": 95.0,
+                    "recommendations": [
+                        "Maintain a consistent repayment history to further improve your credit score",
+                        "Monitor and address the 'Declining Wallet Activity' signal to mitigate dormancy risks"
+                    ],
+                    "sources": [
+                        "CreditRegistry",
+                        "PassportRegistry",
+                        "OracleSignatureEngine",
+                        "PredictiveRiskEngine"
+                    ],
+                    "generated_at": "2026-07-03T15:18:56.967628+00:00",
+                    "decision_trace": [
+                        "Initializing AI agent network session",
+                        "Retrieving live on-chain credentials & verification states",
+                        "Loading credit score and risk profiling metrics",
+                        "Computing forward-looking predictive risk trajectories",
+                        "Scanning ecosystem registries and policies mapping",
+                        "Routing reasoning context to LLM neural pipeline",
+                        "Generated grounded advice report and decision trace"
+                    ]
+                },
+                "success": true,
+                "execution_time": 16069.65
+            },
+            {
+                "step_id": "b_7",
+                "service": "Credit Optimization Engine",
+                "input": {
+                    "wallet": "0xf39fd6e51aad88f6f4ce6ab8827279cfffb92266"
+                },
+                "output": {
+                    "checklist": [
+                        {
+                            "action_id": "act_repay",
+                            "title": "Complete successful repayments",
+                            "description": "Fully settle outstanding loan allocations ahead of payment term ends.",
+                            "difficulty": "EASY",
+                            "expected_score_gain": 55,
+                            "estimated_time_days": 7,
+                            "priority": 1
+                        },
+                        {
+                            "action_id": "act_diversify",
+                            "title": "Diversify Protocol Engagements",
+                            "description": "Allocate collateral shares across at least 3 distinct money markets adapters.",
+                            "difficulty": "MEDIUM",
+                            "expected_score_gain": 40,
+                            "estimated_time_days": 30,
+                            "priority": 1
+                        },
+                        {
+                            "action_id": "act_activity",
+                            "title": "Increase Wallet Activity Velocity",
+                            "description": "Perform consistent weekly smart contract executions to build on-chain footprints.",
+                            "difficulty": "EASY",
+                            "expected_score_gain": 30,
+                            "estimated_time_days": 14,
+                            "priority": 2
+                        },
+                        {
+                            "action_id": "act_history",
+                            "title": "Build Long-term History",
+                            "description": "Maintain active credentials state over continuous months.",
+                            "difficulty": "HARD",
+                            "expected_score_gain": 25,
+                            "estimated_time_days": 90,
+                            "priority": 4
+                        }
+                    ]
+                },
+                "success": true,
+                "execution_time": 5716.43
+            }
+        ],
+        "status": "COMPLETED",
+        "duration": 37.77,
+        "result": "Wallet successfully converted into verified credit identity."
+    },
+    {
+        "scenario_id": "BORROWER_JOURNEY",
+        "steps": [
+            {
+                "step_id": "b_1",
+                "service": "Wallet Connector",
+                "input": {
+                    "wallet": "0xf39fd6e51aad88f6f4ce6ab8827279cfffb92266"
+                },
+                "output": {
+                    "connected": true,
+                    "address": "0xf39fd6e51aad88f6f4ce6ab8827279cfffb92266"
+                },
+                "success": true,
+                "execution_time": 0.0
+            },
+            {
+                "step_id": "b_2",
+                "service": "Wallet Collector",
+                "input": {
+                    "wallet": "0xf39fd6e51aad88f6f4ce6ab8827279cfffb92266"
+                },
+                "output": {
+                    "wallet": "0xf39fd6e51aad88f6f4ce6ab8827279cfffb92266",
+                    "balance": 102.79565361948453,
+                    "tx_count": 50,
+                    "first_tx_timestamp": "2026-06-03T10:11:18.000000Z"
+                },
+                "success": true,
+                "execution_time": 1668.55
+            },
+            {
+                "step_id": "b_3",
+                "service": "Credit Engine",
+                "input": {
+                    "wallet": "0xf39fd6e51aad88f6f4ce6ab8827279cfffb92266"
+                },
+                "output": {
+                    "credit_score": 587
+                },
+                "success": true,
+                "execution_time": 2225.43
+            },
+            {
+                "step_id": "b_4",
+                "service": "Universal Verification Network",
+                "input": {
+                    "wallet": "0xf39fd6e51aad88f6f4ce6ab8827279cfffb92266"
+                },
+                "output": {
+                    "wallet": "0xf39Fd6e51aad88F6F4ce6aB8827279cffFb92266",
+                    "verification_id": "vf_66d86b7073fc",
+                    "passport_valid": true,
+                    "oracle_verified": true,
+                    "credit_score": 585,
+                    "trust_score": 59,
+                    "risk_level": "HIGH",
+                    "protocol_profiles": [
+                        {
+                            "protocol": "LENDING",
+                            "data": {
+                                "protocol": "LENDING",
+                                "max_ltv": 68,
+                                "interest_rate": 13,
+                                "max_loan": 908,
+                                "eligible": true
+                            }
+                        },
+                        {
+                            "protocol": "INSURANCE",
+                            "data": {
+                                "protocol": "INSURANCE",
+                                "risk_class": "MEDIUM",
+                                "coverage_limit": 6750,
+                                "premium_discount": 18
+                            }
+                        },
+                        {
+                            "protocol": "RWA",
+                            "data": {
+                                "protocol": "RWA",
+                                "asset_limit": 11135,
+                                "risk": "MEDIUM",
+                                "institutional_grade": false
+                            }
+                        },
+                        {
+                            "protocol": "DAO",
+                            "data": {
+                                "protocol": "DAO",
+                                "voting_weight": "MEDIUM",
+                                "delegate_recommended": false
+                            }
+                        },
+                        {
+                            "protocol": "INSTITUTIONAL",
+                            "data": {
+                                "protocol": "INSTITUTIONAL",
+                                "approved": false,
+                                "confidence": 54,
+                                "risk": "HIGH"
+                            }
+                        }
+                    ],
+                    "attestation_id": "att_9333b18190694e8c",
+                    "passport_id": "cp_v2_9b41aa2ce29b",
+                    "verified_at": "2026-07-03T15:21:41.504202Z",
+                    "expires_at": "2026-08-02T15:21:41.504202Z",
+                    "network_version": "1.0.0",
+                    "trust_seal": "SILVER",
+                    "verification_hash": "0x6756b276056a7b7c444467d8870fe4094beb0297adadcbe2662379f549cc427d",
+                    "passport_hash": "0x13218233adc821688b5a6f2a1455068fe50a3cc3bffe89cc153f2aafbc012a46",
+                    "attestation_hash": "0xf07efd54acaa9d063c63e1e735bb1b8780c28e070b8f7725f4d717c28ef2d03e",
+                    "oracle_signature": "0x0f23e4e7502b379d44ecc812e7d8295c4d22f0164e1a4f40023f87adb35ded640a92c92028634f3b586ef31b535db5792b2af0a93fa4be9db8c55e6107d1c4531b",
+                    "registry_tx": "0x691220fd3d4074a11ae7915cb08e2c639df17bafceb60ef4929e68112123ea89"
+                },
+                "success": true,
+                "execution_time": 16811.65
+            },
+            {
+                "step_id": "b_5",
+                "service": "Loan Offer Engine",
+                "input": {
+                    "wallet": "0xf39fd6e51aad88f6f4ce6ab8827279cfffb92266"
+                },
+                "output": {
+                    "offer_hash": "0x1e308f6354918e68cf6bb4309dc3ab571b363106d79c281bf283aec4934d6822",
+                    "approved": true,
+                    "approved_amount": 61.67739207016844
+                },
+                "success": true,
+                "execution_time": 1774.55
+            },
+            {
+                "step_id": "b_6",
+                "service": "AI Agent Network",
+                "input": {
+                    "wallet": "0xf39fd6e51aad88f6f4ce6ab8827279cfffb92266"
+                },
+                "output": {
+                    "wallet": "0xf39Fd6e51aad88F6F4ce6aB8827279cffFb92266",
+                    "agent_type": "BORROWER",
+                    "answer": "Your credit standing is currently below the prime borrower threshold, with a credit score of 585. However, your predicted score is 595, indicating an improving trajectory. The active signals on your wallet show a mix of positive and negative factors, including successful repayments and declining wallet activity. Based on the policies in place, you do not currently meet the eligibility criteria for the Prime Borrower Eligibility policy due to your credit score being below 600.",
+                    "confidence": 95.0,
+                    "recommendations": [
+                        "Consider taking steps to improve your credit score, such as making regular payments and reducing debt, to become eligible for better loan terms.",
+                        "Monitor and address the declining wallet activity signal to mitigate potential dormancy risks and maintain a healthy credit profile."
+                    ],
+                    "sources": [
+                        "CreditRegistry",
+                        "PassportRegistry",
+                        "OracleSignatureEngine",
+                        "PredictiveRiskEngine"
+                    ],
+                    "generated_at": "2026-07-03T15:22:20.145217+00:00",
+                    "decision_trace": [
+                        "Initializing AI agent network session",
+                        "Retrieving live on-chain credentials & verification states",
+                        "Loading credit score and risk profiling metrics",
+                        "Computing forward-looking predictive risk trajectories",
+                        "Scanning ecosystem registries and policies mapping",
+                        "Routing reasoning context to LLM neural pipeline",
+                        "Generated grounded advice report and decision trace"
+                    ]
+                },
+                "success": true,
+                "execution_time": 20060.85
+            },
+            {
+                "step_id": "b_7",
+                "service": "Credit Optimization Engine",
+                "input": {
+                    "wallet": "0xf39fd6e51aad88f6f4ce6ab8827279cfffb92266"
+                },
+                "output": {
+                    "checklist": [
+                        {
+                            "action_id": "act_repay",
+                            "title": "Complete successful repayments",
+                            "description": "Fully settle outstanding loan allocations ahead of payment term ends.",
+                            "difficulty": "EASY",
+                            "expected_score_gain": 55,
+                            "estimated_time_days": 7,
+                            "priority": 1
+                        },
+                        {
+                            "action_id": "act_diversify",
+                            "title": "Diversify Protocol Engagements",
+                            "description": "Allocate collateral shares across at least 3 distinct money markets adapters.",
+                            "difficulty": "MEDIUM",
+                            "expected_score_gain": 40,
+                            "estimated_time_days": 30,
+                            "priority": 1
+                        },
+                        {
+                            "action_id": "act_activity",
+                            "title": "Increase Wallet Activity Velocity",
+                            "description": "Perform consistent weekly smart contract executions to build on-chain footprints.",
+                            "difficulty": "EASY",
+                            "expected_score_gain": 30,
+                            "estimated_time_days": 14,
+                            "priority": 2
+                        },
+                        {
+                            "action_id": "act_history",
+                            "title": "Build Long-term History",
+                            "description": "Maintain active credentials state over continuous months.",
+                            "difficulty": "HARD",
+                            "expected_score_gain": 25,
+                            "estimated_time_days": 90,
+                            "priority": 4
+                        }
+                    ]
+                },
+                "success": true,
+                "execution_time": 4190.19
+            }
+        ],
+        "status": "COMPLETED",
+        "duration": 46.73,
+        "result": "Wallet successfully converted into verified credit identity."
+    },
+    {
+        "scenario_id": "BORROWER_JOURNEY",
+        "steps": [
+            {
+                "step_id": "b_1",
+                "service": "Wallet Connector",
+                "input": {
+                    "wallet": "0xf39fd6e51aad88f6f4ce6ab8827279cfffb92266"
+                },
+                "output": {
+                    "connected": true,
+                    "address": "0xf39fd6e51aad88f6f4ce6ab8827279cfffb92266"
+                },
+                "success": true,
+                "execution_time": 0.0
+            },
+            {
+                "step_id": "b_2",
+                "service": "Wallet Collector",
+                "input": {
+                    "wallet": "0xf39fd6e51aad88f6f4ce6ab8827279cfffb92266"
+                },
+                "output": {
+                    "wallet": "0xf39fd6e51aad88f6f4ce6ab8827279cfffb92266",
+                    "balance": 102.7956532811229,
+                    "tx_count": 50,
+                    "first_tx_timestamp": "2026-06-04T09:18:42.000000Z"
+                },
+                "success": true,
+                "execution_time": 9294.15
+            },
+            {
+                "step_id": "b_3",
+                "service": "Credit Engine",
+                "input": {
+                    "wallet": "0xf39fd6e51aad88f6f4ce6ab8827279cfffb92266"
+                },
+                "output": {
+                    "credit_score": 585
+                },
+                "success": true,
+                "execution_time": 3918.01
+            },
+            {
+                "step_id": "b_4",
+                "service": "Universal Verification Network",
+                "input": {
+                    "wallet": "0xf39fd6e51aad88f6f4ce6ab8827279cfffb92266"
+                },
+                "output": {
+                    "wallet": "0xf39Fd6e51aad88F6F4ce6aB8827279cffFb92266",
+                    "verification_id": "vf_d9c06410697f",
+                    "passport_valid": true,
+                    "oracle_verified": true,
+                    "credit_score": 585,
+                    "trust_score": 59,
+                    "risk_level": "HIGH",
+                    "protocol_profiles": [
+                        {
+                            "protocol": "LENDING",
+                            "data": {
+                                "protocol": "LENDING",
+                                "max_ltv": 68,
+                                "interest_rate": 13,
+                                "max_loan": 908,
+                                "eligible": true
+                            }
+                        },
+                        {
+                            "protocol": "INSURANCE",
+                            "data": {
+                                "protocol": "INSURANCE",
+                                "risk_class": "MEDIUM",
+                                "coverage_limit": 6750,
+                                "premium_discount": 18
+                            }
+                        },
+                        {
+                            "protocol": "RWA",
+                            "data": {
+                                "protocol": "RWA",
+                                "asset_limit": 11135,
+                                "risk": "MEDIUM",
+                                "institutional_grade": false
+                            }
+                        },
+                        {
+                            "protocol": "DAO",
+                            "data": {
+                                "protocol": "DAO",
+                                "voting_weight": "MEDIUM",
+                                "delegate_recommended": false
+                            }
+                        },
+                        {
+                            "protocol": "INSTITUTIONAL",
+                            "data": {
+                                "protocol": "INSTITUTIONAL",
+                                "approved": false,
+                                "confidence": 54,
+                                "risk": "HIGH"
+                            }
+                        }
+                    ],
+                    "attestation_id": "att_9333b18190694e8c",
+                    "passport_id": "cp_v2_9b41aa2ce29b",
+                    "verified_at": "2026-07-03T15:24:02.015371Z",
+                    "expires_at": "2026-08-02T15:24:02.015371Z",
+                    "network_version": "1.0.0",
+                    "trust_seal": "SILVER",
+                    "verification_hash": "0xb581be7454e56d908aacc09641fb6afa5c87106cc6a1d8b07909973fa4b2f98c",
+                    "passport_hash": "0x13218233adc821688b5a6f2a1455068fe50a3cc3bffe89cc153f2aafbc012a46",
+                    "attestation_hash": "0xf07efd54acaa9d063c63e1e735bb1b8780c28e070b8f7725f4d717c28ef2d03e",
+                    "oracle_signature": "0x0d0676ad60a0647b99238eb77b785436fb4fe3485d86e9dfb3f2b78f69ff3a5367fa56a33c0698bcb0eaf36ad97b5fefcf5d630dfaa70b912fb6c540e969a0611b",
+                    "registry_tx": "0xefe752f2180441199fb1cd5f20492b31896ff4b42844b92a6e727b7df361541a"
+                },
+                "success": true,
+                "execution_time": 8114.39
+            },
+            {
+                "step_id": "b_5",
+                "service": "Loan Offer Engine",
+                "input": {
+                    "wallet": "0xf39fd6e51aad88f6f4ce6ab8827279cfffb92266"
+                },
+                "output": {
+                    "offer_hash": "0x66599361276b4d548b3634619a59645edb0e674595689721ca9fd6fcf50dd3f8",
+                    "approved": true,
+                    "approved_amount": 61.67739186744189
+                },
+                "success": true,
+                "execution_time": 4091.31
+            },
+            {
+                "step_id": "b_6",
+                "service": "AI Agent Network",
+                "input": {
+                    "wallet": "0xf39fd6e51aad88f6f4ce6ab8827279cfffb92266"
+                },
+                "output": {
+                    "wallet": "0xf39Fd6e51aad88F6F4ce6aB8827279cffFb92266",
+                    "agent_type": "BORROWER",
+                    "answer": "Your credit standing is currently below the prime borrower threshold, with a credit score of 585. However, your predicted score is 595, indicating an improving trajectory. Despite this, your default probability is still relatively high at 48.2%. The active signals on your wallet show a mix of positive and negative factors, including successful repayments and declining wallet activity. Based on the policies in place, you do not currently meet the eligibility criteria for prime borrower status, which requires a credit score above 600.",
+                    "confidence": 95.0,
+                    "recommendations": [
+                        "Continue to make timely repayments to improve your credit score and reduce default probability",
+                        "Increase wallet activity to mitigate dormancy risks and demonstrate a more stable financial profile"
+                    ],
+                    "sources": [
+                        "CreditRegistry",
+                        "PassportRegistry",
+                        "OracleSignatureEngine",
+                        "PredictiveRiskEngine"
+                    ],
+                    "generated_at": "2026-07-03T15:24:31.998913+00:00",
+                    "decision_trace": [
+                        "Initializing AI agent network session",
+                        "Retrieving live on-chain credentials & verification states",
+                        "Loading credit score and risk profiling metrics",
+                        "Computing forward-looking predictive risk trajectories",
+                        "Scanning ecosystem registries and policies mapping",
+                        "Routing reasoning context to LLM neural pipeline",
+                        "Generated grounded advice report and decision trace"
+                    ]
+                },
+                "success": true,
+                "execution_time": 17785.97
+            },
+            {
+                "step_id": "b_7",
+                "service": "Credit Optimization Engine",
+                "input": {
+                    "wallet": "0xf39fd6e51aad88f6f4ce6ab8827279cfffb92266"
+                },
+                "output": {
+                    "checklist": [
+                        {
+                            "action_id": "act_repay",
+                            "title": "Complete successful repayments",
+                            "description": "Fully settle outstanding loan allocations ahead of payment term ends.",
+                            "difficulty": "EASY",
+                            "expected_score_gain": 55,
+                            "estimated_time_days": 7,
+                            "priority": 1
+                        },
+                        {
+                            "action_id": "act_diversify",
+                            "title": "Diversify Protocol Engagements",
+                            "description": "Allocate collateral shares across at least 3 distinct money markets adapters.",
+                            "difficulty": "MEDIUM",
+                            "expected_score_gain": 40,
+                            "estimated_time_days": 30,
+                            "priority": 1
+                        },
+                        {
+                            "action_id": "act_activity",
+                            "title": "Increase Wallet Activity Velocity",
+                            "description": "Perform consistent weekly smart contract executions to build on-chain footprints.",
+                            "difficulty": "EASY",
+                            "expected_score_gain": 30,
+                            "estimated_time_days": 14,
+                            "priority": 2
+                        },
+                        {
+                            "action_id": "act_history",
+                            "title": "Build Long-term History",
+                            "description": "Maintain active credentials state over continuous months.",
+                            "difficulty": "HARD",
+                            "expected_score_gain": 25,
+                            "estimated_time_days": 90,
+                            "priority": 4
+                        }
+                    ]
+                },
+                "success": true,
+                "execution_time": 2786.27
+            }
+        ],
+        "status": "COMPLETED",
+        "duration": 45.99,
+        "result": "Wallet successfully converted into verified credit identity."
+    },
+    {
+        "scenario_id": "BORROWER_JOURNEY",
+        "steps": [
+            {
+                "step_id": "b_1",
+                "service": "Wallet Connector",
+                "input": {
+                    "wallet": "0xf39fd6e51aad88f6f4ce6ab8827279cfffb92266"
+                },
+                "output": {
+                    "connected": true,
+                    "address": "0xf39fd6e51aad88f6f4ce6ab8827279cfffb92266"
+                },
+                "success": true,
+                "execution_time": 0.0
+            },
+            {
+                "step_id": "b_2",
+                "service": "Wallet Collector",
+                "input": {
+                    "wallet": "0xf39fd6e51aad88f6f4ce6ab8827279cfffb92266"
+                },
+                "output": {
+                    "wallet": "0xf39fd6e51aad88f6f4ce6ab8827279cfffb92266",
+                    "balance": 102.79565294199743,
+                    "tx_count": 50,
+                    "first_tx_timestamp": "2026-06-04T09:26:36.000000Z"
+                },
+                "success": true,
+                "execution_time": 2540.52
+            },
+            {
+                "step_id": "b_3",
+                "service": "Credit Engine",
+                "input": {
+                    "wallet": "0xf39fd6e51aad88f6f4ce6ab8827279cfffb92266"
+                },
+                "output": {
+                    "credit_score": 585
+                },
+                "success": true,
+                "execution_time": 2575.55
+            },
+            {
+                "step_id": "b_4",
+                "service": "Universal Verification Network",
+                "input": {
+                    "wallet": "0xf39fd6e51aad88f6f4ce6ab8827279cfffb92266"
+                },
+                "output": {
+                    "wallet": "0xf39Fd6e51aad88F6F4ce6aB8827279cffFb92266",
+                    "verification_id": "vf_cfc8021922ed",
+                    "passport_valid": true,
+                    "oracle_verified": true,
+                    "credit_score": 585,
+                    "trust_score": 59,
+                    "risk_level": "HIGH",
+                    "protocol_profiles": [
+                        {
+                            "protocol": "LENDING",
+                            "data": {
+                                "protocol": "LENDING",
+                                "max_ltv": 68,
+                                "interest_rate": 13,
+                                "max_loan": 908,
+                                "eligible": true
+                            }
+                        },
+                        {
+                            "protocol": "INSURANCE",
+                            "data": {
+                                "protocol": "INSURANCE",
+                                "risk_class": "MEDIUM",
+                                "coverage_limit": 6750,
+                                "premium_discount": 18
+                            }
+                        },
+                        {
+                            "protocol": "RWA",
+                            "data": {
+                                "protocol": "RWA",
+                                "asset_limit": 11135,
+                                "risk": "MEDIUM",
+                                "institutional_grade": false
+                            }
+                        },
+                        {
+                            "protocol": "DAO",
+                            "data": {
+                                "protocol": "DAO",
+                                "voting_weight": "MEDIUM",
+                                "delegate_recommended": false
+                            }
+                        },
+                        {
+                            "protocol": "INSTITUTIONAL",
+                            "data": {
+                                "protocol": "INSTITUTIONAL",
+                                "approved": false,
+                                "confidence": 54,
+                                "risk": "HIGH"
+                            }
+                        }
+                    ],
+                    "attestation_id": "att_9333b18190694e8c",
+                    "passport_id": "cp_v2_9b41aa2ce29b",
+                    "verified_at": "2026-07-03T15:26:24.925206Z",
+                    "expires_at": "2026-08-02T15:26:24.925206Z",
+                    "network_version": "1.0.0",
+                    "trust_seal": "SILVER",
+                    "verification_hash": "0x14d9ae1bf37019d4fb160947c06f8b0f13ec9a9c2002f6cc302f6e30851a781d",
+                    "passport_hash": "0x13218233adc821688b5a6f2a1455068fe50a3cc3bffe89cc153f2aafbc012a46",
+                    "attestation_hash": "0xf07efd54acaa9d063c63e1e735bb1b8780c28e070b8f7725f4d717c28ef2d03e",
+                    "oracle_signature": "0x91242c58e719ab108a239c82d1654b1ce91ed59923775f2f52ff1376aedade04438ce18c89dd12efe240b9306040fda7fd948949c2734470e13c3bce6e309b971b",
+                    "registry_tx": "0x634efce9c67563416475d5048a62360df04e8e358b792389ea6558712b54fe2a"
+                },
+                "success": true,
+                "execution_time": 13575.18
+            },
+            {
+                "step_id": "b_5",
+                "service": "Loan Offer Engine",
+                "input": {
+                    "wallet": "0xf39fd6e51aad88f6f4ce6ab8827279cfffb92266"
+                },
+                "output": {
+                    "offer_hash": "0x1df4f8e689e57f30d987cf78f5040735e13016930bdb5223a86b7a3989bf75f6",
+                    "approved": true,
+                    "approved_amount": 61.67739166471893
+                },
+                "success": true,
+                "execution_time": 6110.31
+            },
+            {
+                "step_id": "b_6",
+                "service": "AI Agent Network",
+                "input": {
+                    "wallet": "0xf39fd6e51aad88f6f4ce6ab8827279cfffb92266"
+                },
+                "output": {
+                    "wallet": "0xf39Fd6e51aad88F6F4ce6aB8827279cffFb92266",
+                    "agent_type": "BORROWER",
+                    "answer": "Your credit standing is currently suboptimal, with a credit score of 585, which is below the threshold for prime borrower eligibility. However, your trust score is 59, and your predicted score is 595, indicating an improving trajectory. The default probability now is 48.2%, and in the future, it's 46.4%. Given these factors, it's essential to monitor and improve your credit behavior to enhance your credit standing.",
+                    "confidence": 95.0,
+                    "recommendations": [
+                        "Maintain a consistent repayment history to improve your credit score",
+                        "Monitor and adjust your financial behavior to reduce the default probability"
+                    ],
+                    "sources": [
+                        "CreditRegistry",
+                        "PassportRegistry",
+                        "OracleSignatureEngine",
+                        "PredictiveRiskEngine"
+                    ],
+                    "generated_at": "2026-07-03T15:27:05.727367+00:00",
+                    "decision_trace": [
+                        "Initializing AI agent network session",
+                        "Retrieving live on-chain credentials & verification states",
+                        "Loading credit score and risk profiling metrics",
+                        "Computing forward-looking predictive risk trajectories",
+                        "Scanning ecosystem registries and policies mapping",
+                        "Routing reasoning context to LLM neural pipeline",
+                        "Generated grounded advice report and decision trace"
+                    ]
+                },
+                "success": true,
+                "execution_time": 21121.44
+            },
+            {
+                "step_id": "b_7",
+                "service": "Credit Optimization Engine",
+                "input": {
+                    "wallet": "0xf39fd6e51aad88f6f4ce6ab8827279cfffb92266"
+                },
+                "output": {
+                    "checklist": [
+                        {
+                            "action_id": "act_repay",
+                            "title": "Complete successful repayments",
+                            "description": "Fully settle outstanding loan allocations ahead of payment term ends.",
+                            "difficulty": "EASY",
+                            "expected_score_gain": 55,
+                            "estimated_time_days": 7,
+                            "priority": 1
+                        },
+                        {
+                            "action_id": "act_diversify",
+                            "title": "Diversify Protocol Engagements",
+                            "description": "Allocate collateral shares across at least 3 distinct money markets adapters.",
+                            "difficulty": "MEDIUM",
+                            "expected_score_gain": 40,
+                            "estimated_time_days": 30,
+                            "priority": 1
+                        },
+                        {
+                            "action_id": "act_activity",
+                            "title": "Increase Wallet Activity Velocity",
+                            "description": "Perform consistent weekly smart contract executions to build on-chain footprints.",
+                            "difficulty": "EASY",
+                            "expected_score_gain": 30,
+                            "estimated_time_days": 14,
+                            "priority": 2
+                        },
+                        {
+                            "action_id": "act_history",
+                            "title": "Build Long-term History",
+                            "description": "Maintain active credentials state over continuous months.",
+                            "difficulty": "HARD",
+                            "expected_score_gain": 25,
+                            "estimated_time_days": 90,
+                            "priority": 4
+                        }
+                    ]
+                },
+                "success": true,
+                "execution_time": 2380.48
+            }
+        ],
+        "status": "COMPLETED",
+        "duration": 48.3,
+        "result": "Wallet successfully converted into verified credit identity."
+    },
+    {
+        "scenario_id": "BORROWER_JOURNEY",
+        "steps": [
+            {
+                "step_id": "b_1",
+                "service": "Wallet Connector",
+                "input": {
+                    "wallet": "0xf39fd6e51aad88f6f4ce6ab8827279cfffb92266"
+                },
+                "output": {
+                    "connected": true,
+                    "address": "0xf39fd6e51aad88f6f4ce6ab8827279cfffb92266"
+                },
+                "success": true,
+                "execution_time": 0.0
+            },
+            {
+                "step_id": "b_2",
+                "service": "Wallet Collector",
+                "input": {
+                    "wallet": "0xf39fd6e51aad88f6f4ce6ab8827279cfffb92266"
+                },
+                "output": {
+                    "wallet": "0xf39fd6e51aad88f6f4ce6ab8827279cfffb92266",
+                    "balance": 102.79565260603687,
+                    "tx_count": 50,
+                    "first_tx_timestamp": "2026-06-06T05:38:10.000000Z"
+                },
+                "success": true,
+                "execution_time": 2919.68
+            },
+            {
+                "step_id": "b_3",
+                "service": "Credit Engine",
+                "input": {
+                    "wallet": "0xf39fd6e51aad88f6f4ce6ab8827279cfffb92266"
+                },
+                "output": {
+                    "credit_score": 585
+                },
+                "success": true,
+                "execution_time": 3132.33
+            },
+            {
+                "step_id": "b_4",
+                "service": "Universal Verification Network",
+                "input": {
+                    "wallet": "0xf39fd6e51aad88f6f4ce6ab8827279cfffb92266"
+                },
+                "output": {
+                    "wallet": "0xf39Fd6e51aad88F6F4ce6aB8827279cffFb92266",
+                    "verification_id": "vf_d376ab341406",
+                    "passport_valid": true,
+                    "oracle_verified": true,
+                    "credit_score": 585,
+                    "trust_score": 59,
+                    "risk_level": "HIGH",
+                    "protocol_profiles": [
+                        {
+                            "protocol": "LENDING",
+                            "data": {
+                                "protocol": "LENDING",
+                                "max_ltv": 68,
+                                "interest_rate": 13,
+                                "max_loan": 908,
+                                "eligible": true
+                            }
+                        },
+                        {
+                            "protocol": "INSURANCE",
+                            "data": {
+                                "protocol": "INSURANCE",
+                                "risk_class": "MEDIUM",
+                                "coverage_limit": 6750,
+                                "premium_discount": 18
+                            }
+                        },
+                        {
+                            "protocol": "RWA",
+                            "data": {
+                                "protocol": "RWA",
+                                "asset_limit": 11135,
+                                "risk": "MEDIUM",
+                                "institutional_grade": false
+                            }
+                        },
+                        {
+                            "protocol": "DAO",
+                            "data": {
+                                "protocol": "DAO",
+                                "voting_weight": "MEDIUM",
+                                "delegate_recommended": false
+                            }
+                        },
+                        {
+                            "protocol": "INSTITUTIONAL",
+                            "data": {
+                                "protocol": "INSTITUTIONAL",
+                                "approved": false,
+                                "confidence": 54,
+                                "risk": "HIGH"
+                            }
+                        }
+                    ],
+                    "attestation_id": "att_9333b18190694e8c",
+                    "passport_id": "cp_v2_9b41aa2ce29b",
+                    "verified_at": "2026-07-03T15:28:59.318196Z",
+                    "expires_at": "2026-08-02T15:28:59.318196Z",
+                    "network_version": "1.0.0",
+                    "trust_seal": "SILVER",
+                    "verification_hash": "0xaf262449fb225b67b9c7680ca14845eef0eedda5f8e7615a8513cb6ee28c6969",
+                    "passport_hash": "0x13218233adc821688b5a6f2a1455068fe50a3cc3bffe89cc153f2aafbc012a46",
+                    "attestation_hash": "0xf07efd54acaa9d063c63e1e735bb1b8780c28e070b8f7725f4d717c28ef2d03e",
+                    "oracle_signature": "0xcb7bd0b4172600cc7abf6cb68d004490f992ae77ff8d036d51db528cb993eb8b095c1fec9cf0af291efd1f535f52e27055787108b71d4cc8e314963c44bae2401c",
+                    "registry_tx": "0x43a4b783fc1923f038ac2b310d3e308be6a7bb6116b2ddb96c8d968b4c4fbc03"
+                },
+                "success": true,
+                "execution_time": 11631.15
+            },
+            {
+                "step_id": "b_5",
+                "service": "Loan Offer Engine",
+                "input": {
+                    "wallet": "0xf39fd6e51aad88f6f4ce6ab8827279cfffb92266"
+                },
+                "output": {
+                    "offer_hash": "0xab40fd94e3673b2fd2431f542a7ed0f84a52c9f6e893803ce1f4d47b20ce4304",
+                    "approved": true,
+                    "approved_amount": 61.6773914613954
+                },
+                "success": true,
+                "execution_time": 4313.71
+            },
+            {
+                "step_id": "b_6",
+                "service": "AI Agent Network",
+                "input": {
+                    "wallet": "0xf39fd6e51aad88f6f4ce6ab8827279cfffb92266"
+                },
+                "output": {
+                    "wallet": "0xf39Fd6e51aad88F6F4ce6aB8827279cffFb92266",
+                    "agent_type": "BORROWER",
+                    "answer": "Your credit standing is currently suboptimal, with a credit score of 585, which is below the prime borrower threshold of 600. However, your trust score is 59, and your risk level is classified as HIGH. Despite this, your predicted score is 595, indicating an improving trajectory. You have a history of successful repayments, with 2 loan offers repaid on-time, which is a positive signal. Nevertheless, you have a declining wallet activity signal, which may indicate potential dormancy risks. Your current balance is 0.00 ETH, but this has a neutral impact.",
+                    "confidence": 95.0,
+                    "recommendations": [
+                        "Consider applying for a loan with a lower LTV to improve your credit standing",
+                        "Increase your wallet activity to mitigate dormancy risks",
+                        "Explore insurance options to reduce your risk profile",
+                        "Work on improving your credit score to become eligible for prime borrower programs"
+                    ],
+                    "sources": [
+                        "CreditRegistry",
+                        "PassportRegistry",
+                        "OracleSignatureEngine",
+                        "PredictiveRiskEngine"
+                    ],
+                    "generated_at": "2026-07-03T15:29:30.484947+00:00",
+                    "decision_trace": [
+                        "Initializing AI agent network session",
+                        "Retrieving live on-chain credentials & verification states",
+                        "Loading credit score and risk profiling metrics",
+                        "Computing forward-looking predictive risk trajectories",
+                        "Scanning ecosystem registries and policies mapping",
+                        "Routing reasoning context to LLM neural pipeline",
+                        "Generated grounded advice report and decision trace"
+                    ]
+                },
+                "success": true,
+                "execution_time": 15232.48
+            },
+            {
+                "step_id": "b_7",
+                "service": "Credit Optimization Engine",
+                "input": {
+                    "wallet": "0xf39fd6e51aad88f6f4ce6ab8827279cfffb92266"
+                },
+                "output": {
+                    "checklist": [
+                        {
+                            "action_id": "act_repay",
+                            "title": "Complete successful repayments",
+                            "description": "Fully settle outstanding loan allocations ahead of payment term ends.",
+                            "difficulty": "EASY",
+                            "expected_score_gain": 55,
+                            "estimated_time_days": 7,
+                            "priority": 1
+                        },
+                        {
+                            "action_id": "act_diversify",
+                            "title": "Diversify Protocol Engagements",
+                            "description": "Allocate collateral shares across at least 3 distinct money markets adapters.",
+                            "difficulty": "MEDIUM",
+                            "expected_score_gain": 40,
+                            "estimated_time_days": 30,
+                            "priority": 1
+                        },
+                        {
+                            "action_id": "act_activity",
+                            "title": "Increase Wallet Activity Velocity",
+                            "description": "Perform consistent weekly smart contract executions to build on-chain footprints.",
+                            "difficulty": "EASY",
+                            "expected_score_gain": 30,
+                            "estimated_time_days": 14,
+                            "priority": 2
+                        },
+                        {
+                            "action_id": "act_history",
+                            "title": "Build Long-term History",
+                            "description": "Maintain active credentials state over continuous months.",
+                            "difficulty": "HARD",
+                            "expected_score_gain": 25,
+                            "estimated_time_days": 90,
+                            "priority": 4
+                        }
+                    ]
+                },
+                "success": true,
+                "execution_time": 3069.38
+            }
+        ],
+        "status": "COMPLETED",
+        "duration": 40.3,
+        "result": "Wallet successfully converted into verified credit identity."
+    }
+]

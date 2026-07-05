@@ -1,0 +1,22 @@
+{
+    "0xlender1234567890abcdef1234567890abcdef12": {
+        "wallet": "0xlender1234567890abcdef1234567890abcdef12",
+        "capital": 5000.0,
+        "risk_preference": "BALANCED",
+        "duration_days": 90,
+        "target_return": 8.0,
+        "allocation": {
+            "PRIME": 50,
+            "TRUSTED": 30,
+            "STANDARD": 20,
+            "WATCHLIST": 0,
+            "HIGH_RISK": 0
+        },
+        "expected_yield": {
+            "min": 7.0,
+            "max": 12.0,
+            "target": 9.0
+        },
+        "status": "ACTIVE"
+    }
+}
