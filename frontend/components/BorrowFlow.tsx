@@ -304,6 +304,7 @@ export default function BorrowFlow() {
         {stage === BorrowStage.CREDIT_READY && (
           <CreditDecisionStep
             analysis={analysis}
+            wallet={activeWallet}
             onNext={() => handleStageTransition(BorrowStage.OFFER_GENERATED)}
           />
         )}

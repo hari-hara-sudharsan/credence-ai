@@ -1,25 +1,45 @@
+import { useEffect, useState } from "react";
 import TrustIndicator from "./ui/TrustIndicator";
+import ScoreBreakdown from "./ScoreBreakdown";
+import API from "@/lib/api";
 
 interface Props {
   analysis: any;
+  wallet: string;
   onNext: () => void;
 }
 
-export default function CreditDecisionStep({ analysis, onNext }: Props) {
-  // Mock credit profile based on analysis results
-  const score = 742;
-  const rating = "PRIME";
-  const riskLevel = "LOW RISK";
+export default function CreditDecisionStep({ analysis, wallet, onNext }: Props) {
+  const [report, setReport] = useState<any | null>(null);
+  const [loading, setLoading] = useState(true);
 
-  const strengths = [
-    "Strong repayment history across multiple protocols",
-    "Consistent wallet activity over 12+ months",
-    "Healthy collateral-to-debt ratio"
-  ];
+  useEffect(() => {
+    if (!wallet) return;
+    setLoading(true);
+    API.get(`/underwriting/report/${wallet}`)
+      .then((res) => {
+        setReport(res.data);
+        setLoading(false);
+      })
+      .catch((err) => {
+        console.error("Failed to load underwriting report:", err);
+        setLoading(false);
+      });
+  }, [wallet]);
 
-  const weaknesses = [
-    "Relatively low total balance size"
-  ];
+  if (loading) {
+    return (
+      <div style={{ textAlign: "center", padding: "40px 20px" }}>
+        <p style={{ color: "#64748B", fontFamily: "JetBrains Mono, monospace" }}>
+          Loading Underwriting Report...
+        </p>
+      </div>
+    );
+  }
+
+  const score = report?.credit_score || 350;
+  const rating = report?.badge || "WATCHLIST";
+  const riskLevel = report?.risk_level || "MEDIUM RISK";
 
   return (
     <div style={{ padding: "10px 0" }}>
@@ -54,56 +74,31 @@ export default function CreditDecisionStep({ analysis, onNext }: Props) {
             {rating} • {riskLevel}
           </div>
           <div style={{ fontSize: 10, color: "#64748B", marginTop: 4 }}>
-            Eligible for better capital efficiency
+            Default Probability: {report?.default_probability.toFixed(1)}%
           </div>
         </div>
 
-
-        {/* Breakdown */}
+        {/* Dynamic breakdown from AI Underwriting Summary */}
         <div style={{ display: "flex", flexDirection: "column", gap: 16 }}>
-          <div>
-            <div style={{ fontSize: 10, fontWeight: 700, color: "#34D399", marginBottom: 6 }}>
-              STRENGTHS
-            </div>
-            <div style={{ display: "flex", flexDirection: "column", gap: 4 }}>
-              {strengths.map((str, i) => (
-                <div key={i} style={{ fontSize: 12, color: "#94A3B8" }}>
-                  ✓ {str}
-                </div>
-              ))}
-            </div>
+          <div
+            style={{
+              background: "rgba(52, 211, 153, 0.03)",
+              border: "1px solid rgba(52, 211, 153, 0.1)",
+              borderRadius: 8,
+              padding: 16,
+              fontSize: 12,
+              color: "#94A3B8",
+              lineHeight: 1.5,
+            }}
+          >
+            <strong>AI Underwriter Note:</strong> {report?.summary}
           </div>
-
-          {weaknesses.length > 0 && (
-            <div>
-              <div style={{ fontSize: 10, fontWeight: 700, color: "#FF4D6A", marginBottom: 6 }}>
-                WEAKNESSES
-              </div>
-              <div style={{ display: "flex", flexDirection: "column", gap: 4 }}>
-                {weaknesses.map((w, i) => (
-                  <div key={i} style={{ fontSize: 12, color: "#94A3B8" }}>
-                    ⚠ {w}
-                  </div>
-                ))}
-              </div>
-            </div>
-          )}
         </div>
       </div>
 
-      <div
-        style={{
-          background: "rgba(52, 211, 153, 0.03)",
-          border: "1px solid rgba(52, 211, 153, 0.1)",
-          borderRadius: 8,
-          padding: 16,
-          fontSize: 12,
-          color: "#94A3B8",
-          lineHeight: 1.5,
-          marginBottom: 24,
-        }}
-      >
-        <strong>AI Underwriter Note:</strong> Wallet exhibits exceptional creditworthiness with a 100% repayment ratio on historical loans. Risk level is mitigated by consistent transaction patterns over multiple months. Recommended for under-collateralized borrowing terms.
+      {/* Score Breakdown Component for complete visibility */}
+      <div style={{ marginBottom: 24 }}>
+        <ScoreBreakdown wallet={wallet} />
       </div>
 
       <button

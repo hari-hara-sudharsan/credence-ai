@@ -142,6 +142,10 @@ export default function SettlementStep({ wallet, onComplete }: Props) {
             marginBottom: 24,
           }}
         >
+          <div style={{ fontSize: 10, fontWeight: 800, color: "#34D399", letterSpacing: 1.5, fontFamily: "JetBrains Mono, monospace", borderBottom: "1px solid #111C2E", paddingBottom: 8, marginBottom: 12 }}>
+            HASHKEY SETTLEMENT PROOF
+          </div>
+
           <div style={{ display: "flex", justifyContent: "space-between", borderBottom: "1px solid #111C2E", paddingBottom: 8, marginBottom: 8 }}>
             <span style={{ fontSize: 11, color: "#64748B" }}>SETTLEMENT ID</span>
             <span style={{ fontSize: 12, fontFamily: "JetBrains Mono, monospace", color: "#E2E8F0" }}>
@@ -150,12 +154,24 @@ export default function SettlementStep({ wallet, onComplete }: Props) {
           </div>
 
           <div style={{ display: "flex", justifyContent: "space-between", borderBottom: "1px solid #111C2E", paddingBottom: 8, marginBottom: 8 }}>
+            <span style={{ fontSize: 11, color: "#64748B" }}>ASSET SETTLED</span>
+            <span style={{ fontSize: 12, color: "#34D399", fontWeight: 700 }}>HSP (HashKey Stablecoin Payment)</span>
+          </div>
+
+          <div style={{ display: "flex", justifyContent: "space-between", borderBottom: "1px solid #111C2E", paddingBottom: 8, marginBottom: 8 }}>
+            <span style={{ fontSize: 11, color: "#64748B" }}>CONTRACT EVENT</span>
+            <span style={{ fontSize: 11, fontFamily: "JetBrains Mono, monospace", color: "#00E5FF" }}>
+              HSPSettlementCompleted
+            </span>
+          </div>
+
+          <div style={{ display: "flex", justifyContent: "space-between", borderBottom: "1px solid #111C2E", paddingBottom: 8, marginBottom: 8 }}>
             <span style={{ fontSize: 11, color: "#64748B" }}>NETWORK</span>
-            <span style={{ fontSize: 12, color: "#E2E8F0" }}>HashKey Chain</span>
+            <span style={{ fontSize: 12, color: "#E2E8F0" }}>HashKey Chain Mainnet</span>
           </div>
 
           <div style={{ display: "flex", flexDirection: "column", gap: 4 }}>
-            <span style={{ fontSize: 11, color: "#64748B" }}>TRANSACTION HASH</span>
+            <span style={{ fontSize: 11, color: "#64748B" }}>TX HASH</span>
             <a
               href={`https://hashkey.blockscout.com/tx/${result.tx_hash.startsWith("0x") ? result.tx_hash : "0x" + result.tx_hash}`}
               target="_blank"
