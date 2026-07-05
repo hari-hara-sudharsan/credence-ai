@@ -2,17 +2,12 @@
 
 import { ethers } from "ethers";
 import { useState } from "react";
+import { useWallet, HASHKEY_MAINNET_CHAIN_ID_HEX, HASHKEY_MAINNET_PARAMS } from "@/context/WalletContext";
 
 import {
   CONTRACT_ADDRESS,
   CONTRACT_ABI,
 } from "@/lib/passportContract";
-
-declare global {
-  interface Window {
-    ethereum?: any;
-  }
-}
 
 export default function MintPassportButton({
   wallet,
@@ -23,6 +18,7 @@ export default function MintPassportButton({
   score: number;
   rating: string;
 }) {
+  const { switchToMainnet } = useWallet();
   const [status, setStatus] = useState<"idle" | "minting" | "success" | "error">("idle");
   const [txHash, setTxHash] = useState<string | null>(null);
 
@@ -32,31 +28,8 @@ export default function MintPassportButton({
     setStatus("minting");
 
     try {
-      try {
-        await window.ethereum.request({
-          method: "wallet_switchEthereumChain",
-          params: [{ chainId: "0x85" }],
-        });
-      } catch (error: any) {
-        if (error.code === 4902) {
-          await window.ethereum.request({
-            method: "wallet_addEthereumChain",
-            params: [
-              {
-                chainId: "0x85",
-                chainName: "HashKey Chain Testnet",
-                rpcUrls: ["https://testnet.hsk.xyz"],
-                nativeCurrency: {
-                  name: "HSK",
-                  symbol: "HSK",
-                  decimals: 18,
-                },
-                blockExplorerUrls: ["https://testnet-explorer.hsk.xyz"],
-              },
-            ],
-          });
-        }
-      }
+      // Ensure user is on HashKey Chain Mainnet
+      await switchToMainnet();
 
       const provider = new ethers.BrowserProvider(window.ethereum);
       const signer = await provider.getSigner();
@@ -177,7 +150,7 @@ export default function MintPassportButton({
             {txHash}
           </div>
           <a
-            href={`https://testnet-explorer.hsk.xyz/tx/${txHash}`}
+            href={`https://hashkey.blockscout.com/tx/${txHash}`}
             target="_blank"
             rel="noopener noreferrer"
             style={{

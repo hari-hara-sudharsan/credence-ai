@@ -71,7 +71,10 @@ class BlockchainPublisher:
                     300000,
 
                     "gasPrice":
-                    self.w3.eth.gas_price
+                    self.w3.eth.gas_price,
+
+                    "chainId":
+                    177
                 }
             )
         )

@@ -46,11 +46,89 @@ from app.api.protocol_models import (
 from app.api.marketplace import (
     router as marketplace_router
 )
+from app.api.loan_offer import (
+    router as loan_offer_router
+)
+from app.api.loan_protocol import (
+    router as loan_protocol_router
+)
+from app.api.borrower_dashboard import (
+    router as borrower_dashboard_router
+)
+from app.api.repayment import (
+    router as repayment_router
+)
+from app.api.reputation import (
+    router as reputation_router
+)
+from app.api.adapter import (
+    router as adapter_router
+)
+from app.api.developer import (
+    router as developer_router,
+    profiles_router
+)
+from app.api.attestations import router as attestations_router
+from app.api.oracle_attestation import router as oracle_attestation_router
+from app.api.passport_v2 import router as passport_v2_router
+from app.api.verification import router as verification_router
+from app.api.policy import router as policy_router
+from app.api.predictions import router as predictions_router
+from app.api.ecosystem import router as ecosystem_router
+from app.api.agents import router as agents_router
+from app.api.alerts import router as alerts_router
+from app.api.optimization import router as optimization_router
+from app.api.marketplace import router as marketplace_router
+from app.api.institution import router as institution_router
+from app.api.reputation_graph import router as reputation_graph_router
+from app.api.governance import router as governance_router
+from app.api.system import router as system_router
+from app.api.demo import router as demo_router
+from app.api.documentation import router as documentation_router
+from app.api.settlement import router as settlement_router
+from app.api.demo_flow import router as demo_flow_router
+from app.api.lending_pool import router as lending_pool_router
+from app.api.p2p_lending import router as p2p_lending_router
+from app.api.capital_matching import router as capital_matching_router
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 app = FastAPI(
     title="Credence AI",
     version="1.0.0"
 )
+
+@app.on_event("startup")
+def save_openapi_json():
+    import json
+    import os
+    from fastapi.openapi.utils import get_openapi
+    spec_path = "c:/Users/Windows/credence-ai/backend/openapi/credence_openapi.json"
+    os.makedirs(os.path.dirname(spec_path), exist_ok=True)
+    schema = get_openapi(
+        title=app.title,
+        version=app.version,
+        routes=app.routes
+    )
+    with open(spec_path, "w") as f:
+        json.dump(schema, f, indent=2)
 
 app.add_middleware(
     CORSMiddleware,
@@ -61,6 +139,8 @@ app.add_middleware(
 )
 
 app.include_router(wallet_router)
+app.include_router(p2p_lending_router)
+app.include_router(capital_matching_router)
 app.include_router(credit_router)
 app.include_router(
     analysis_router
@@ -110,3 +190,106 @@ app.include_router(
 app.include_router(
     marketplace_router
 )
+app.include_router(
+    loan_offer_router
+)
+app.include_router(
+    loan_protocol_router
+)
+app.include_router(
+    borrower_dashboard_router
+)
+app.include_router(
+    repayment_router
+)
+app.include_router(
+    reputation_router
+)
+app.include_router(
+    adapter_router
+)
+app.include_router(
+    developer_router
+)
+app.include_router(
+    profiles_router
+)
+app.include_router(
+    attestations_router
+)
+app.include_router(
+    oracle_attestation_router
+)
+app.include_router(
+    passport_v2_router
+)
+app.include_router(
+    verification_router
+)
+app.include_router(
+    policy_router
+)
+app.include_router(
+    predictions_router
+)
+app.include_router(
+    ecosystem_router
+)
+app.include_router(
+    agents_router
+)
+app.include_router(
+    alerts_router
+)
+app.include_router(
+    optimization_router
+)
+app.include_router(
+    marketplace_router
+)
+app.include_router(
+    institution_router
+)
+app.include_router(
+    reputation_graph_router
+)
+app.include_router(
+    governance_router
+)
+app.include_router(
+    system_router
+)
+app.include_router(
+    demo_router
+)
+app.include_router(
+    documentation_router
+)
+app.include_router(
+    settlement_router
+)
+app.include_router(
+    demo_flow_router
+)
+app.include_router(
+    lending_pool_router
+)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

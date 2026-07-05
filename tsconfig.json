@@ -7,5 +7,7 @@
     "outDir": "dist",
     "types": ["node", "mocha"],
     "verbatimModuleSyntax": true
-  }
+  },
+  "exclude": ["frontend", "backend"]
 }
+

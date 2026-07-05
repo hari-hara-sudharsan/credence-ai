@@ -231,93 +231,111 @@ export default function BorrowerPage() {
 
         {/* Results */}
         {data && status === "idle" && (
-          <div ref={resultsRef} className="space-y-10">
-            {/* Credit score — same readout pattern as the About page */}
-            <div className="rise-in border border-[#2A3142] bg-[#1A1F2B]/60 rounded-sm px-6 sm:px-8 py-7 flex flex-col sm:flex-row sm:items-end sm:justify-between gap-6">
-              <div>
-                <div className="font-mono text-xs tracking-[0.14em] text-[#6B7280] uppercase mb-2">
-                  Credit score
+          <div ref={resultsRef} className="space-y-8">
+            
+            {/* Main Metrics Dashboard Grid */}
+            <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(220px, 1fr))", gap: 20 }}>
+              
+              {/* Card 1: Credit Health */}
+              <div style={{ background: "#0A1425", border: "1px solid #111C2E", borderRadius: 12, padding: 20 }}>
+                <div style={{ fontSize: 9, fontWeight: 700, color: "#64748B", letterSpacing: 1.2, textTransform: "uppercase", marginBottom: 6 }}>
+                  Credit Health
                 </div>
-                <div className="flex items-baseline gap-3">
-                  <span className="font-display text-6xl sm:text-7xl font-medium tabular-nums tracking-tight text-[#E8E6DE]">
-                    {score}
+                <div style={{ fontSize: 24, fontWeight: 800, color: "#34D399", letterSpacing: -0.5 }}>
+                  {data.insight.rating || "PRIME"}
+                </div>
+                <div style={{ fontSize: 11, color: "#4A6080", marginTop: 4 }}>
+                  Eligible for under-collateralized loans
+                </div>
+              </div>
+
+              {/* Card 2: Borrow Capacity */}
+              <div style={{ background: "#0A1425", border: "1px solid #111C2E", borderRadius: 12, padding: 20 }}>
+                <div style={{ fontSize: 9, fontWeight: 700, color: "#64748B", letterSpacing: 1.2, textTransform: "uppercase", marginBottom: 6 }}>
+                  Borrow Capacity
+                </div>
+                <div style={{ fontSize: 24, fontWeight: 800, color: "#00E5FF", letterSpacing: -0.5 }}>
+                  5,000 HSK
+                </div>
+                <div style={{ fontSize: 11, color: "#4A6080", marginTop: 4 }}>
+                  Required collateral: {data.lending.collateral_ratio}%
+                </div>
+              </div>
+
+              {/* Card 3: Trust Level */}
+              <div style={{ background: "#0A1425", border: "1px solid #111C2E", borderRadius: 12, padding: 20 }}>
+                <div style={{ fontSize: 9, fontWeight: 700, color: "#64748B", letterSpacing: 1.2, textTransform: "uppercase", marginBottom: 6 }}>
+                  Trust Level
+                </div>
+                <div style={{ fontSize: 24, fontWeight: 800, color: "#E2E8F0", letterSpacing: -0.5 }}>
+                  {score} / 850
+                </div>
+                <div style={{ fontSize: 11, color: "#4A6080", marginTop: 4 }}>
+                  Reputation-weighted rating
+                </div>
+              </div>
+
+              {/* Card 4: Active Loans */}
+              <div style={{ background: "#0A1425", border: "1px solid #111C2E", borderRadius: 12, padding: 20 }}>
+                <div style={{ fontSize: 9, fontWeight: 700, color: "#64748B", letterSpacing: 1.2, textTransform: "uppercase", marginBottom: 6 }}>
+                  Active Loans
+                </div>
+                <div style={{ fontSize: 24, fontWeight: 800, color: "#E2E8F0", letterSpacing: -0.5 }}>
+                  0 HSK
+                </div>
+                <div style={{ fontSize: 11, color: "#4A6080", marginTop: 4 }}>
+                  All liabilities fully settled
+                </div>
+              </div>
+
+            </div>
+
+            {/* Advanced detailed tables lower in structure */}
+            <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 24 }}>
+              
+              {/* Column 1: Lending Status details */}
+              <div style={{ background: "#0A1425", border: "1px solid #111C2E", borderRadius: 12, padding: 24 }}>
+                <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: 16 }}>
+                  <h3 style={{ fontSize: 13, fontWeight: 700, color: "#E2E8F0", textTransform: "uppercase", letterSpacing: 1 }}>
+                    Lending Conditions
+                  </h3>
+                  <span style={{ fontSize: 10, fontWeight: 700, color: "#34D399", padding: "4px 8px", background: "rgba(52,211,153,0.08)", borderRadius: 6 }}>
+                    {data.lending.eligible ? "ELIGIBLE" : "NOT ELIGIBLE"}
                   </span>
-                  <span className="font-mono text-sm text-[#6B7280]">
-                    / 850
-                  </span>
+                </div>
+                
+                <div style={{ display: "flex", flexDirection: "column", gap: 12 }}>
+                  <div style={{ display: "flex", justifyContent: "space-between", borderBottom: "1px solid #111C2E", paddingBottom: 8 }}>
+                    <span style={{ fontSize: 13, color: "#64748B" }}>Interest Rate</span>
+                    <span style={{ fontSize: 14, fontWeight: 700, color: "#E2E8F0" }}>{data.lending.interest_rate}% APY</span>
+                  </div>
+                  <div style={{ display: "flex", justifyContent: "space-between", borderBottom: "1px solid #111C2E", paddingBottom: 8 }}>
+                    <span style={{ fontSize: 13, color: "#64748B" }}>Collateral Requirement</span>
+                    <span style={{ fontSize: 14, fontWeight: 700, color: "#E2E8F0" }}>{data.lending.collateral_ratio}%</span>
+                  </div>
                 </div>
               </div>
 
-              <div className="flex items-center gap-2">
-                <span className="inline-block w-1.5 h-1.5 rounded-full bg-[#3DDC97]" />
-                <span className="font-mono text-sm tracking-[0.1em] text-[#3DDC97] uppercase">
-                  {data.insight.rating}
-                </span>
-              </div>
-            </div>
-
-            {/* Improvement plan — ledger rows, not a checklist card */}
-            <div className="rise-in border border-[#2A3142] rounded-sm px-6 sm:px-8 py-7">
-              <h2 className="font-mono text-xs tracking-[0.14em] text-[#6B7280] uppercase mb-5">
-                Improvement plan
-              </h2>
-              <ul className="divide-y divide-[#2A3142]">
-                {data.insight.recommendations.map((rec, index) => (
-                  <li
-                    key={index}
-                    className="flex items-start gap-3 py-3 first:pt-0 last:pb-0"
-                  >
-                    <span className="font-mono text-xs text-[#3DDC97] mt-0.5 shrink-0">
-                      ✓
-                    </span>
-                    <span className="font-sans text-base leading-7 text-[#E8E6DE]/90">
-                      {rec}
-                    </span>
-                  </li>
-                ))}
-              </ul>
-            </div>
-
-            {/* Lending status — terms laid out like a record, not paragraphs */}
-            <div className="rise-in border border-[#2A3142] rounded-sm px-6 sm:px-8 py-7">
-              <div className="flex items-center justify-between mb-6">
-                <h2 className="font-mono text-xs tracking-[0.14em] text-[#6B7280] uppercase">
-                  Lending status
-                </h2>
-                <span
-                  className={[
-                    "font-mono text-xs tracking-[0.1em] uppercase px-2.5 py-1 rounded-sm border",
-                    data.lending.eligible
-                      ? "border-[#3DDC97] text-[#3DDC97]"
-                      : "border-[#6B7280] text-[#6B7280]",
-                  ].join(" ")}
-                >
-                  {data.lending.eligible ? "Eligible" : "Not eligible"}
-                </span>
+              {/* Column 2: Improvement Plan */}
+              <div style={{ background: "#0A1425", border: "1px solid #111C2E", borderRadius: 12, padding: 24 }}>
+                <h3 style={{ fontSize: 13, fontWeight: 700, color: "#E2E8F0", textTransform: "uppercase", letterSpacing: 1, marginBottom: 16 }}>
+                  Reputation Recommendations
+                </h3>
+                <ul style={{ display: "flex", flexDirection: "column", gap: 10, padding: 0, margin: 0, listStyle: "none" }}>
+                  {data.insight.recommendations.map((rec, index) => (
+                    <li key={index} style={{ display: "flex", gap: 8, fontSize: 12, color: "#94A3B8" }}>
+                      <span style={{ color: "#34D399" }}>✓</span>
+                      <span>{rec}</span>
+                    </li>
+                  ))}
+                </ul>
               </div>
 
-              <div className="grid grid-cols-2 sm:grid-cols-2 gap-px bg-[#2A3142] rounded-sm overflow-hidden">
-                <div className="bg-[#0B0E14] px-5 py-5">
-                  <div className="font-mono text-xs tracking-[0.1em] text-[#6B7280] uppercase mb-2">
-                    Interest rate
-                  </div>
-                  <div className="font-display text-3xl font-medium tabular-nums">
-                    {data.lending.interest_rate}%
-                  </div>
-                </div>
-                <div className="bg-[#0B0E14] px-5 py-5">
-                  <div className="font-mono text-xs tracking-[0.1em] text-[#6B7280] uppercase mb-2">
-                    Collateral ratio
-                  </div>
-                  <div className="font-display text-3xl font-medium tabular-nums">
-                    {data.lending.collateral_ratio}%
-                  </div>
-                </div>
-              </div>
             </div>
+
           </div>
         )}
       </div>
     </main>
   );
-}
+}

@@ -16,15 +16,15 @@ def test_url(url, data=None):
 test_url("http://127.0.0.1:8000/docs")
 
 print("\n--- Testing Valid Checksum Address ---")
-wallet_checksum = "0xf39Fd6e51aad88F6F4ce6aB8827279cffFb92266"
+wallet_checksum = "0x5bb83E60a7a05A0e1b077B66412a26306e334208"
 test_url("http://127.0.0.1:8000/credit/score", {"wallet": wallet_checksum})
 test_url("http://127.0.0.1:8000/report/", {"wallet": wallet_checksum})
 test_url("http://127.0.0.1:8000/lending/decision", {"wallet": wallet_checksum})
-test_url("http://127.0.0.1:8000/history/0xf39Fd6e51aad88F6F4ce6aB8827279cffFb92266")
+test_url("http://127.0.0.1:8000/history/0x5bb83E60a7a05A0e1b077B66412a26306e334208")
 test_url("http://127.0.0.1:8000/oracle/refresh", {"wallet": wallet_checksum})
 
 print("\n--- Testing Valid Lowercase Address ---")
-wallet_lower = "0xf39fd6e51aad88f6f4ce6ab8827279cfffb92266"
+wallet_lower = "0x5bb83E60a7a05A0e1b077B66412a26306e334208"
 test_url("http://127.0.0.1:8000/credit/score", {"wallet": wallet_lower})
 test_url("http://127.0.0.1:8000/report/", {"wallet": wallet_lower})
 test_url("http://127.0.0.1:8000/lending/decision", {"wallet": wallet_lower})

@@ -17,13 +17,40 @@ export default function ConnectWallet({
 
   const connect = async () => {
     if (!window.ethereum) {
-      alert("Install MetaMask");
+      alert("Please install MetaMask to use Credence AI.");
       return;
     }
 
     const accounts = await window.ethereum.request({
       method: "eth_requestAccounts",
     });
+
+    // Switch to or add HashKey Chain Mainnet
+    try {
+      await window.ethereum.request({
+        method: "wallet_switchEthereumChain",
+        params: [{ chainId: "0xB1" }],
+      });
+    } catch (error: any) {
+      if (error.code === 4902) {
+        await window.ethereum.request({
+          method: "wallet_addEthereumChain",
+          params: [
+            {
+              chainId: "0xB1",
+              chainName: "HashKey Chain",
+              rpcUrls: ["https://mainnet.hsk.xyz"],
+              nativeCurrency: {
+                name: "HSK",
+                symbol: "HSK",
+                decimals: 18,
+              },
+              blockExplorerUrls: ["https://hashkey.blockscout.com"],
+            },
+          ],
+        });
+      }
+    }
 
     setWallet(accounts[0]);
     onConnect(accounts[0]);

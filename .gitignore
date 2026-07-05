@@ -6,4 +6,7 @@ artifacts/
 cache/
 types/
 ignition/deployments/
-
+venv/
+backend/venv/
+backend/data/
+scratch/

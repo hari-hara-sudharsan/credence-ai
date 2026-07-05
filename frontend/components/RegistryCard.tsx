@@ -149,7 +149,7 @@ export default function RegistryCard({ txHash }: { txHash: string }) {
           </div>
 
           <a
-            href={`https://testnet-explorer.hsk.xyz/tx/${txHash}`}
+            href={`https://hashkey.blockscout.com/tx/${txHash}`}
             target="_blank"
             rel="noopener noreferrer"
             style={{

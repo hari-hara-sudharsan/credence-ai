@@ -1,9 +1,11 @@
 "use client";
 
 import { useEffect, useRef, useState } from "react";
+import Link from "next/link";
 
 import API from "@/lib/api";
 import { useWallet } from "@/context/WalletContext";
+
 
 /**
  * Lender Dashboard — Credence AI
@@ -417,9 +419,30 @@ export default function LenderPage() {
               </h2>
               <FormattedReport text={data.report.report ?? "No report available."} />
             </div>
+
+            {/* HSP Settlement Integration Bridge */}
+            {data.lending.eligible && (
+              <div className="rise-in border border-[#3DDC97]/40 bg-[#3DDC97]/[0.02] rounded-sm px-6 sm:px-8 py-6 flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
+                <div>
+                  <h3 className="font-mono text-sm font-semibold text-[#E8E6DE] mb-1">
+                    Ready for Settlement
+                  </h3>
+                  <p className="text-xs text-[#6B7280]">
+                    AI credit evaluation approved this wallet. Proceed to settle funds via HSP gateway.
+                  </p>
+                </div>
+                <Link
+                  href={`/settlement?loanId=loan_${Math.random().toString(36).substring(2, 10)}&wallet=${wallet}&amount=500`}
+                  className="font-mono text-xs tracking-[0.08em] uppercase px-5 py-2.5 rounded-sm border border-[#3DDC97] text-[#0B0E14] bg-[#3DDC97] hover:bg-[#34c688] transition-colors text-center"
+                >
+                  EXECUTE SETTLEMENT ➔
+                </Link>
+              </div>
+            )}
           </div>
         )}
       </div>
+
     </main>
   );
 }

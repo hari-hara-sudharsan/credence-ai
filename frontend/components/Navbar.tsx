@@ -1,26 +1,33 @@
 "use client";
 
-import { useState, useEffect, useRef } from "react";
+import { useState, useEffect } from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import WalletConnect from "@/components/WalletConnect";
 
-const NAV_LINKS = [
-  { href: "/", label: "Dashboard" },
-  { href: "/borrower", label: "Borrower" },
-  { href: "/lender", label: "Lender" },
-  { href: "/marketplace", label: "Marketplace" },
-  { href: "/compare", label: "Compare" },
-  { href: "/simulator", label: "Simulator" },
-  { href: "/leaderboard", label: "Leaderboard" },
-  { href: "/protocol-demo", label: "Oracle" },
-  { href: "/protocol-models", label: "Models" },
-  { href: "/about", label: "About" },
+const PRIMARY_LINKS = [
+  { href: "/", label: "Home" },
+  { href: "/borrow", label: "Borrow" },
+  { href: "/lend", label: "Lend" },
+  { href: "/pool", label: "Pool" },
+  { href: "/developers", label: "Developers" },
+  { href: "/submission", label: "Docs" }
 ];
+
+const ADVANCED_LINKS = [
+  { href: "/governance", label: "Governance" },
+  { href: "/oracle", label: "Oracle" },
+  { href: "/marketplace", label: "Marketplace" },
+  { href: "/system", label: "Monitoring" },
+  { href: "/institution", label: "Institution" }
+];
+
+
 
 export default function Navbar() {
   const pathname = usePathname();
   const [mobileOpen, setMobileOpen] = useState(false);
+  const [advancedOpen, setAdvancedOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
 
   useEffect(() => {
@@ -66,7 +73,7 @@ export default function Navbar() {
           <Link href="/" style={{ textDecoration: "none", display: "flex", alignItems: "center", gap: 10 }}>
             <div style={{
               width: 30, height: 30,
-              border: "1.5px solid #00E5FF",
+              border: "1.5px solid #34D399",
               borderRadius: 7,
               display: "flex", alignItems: "center", justifyContent: "center",
               position: "relative",
@@ -74,15 +81,15 @@ export default function Navbar() {
             }}>
               <div style={{
                 width: 10, height: 10,
-                border: "1.5px solid #00E5FF",
+                border: "1.5px solid #34D399",
                 borderRadius: "50%",
               }} />
               <div style={{
                 position: "absolute",
                 width: 4, height: 4,
-                background: "#00E5FF",
+                background: "#34D399",
                 borderRadius: "50%",
-                boxShadow: "0 0 6px #00E5FF",
+                boxShadow: "0 0 6px #34D399",
               }} />
             </div>
             <span style={{
@@ -93,7 +100,7 @@ export default function Navbar() {
               letterSpacing: 1.2,
               textTransform: "uppercase",
             }}>
-              Credence
+              Credence AI
             </span>
           </Link>
 
@@ -105,7 +112,7 @@ export default function Navbar() {
           }}
             className="desktop-nav"
           >
-            {NAV_LINKS.map(({ href, label }) => {
+            {PRIMARY_LINKS.map(({ href, label }) => {
               const active = pathname === href;
               return (
                 <Link
@@ -115,11 +122,11 @@ export default function Navbar() {
                     fontFamily: "Inter, sans-serif",
                     fontSize: 12,
                     fontWeight: active ? 600 : 500,
-                    color: active ? "#00E5FF" : "#4A6080",
+                    color: active ? "#34D399" : "#4A6080",
                     textDecoration: "none",
                     padding: "6px 10px",
                     borderRadius: 6,
-                    background: active ? "rgba(0, 229, 255, 0.08)" : "transparent",
+                    background: active ? "rgba(52, 211, 153, 0.08)" : "transparent",
                     transition: "all 0.15s ease",
                     whiteSpace: "nowrap",
                     letterSpacing: 0.3,
@@ -129,6 +136,70 @@ export default function Navbar() {
                 </Link>
               );
             })}
+
+            {/* Dropdown menu */}
+            <div
+              onMouseEnter={() => setAdvancedOpen(true)}
+              onMouseLeave={() => setAdvancedOpen(false)}
+              style={{ position: "relative" }}
+            >
+              <button
+                style={{
+                  fontFamily: "Inter, sans-serif",
+                  fontSize: 12,
+                  fontWeight: 500,
+                  color: "#4A6080",
+                  background: "transparent",
+                  border: "none",
+                  cursor: "pointer",
+                  padding: "6px 10px",
+                  display: "flex",
+                  alignItems: "center",
+                  gap: 4,
+                }}
+              >
+                More ▾
+              </button>
+
+
+              {advancedOpen && (
+                <div
+                  style={{
+                    position: "absolute",
+                    top: "100%",
+                    left: 0,
+                    background: "#0A1425",
+                    border: "1px solid #111C2E",
+                    borderRadius: 8,
+                    padding: "8px 0",
+                    boxShadow: "0 8px 32px rgba(0,0,0,0.3)",
+                    minWidth: 140,
+                    display: "flex",
+                    flexDirection: "column",
+                  }}
+                >
+                  {ADVANCED_LINKS.map(({ href, label }) => (
+                    <Link
+                      key={href}
+                      href={href}
+                      style={{
+                        fontFamily: "Inter, sans-serif",
+                        fontSize: 12,
+                        color: "#94A3B8",
+                        textDecoration: "none",
+                        padding: "8px 16px",
+                        transition: "all 0.15s ease",
+                        display: "block",
+                      }}
+                      onMouseEnter={(e) => (e.currentTarget.style.color = "#34D399")}
+                      onMouseLeave={(e) => (e.currentTarget.style.color = "#94A3B8")}
+                    >
+                      {label}
+                    </Link>
+                  ))}
+                </div>
+              )}
+            </div>
           </div>
 
           {/* Right side: wallet + hamburger */}
@@ -171,7 +242,7 @@ export default function Navbar() {
               gap: 2,
             }}
           >
-            {NAV_LINKS.map(({ href, label }) => {
+            {PRIMARY_LINKS.map(({ href, label }) => {
               const active = pathname === href;
               return (
                 <Link
@@ -181,11 +252,11 @@ export default function Navbar() {
                     fontFamily: "Inter, sans-serif",
                     fontSize: 14,
                     fontWeight: active ? 600 : 500,
-                    color: active ? "#00E5FF" : "#94A3B8",
+                    color: active ? "#34D399" : "#94A3B8",
                     textDecoration: "none",
                     padding: "10px 12px",
                     borderRadius: 8,
-                    background: active ? "rgba(0, 229, 255, 0.08)" : "transparent",
+                    background: active ? "rgba(52, 211, 153, 0.08)" : "transparent",
                     transition: "all 0.15s ease",
                   }}
                 >
@@ -193,6 +264,28 @@ export default function Navbar() {
                 </Link>
               );
             })}
+            
+            <div style={{ margin: "8px 12px", height: 1, background: "#111C2E" }} />
+            
+            {ADVANCED_LINKS.map(({ href, label }) => (
+              <Link
+                key={href}
+                href={href}
+                style={{
+                  fontFamily: "Inter, sans-serif",
+                  fontSize: 14,
+                  fontWeight: 500,
+                  color: "#64748B",
+                  textDecoration: "none",
+                  padding: "10px 12px",
+                  borderRadius: 8,
+                  transition: "all 0.15s ease",
+                }}
+              >
+                {label}
+              </Link>
+            ))}
+
             <div style={{ marginTop: 12 }}>
               <WalletConnect />
             </div>
