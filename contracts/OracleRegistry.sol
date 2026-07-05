@@ -260,4 +260,125 @@ contract OracleRegistry {
         }
         return ecrecover(digest, v, r, s);
     }
+
+    // ═══════════════════════════════════════════════════════════════════
+    //  EIP-712 Credit Attestation — Signed AI Underwriting Decisions
+    // ═══════════════════════════════════════════════════════════════════
+
+    struct CreditAttestation {
+        address borrower;
+        uint256 score;
+        uint256 maxLoan;
+        uint256 interestRate;    // basis points (e.g. 500 = 5%)
+        uint256 expiry;
+        uint256 nonce;
+    }
+
+    // Nonce tracking for replay protection
+    mapping(address => uint256) public nonces;
+    // Used attestation hashes (double-spend protection)
+    mapping(bytes32 => bool) public usedAttestations;
+
+    // EIP-712 Domain Separator components
+    bytes32 public constant DOMAIN_TYPEHASH = keccak256(
+        "EIP712Domain(string name,string version,uint256 chainId,address verifyingContract)"
+    );
+    bytes32 public constant CREDIT_ATTESTATION_TYPEHASH = keccak256(
+        "CreditAttestation(address borrower,uint256 score,uint256 maxLoan,uint256 interestRate,uint256 expiry,uint256 nonce)"
+    );
+
+    event CreditAttestationVerified(
+        address indexed borrower,
+        uint256 score,
+        uint256 maxLoan,
+        uint256 interestRate,
+        address indexed oracle,
+        uint256 nonce
+    );
+
+    /**
+     * @notice Build the EIP-712 domain separator.
+     */
+    function domainSeparator() public view returns (bytes32) {
+        return keccak256(abi.encode(
+            DOMAIN_TYPEHASH,
+            keccak256("CredenceAI"),
+            keccak256("1"),
+            block.chainid,
+            address(this)
+        ));
+    }
+
+    /**
+     * @notice Compute the EIP-712 struct hash for a CreditAttestation.
+     */
+    function hashAttestation(CreditAttestation memory att) public pure returns (bytes32) {
+        return keccak256(abi.encode(
+            CREDIT_ATTESTATION_TYPEHASH,
+            att.borrower,
+            att.score,
+            att.maxLoan,
+            att.interestRate,
+            att.expiry,
+            att.nonce
+        ));
+    }
+
+    /**
+     * @notice Verify an EIP-712 signed credit attestation from an oracle.
+     * @dev Checks: valid signer, active oracle, not expired, nonce correct, not reused.
+     * @param att The credit attestation data.
+     * @param signature The EIP-712 signature from the oracle.
+     * @return signer The verified oracle address.
+     */
+    function verifyCreditAttestation(
+        CreditAttestation calldata att,
+        bytes calldata signature
+    ) external returns (address signer) {
+        // 1. Check expiry
+        require(block.timestamp < att.expiry, "Attestation expired");
+
+        // 2. Check nonce (replay protection)
+        require(att.nonce == nonces[att.borrower], "Invalid nonce");
+
+        // 3. Build EIP-712 digest
+        bytes32 structHash = hashAttestation(att);
+        bytes32 digest = keccak256(abi.encodePacked(
+            "\x19\x01",
+            domainSeparator(),
+            structHash
+        ));
+
+        // 4. Check not already used
+        require(!usedAttestations[digest], "Attestation already used");
+
+        // 5. Recover signer
+        signer = recoverSigner(digest, signature);
+        require(signer != address(0), "Invalid signature");
+
+        // 6. Verify signer is an active oracle
+        require(oracles[signer].status == OracleStatus.ACTIVE, "Signer is not an active oracle");
+
+        // 7. Mark as used and increment nonce
+        usedAttestations[digest] = true;
+        nonces[att.borrower] += 1;
+
+        emit CreditAttestationVerified(
+            att.borrower,
+            att.score,
+            att.maxLoan,
+            att.interestRate,
+            signer,
+            att.nonce
+        );
+
+        return signer;
+    }
+
+    /**
+     * @notice Get current nonce for a borrower (for frontend signing).
+     */
+    function getNonce(address borrower) external view returns (uint256) {
+        return nonces[borrower];
+    }
 }

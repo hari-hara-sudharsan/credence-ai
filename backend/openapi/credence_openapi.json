@@ -646,6 +646,88 @@
         }
       }
     },
+    "/underwriting/report/{wallet}": {
+      "get": {
+        "tags": [
+          "Transparent Underwriting"
+        ],
+        "summary": "Get Credit Report",
+        "description": "Full transparent credit report with factor-by-factor breakdown.",
+        "operationId": "get_credit_report_underwriting_report__wallet__get",
+        "parameters": [
+          {
+            "name": "wallet",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "title": "Wallet"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {}
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/underwriting/factors/{wallet}": {
+      "get": {
+        "tags": [
+          "Transparent Underwriting"
+        ],
+        "summary": "Get Scoring Factors",
+        "description": "Individual scoring factors with percentages.",
+        "operationId": "get_scoring_factors_underwriting_factors__wallet__get",
+        "parameters": [
+          {
+            "name": "wallet",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "title": "Wallet"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {}
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
     "/credit/score": {
       "post": {
         "tags": [
