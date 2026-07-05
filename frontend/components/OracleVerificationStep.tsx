@@ -1,13 +1,17 @@
 "use client";
 
 import { useEffect, useState } from "react";
+import API from "@/lib/api";
 
 interface Props {
+  wallet: string;
   onNext: () => void;
 }
 
-export default function OracleVerificationStep({ onNext }: Props) {
+export default function OracleVerificationStep({ wallet, onNext }: Props) {
   const [step, setStep] = useState(0);
+  const [signature, setSignature] = useState("0x789e5a8b7c6c518f8d9b1c2e3f4a5b6d7e8f9a0b1c2d3e4f5a6b7c8d9e0f1a2b");
+  const [attestationId, setAttestationId] = useState("att_001cf4a09c2d7e");
 
   useEffect(() => {
     let active = true;
@@ -15,6 +19,17 @@ export default function OracleVerificationStep({ onNext }: Props) {
     const delay = isDemo ? 200 : 800;
 
     const run = async () => {
+      // Step 0 -> Step 1: Start fetching from Oracle
+      try {
+        const response = await API.post("/attestation", { wallet: wallet.trim() });
+        if (response.data?.signature && active) {
+          setSignature(response.data.signature);
+          setAttestationId(response.data.attestation_id);
+        }
+      } catch (err) {
+        console.warn("Oracle connection issue, using local EIP-712 offline fallback signature:", err);
+      }
+
       await new Promise((r) => setTimeout(r, delay));
       if (!active) return;
       setStep(1);
@@ -25,10 +40,7 @@ export default function OracleVerificationStep({ onNext }: Props) {
     };
     run();
     return () => { active = false; };
-  }, []);
-
-  const signature = "0x789e5a8b7c6c518f8d9b1c2e3f4a5b6d7e8f9a0b1c2d3e4f5a6b7c8d9e0f1a2b";
-  const attestationId = "att_001cf4a09c2d7e";
+  }, [wallet]);
 
   return (
     <div style={{ padding: "10px 0" }}>

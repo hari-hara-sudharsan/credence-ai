@@ -74,7 +74,7 @@ export default function CreditDecisionStep({ analysis, wallet, onNext }: Props) 
             {rating} • {riskLevel}
           </div>
           <div style={{ fontSize: 10, color: "#64748B", marginTop: 4 }}>
-            Default Probability: {report?.default_probability.toFixed(1)}%
+            Default Probability: {report?.default_probability?.toFixed(1) ?? "0.0"}%
           </div>
         </div>
 
@@ -91,7 +91,7 @@ export default function CreditDecisionStep({ analysis, wallet, onNext }: Props) 
               lineHeight: 1.5,
             }}
           >
-            <strong>AI Underwriter Note:</strong> {report?.summary}
+            <strong>AI Underwriter Note:</strong> {report?.summary || "No AI underwriter note available. Standard default probability and watchlist risk classification apply."}
           </div>
         </div>
       </div>

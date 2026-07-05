@@ -317,6 +317,7 @@ export default function BorrowFlow() {
 
         {stage === BorrowStage.ORACLE_VERIFIED && (
           <OracleVerificationStep
+            wallet={activeWallet}
             onNext={() => handleStageTransition(BorrowStage.LOAN_APPROVED)}
           />
         )}
