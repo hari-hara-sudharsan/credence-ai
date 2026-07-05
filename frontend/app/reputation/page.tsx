@@ -8,6 +8,7 @@ import TrustScoreCard from "@/components/TrustScoreCard";
 import ReputationTimeline from "@/components/ReputationTimeline";
 import ScoreEvolutionChart from "@/components/ScoreEvolutionChart";
 import ProtocolTrustMeter from "@/components/ProtocolTrustMeter";
+import ScoreBreakdown from "@/components/ScoreBreakdown";
 import { Card, CardContent } from "@/components/ui/card";
 
 interface ScoreHistoryItem {
@@ -236,6 +237,9 @@ export default function ReputationPage() {
                     </p>
                   </div>
                 </Card>
+
+                {/* Score Breakdown Component */}
+                <ScoreBreakdown wallet={wallet} />
               </div>
             </div>
 

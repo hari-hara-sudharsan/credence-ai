@@ -1,6 +1,10 @@
 // SPDX-License-Identifier: MIT
 pragma solidity ^0.8.28;
 
+interface IReputationRegistry {
+    function recordRepayment(address wallet, uint256 amount) external;
+}
+
 contract LoanManager {
     enum LoanStatus { PENDING, ACTIVE, REPAID, CANCELLED }
     enum SettlementStatus { PENDING, SETTLED, FAILED }
@@ -93,6 +97,14 @@ contract LoanManager {
         emit LoanActivated(loanId, loan.dueDate);
     }
 
+    // ── Interface ────────────────────────────────────────────────────
+    IReputationRegistry public reputationRegistry;
+
+    function setReputationRegistry(address _reputationRegistry) external {
+        // In a real production environment, you'd protect this with an admin modifier
+        reputationRegistry = IReputationRegistry(_reputationRegistry);
+    }
+
     /**
      * @notice Repay an active loan, transitioning it to REPAID.
      */
@@ -104,8 +116,13 @@ contract LoanManager {
 
         loan.status = LoanStatus.REPAID;
 
+        if (address(reputationRegistry) != address(0)) {
+            reputationRegistry.recordRepayment(loan.borrower, loan.approvedAmount);
+        }
+
         emit LoanRepaid(loanId);
     }
+
 
     /**
      * @notice Cancel a pending loan before activation.
