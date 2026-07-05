@@ -9,4 +9,3 @@ ignition/deployments/
 venv/
 backend/venv/
 backend/data/
-scratch/
