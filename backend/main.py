@@ -91,6 +91,7 @@ from app.api.lending_pool import router as lending_pool_router
 from app.api.p2p_lending import router as p2p_lending_router
 from app.api.capital_matching import router as capital_matching_router
 from app.api.transparent_underwriting import router as underwriting_router
+from app.api.trust_api import router as trust_api_router
 
 
 
@@ -143,6 +144,7 @@ app.include_router(wallet_router)
 app.include_router(p2p_lending_router)
 app.include_router(capital_matching_router)
 app.include_router(underwriting_router)
+app.include_router(trust_api_router)
 app.include_router(credit_router)
 app.include_router(
     analysis_router

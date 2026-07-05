@@ -2,58 +2,30 @@
 
 import { useEffect, useState } from "react";
 import API from "@/lib/api";
-import NetworkHealth from "@/components/NetworkHealth";
-import CreditDistribution from "@/components/CreditDistribution";
-import RiskHeatmap from "@/components/RiskHeatmap";
-import ProtocolAnalytics from "@/components/ProtocolAnalytics";
-import WalletSegments from "@/components/WalletSegments";
-import EcosystemTrends from "@/components/EcosystemTrends";
 
 export default function EcosystemPage() {
-  const [loading, setLoading] = useState(true);
-  const [metrics, setMetrics] = useState<any | null>(null);
-  const [risk, setRisk] = useState<any | null>(null);
-  const [distribution, setDistribution] = useState<any | null>(null);
-  const [protocols, setProtocols] = useState<any[]>([]);
-  const [report, setReport] = useState<string>("");
-  const [alerts, setAlerts] = useState<any[]>([]);
-  const [error, setError] = useState<string | null>(null);
+  const [wallet, setWallet] = useState("0x5bb83E60a7a05A0e1b077B66412a26306e334208");
+  const [profiles, setProfiles] = useState<any>(null);
+  const [credit, setCredit] = useState<any>(null);
+  const [loading, setLoading] = useState(false);
 
-  const loadData = async () => {
+  const evaluateProfiles = async () => {
     setLoading(true);
-    setError(null);
     try {
-      const [healthResp, riskResp, distResp, protResp, repResp, alertResp] = await Promise.all([
-        API.get("/ecosystem/health"),
-        API.get("/ecosystem/risk"),
-        API.get("/ecosystem/distribution"),
-        API.get("/ecosystem/protocols"),
-        API.get("/ecosystem/report"),
-        API.get("/ecosystem/alerts")
-      ]);
-
-      setMetrics(healthResp.data);
-      setRisk(riskResp.data);
-      setDistribution(distResp.data);
-      setProtocols(protResp.data);
-      setReport(repResp.data.report);
-      setAlerts(alertResp.data);
-    } catch (err: any) {
-      setError("Failed to fetch ecosystem intelligence metrics.");
+      const resProfile = await API.get(`/api/v1/profiles/${wallet.trim()}`);
+      const resCredit = await API.get(`/api/v1/credit/${wallet.trim()}`);
+      setProfiles(resProfile.data);
+      setCredit(resCredit.data);
+    } catch (err) {
+      console.error(err);
     } finally {
       setLoading(false);
     }
   };
 
   useEffect(() => {
-    loadData();
+    evaluateProfiles();
   }, []);
-
-  const getAlertColor = (sev: string) => {
-    if (sev === "HIGH") return "#FF4D6A";
-    if (sev === "MEDIUM") return "#FFB830";
-    return "#34D399";
-  };
 
   return (
     <main
@@ -62,183 +34,233 @@ export default function EcosystemPage() {
         background: "#040C1A",
         color: "#E2E8F0",
         fontFamily: "Inter, sans-serif",
-        padding: "60px 0 100px",
+        padding: "80px 24px 100px",
       }}
     >
-      <div style={{ maxWidth: 1200, margin: "0 auto", padding: "0 24px" }}>
+      <div style={{ maxWidth: 1200, margin: "0 auto" }}>
         {/* Eyebrow */}
         <div
           style={{
-            display: "flex",
-            alignItems: "center",
-            gap: 8,
             fontFamily: "JetBrains Mono, monospace",
             fontSize: 10,
-            color: "#4A6080",
+            color: "#00E5FF",
             letterSpacing: 2,
             textTransform: "uppercase",
             marginBottom: 16,
           }}
         >
-          <span>NETWORK INDEXING NODE</span>
-          <span style={{ width: 4, height: 4, borderRadius: "50%", background: "#4A6080" }} />
-          <span>GLOBAL MACRO INTELLIGENCE</span>
+          Ecosystem Composability
         </div>
 
-        {/* Hero Section */}
-        <div style={{ marginBottom: 40 }}>
-          <h1
-            style={{
-              fontSize: 48,
-              fontWeight: 800,
-              color: "#E2E8F0",
-              letterSpacing: -1,
-              marginBottom: 12,
-            }}
-          >
-            HashKey Credit Intelligence Network
-          </h1>
-          <p style={{ fontSize: 18, color: "#64748B", margin: 0, maxWidth: 650, lineHeight: 1.5 }}>
-            Real-time systemic risk modeling, credit allocation, and capital health intelligence across the decentralized credit economy.
-          </p>
-        </div>
-
-        {error && (
-          <div
-            style={{
-              background: "rgba(255, 77, 106, 0.08)",
-              border: "1px solid rgba(255, 77, 106, 0.3)",
-              borderRadius: 8,
-              padding: "16px 20px",
-              color: "#FF4D6A",
-              fontSize: 14,
-              marginBottom: 32,
-            }}
-          >
-            ⚠️ {error}
+        {/* Hero */}
+        <div style={{ marginBottom: 40, display: "flex", justifyContent: "space-between", alignItems: "flex-end" }}>
+          <div>
+            <h1 style={{ fontSize: 40, fontWeight: 800, letterSpacing: -1, marginBottom: 12 }}>
+              Multi-Protocol Credit Profiles
+            </h1>
+            <p style={{ fontSize: 16, color: "#64748B", margin: 0, lineHeight: 1.6 }}>
+              Demonstrating how external dApps securely consume Credence trust metrics to customize financial terms.
+            </p>
           </div>
-        )}
+          <div style={{ display: "flex", gap: 12 }}>
+            <input
+              type="text"
+              value={wallet}
+              onChange={(e) => setWallet(e.target.value)}
+              placeholder="0x..."
+              style={{
+                background: "#081325",
+                border: "1px solid #111C2E",
+                borderRadius: 8,
+                padding: "10px 14px",
+                color: "#E2E8F0",
+                fontSize: 13,
+                width: 320,
+                fontFamily: "JetBrains Mono, monospace",
+                outline: "none",
+              }}
+            />
+            <button
+              onClick={evaluateProfiles}
+              style={{
+                background: "#34D399",
+                border: "none",
+                borderRadius: 8,
+                color: "#040C1A",
+                fontWeight: 800,
+                fontSize: 13,
+                padding: "10px 20px",
+                cursor: "pointer",
+              }}
+            >
+              EVALUATE TERMS
+            </button>
+          </div>
+        </div>
 
+        {/* Main Grid */}
         {loading ? (
-          <div style={{ color: "#64748B", textAlign: "center", padding: "100px 0" }}>
-            AGGREGATING ECOSYSTEM TELEMETRY...
+          <div style={{ textAlign: "center", padding: "100px 0" }}>
+            <p style={{ color: "#64748B", fontFamily: "JetBrains Mono, monospace" }}>
+              Evaluating Multi-Protocol Terms...
+            </p>
+          </div>
+        ) : profiles && credit ? (
+          <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 32 }}>
+            
+            {/* Lending Adapter */}
+            <div
+              style={{
+                background: "linear-gradient(135deg, #0A192F 0%, #050B14 100%)",
+                border: "1px solid #1D2E49",
+                borderRadius: 14,
+                padding: 28,
+              }}
+            >
+              <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: 20 }}>
+                <span style={{ fontSize: 24 }}>🏦</span>
+                <span style={{ fontSize: 10, fontFamily: "JetBrains Mono, monospace", color: "#34D399", border: "1px solid #34D39944", padding: "4px 8px", borderRadius: 4 }}>
+                  LENDING PROTOCOL
+                </span>
+              </div>
+              <h3 style={{ fontSize: 18, fontWeight: 700, color: "#E2E8F0", marginBottom: 12 }}>
+                Adaptive Borrowing Terms
+              </h3>
+              <div style={{ display: "flex", flexDirection: "column", gap: 12 }}>
+                <div style={{ display: "flex", justifyContent: "space-between", borderBottom: "1px solid #111C2E", paddingBottom: 6 }}>
+                  <span style={{ fontSize: 13, color: "#64748B" }}>Lending Score</span>
+                  <span style={{ fontSize: 13, fontWeight: 700, color: "#E2E8F0" }}>{profiles.lending_score}</span>
+                </div>
+                <div style={{ display: "flex", justifyContent: "space-between", borderBottom: "1px solid #111C2E", paddingBottom: 6 }}>
+                  <span style={{ fontSize: 13, color: "#64748B" }}>Interest Rate APR</span>
+                  <span style={{ fontSize: 13, fontWeight: 700, color: "#34D399" }}>{credit.interest}% APR</span>
+                </div>
+                <div style={{ display: "flex", justifyContent: "space-between", borderBottom: "1px solid #111C2E", paddingBottom: 6 }}>
+                  <span style={{ fontSize: 13, color: "#64748B" }}>Credit Limit</span>
+                  <span style={{ fontSize: 13, fontWeight: 700, color: "#00E5FF" }}>${credit.limit}</span>
+                </div>
+              </div>
+            </div>
+
+            {/* Insurance Adapter */}
+            <div
+              style={{
+                background: "linear-gradient(135deg, #0A192F 0%, #050B14 100%)",
+                border: "1px solid #1D2E49",
+                borderRadius: 14,
+                padding: 28,
+              }}
+            >
+              <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: 20 }}>
+                <span style={{ fontSize: 24 }}>🛡️</span>
+                <span style={{ fontSize: 10, fontFamily: "JetBrains Mono, monospace", color: "#34D399", border: "1px solid #34D39944", padding: "4px 8px", borderRadius: 4 }}>
+                  DEFI INSURANCE
+                </span>
+              </div>
+              <h3 style={{ fontSize: 18, fontWeight: 700, color: "#E2E8F0", marginBottom: 12 }}>
+                Risk Premium Customizer
+              </h3>
+              <div style={{ display: "flex", flexDirection: "column", gap: 12 }}>
+                <div style={{ display: "flex", justifyContent: "space-between", borderBottom: "1px solid #111C2E", paddingBottom: 6 }}>
+                  <span style={{ fontSize: 13, color: "#64748B" }}>Insurance Score</span>
+                  <span style={{ fontSize: 13, fontWeight: 700, color: "#E2E8F0" }}>{profiles.payment_score}</span>
+                </div>
+                <div style={{ display: "flex", justifyContent: "space-between", borderBottom: "1px solid #111C2E", paddingBottom: 6 }}>
+                  <span style={{ fontSize: 13, color: "#64748B" }}>Premium Discount</span>
+                  <span style={{ fontSize: 13, fontWeight: 700, color: "#34D399" }}>
+                    {profiles.payment_score > 700 ? "35%" : profiles.payment_score > 500 ? "15%" : "0%"} Discount
+                  </span>
+                </div>
+                <div style={{ display: "flex", justifyContent: "space-between", borderBottom: "1px solid #111C2E", paddingBottom: 6 }}>
+                  <span style={{ fontSize: 13, color: "#64748B" }}>Risk Tier</span>
+                  <span style={{ fontSize: 13, fontWeight: 700, color: "#00E5FF" }}>
+                    {profiles.payment_score > 700 ? "PRIME" : "RETAIL"}
+                  </span>
+                </div>
+              </div>
+            </div>
+
+            {/* RWA Adapter */}
+            <div
+              style={{
+                background: "linear-gradient(135deg, #0A192F 0%, #050B14 100%)",
+                border: "1px solid #1D2E49",
+                borderRadius: 14,
+                padding: 28,
+              }}
+            >
+              <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: 20 }}>
+                <span style={{ fontSize: 24 }}>💼</span>
+                <span style={{ fontSize: 10, fontFamily: "JetBrains Mono, monospace", color: "#34D399", border: "1px solid #34D39944", padding: "4px 8px", borderRadius: 4 }}>
+                  RWA TOKENIZATION
+                </span>
+              </div>
+              <h3 style={{ fontSize: 18, fontWeight: 700, color: "#E2E8F0", marginBottom: 12 }}>
+                Real World Asset Financing
+              </h3>
+              <div style={{ display: "flex", flexDirection: "column", gap: 12 }}>
+                <div style={{ display: "flex", justifyContent: "space-between", borderBottom: "1px solid #111C2E", paddingBottom: 6 }}>
+                  <span style={{ fontSize: 13, color: "#64748B" }}>RWA Score</span>
+                  <span style={{ fontSize: 13, fontWeight: 700, color: "#E2E8F0" }}>{profiles.rwa_score}</span>
+                </div>
+                <div style={{ display: "flex", justifyContent: "space-between", borderBottom: "1px solid #111C2E", paddingBottom: 6 }}>
+                  <span style={{ fontSize: 13, color: "#64748B" }}>Financing Limit</span>
+                  <span style={{ fontSize: 13, fontWeight: 700, color: "#34D399" }}>
+                    ${(profiles.rwa_score * 750).toLocaleString()}
+                  </span>
+                </div>
+                <div style={{ display: "flex", justifyContent: "space-between", borderBottom: "1px solid #111C2E", paddingBottom: 6 }}>
+                  <span style={{ fontSize: 13, color: "#64748B" }}>Collateral Floor</span>
+                  <span style={{ fontSize: 13, fontWeight: 700, color: "#00E5FF" }}>
+                    {profiles.rwa_score > 700 ? "110%" : "130%"} Min LTV
+                  </span>
+                </div>
+              </div>
+            </div>
+
+            {/* PayFi Adapter */}
+            <div
+              style={{
+                background: "linear-gradient(135deg, #0A192F 0%, #050B14 100%)",
+                border: "1px solid #1D2E49",
+                borderRadius: 14,
+                padding: 28,
+              }}
+            >
+              <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: 20 }}>
+                <span style={{ fontSize: 24 }}>💳</span>
+                <span style={{ fontSize: 10, fontFamily: "JetBrains Mono, monospace", color: "#34D399", border: "1px solid #34D39944", padding: "4px 8px", borderRadius: 4 }}>
+                  PAYMENT INFRASTRUCTURE (PAYFI)
+                </span>
+              </div>
+              <h3 style={{ fontSize: 18, fontWeight: 700, color: "#E2E8F0", marginBottom: 12 }}>
+                Merchant Liquidity Settle
+              </h3>
+              <div style={{ display: "flex", flexDirection: "column", gap: 12 }}>
+                <div style={{ display: "flex", justifyContent: "space-between", borderBottom: "1px solid #111C2E", paddingBottom: 6 }}>
+                  <span style={{ fontSize: 13, color: "#64748B" }}>Reputation Standing</span>
+                  <span style={{ fontSize: 13, fontWeight: 700, color: "#E2E8F0" }}>{profiles.institution_score}</span>
+                </div>
+                <div style={{ display: "flex", justifyContent: "space-between", borderBottom: "1px solid #111C2E", paddingBottom: 6 }}>
+                  <span style={{ fontSize: 13, color: "#64748B" }}>Settle Grace Period</span>
+                  <span style={{ fontSize: 13, fontWeight: 700, color: "#34D399" }}>
+                    {profiles.institution_score > 750 ? "15 Days" : "7 Days"}
+                  </span>
+                </div>
+                <div style={{ display: "flex", justifyContent: "space-between", borderBottom: "1px solid #111C2E", paddingBottom: 6 }}>
+                  <span style={{ fontSize: 13, color: "#64748B" }}>Default Risk Index</span>
+                  <span style={{ fontSize: 13, fontWeight: 700, color: "#FF4D6A" }}>
+                    {credit.defaultProbability}%
+                  </span>
+                </div>
+              </div>
+            </div>
+
           </div>
         ) : (
-          <div style={{ display: "flex", flexDirection: "column", gap: 32, animation: "fade-in 0.4s ease" }}>
-            
-            {/* Top row: Health & Brackets distribution */}
-            {metrics && distribution && (
-              <div style={{ display: "grid", gridTemplateColumns: "1.2fr 1fr", gap: 32 }}>
-                <NetworkHealth metrics={metrics} />
-                <CreditDistribution distribution={distribution} />
-              </div>
-            )}
-
-            {/* Middle row: Heatmaps & Wallet segments */}
-            {risk && metrics && (
-              <div style={{ display: "grid", gridTemplateColumns: "1fr 1.2fr", gap: 32 }}>
-                <RiskHeatmap riskData={risk} />
-                <WalletSegments total={metrics.total_wallets} verified={metrics.verified_passports} />
-              </div>
-            )}
-
-            {/* Protocol analytics table */}
-            {protocols.length > 0 && <ProtocolAnalytics protocols={protocols} />}
-
-            {/* Narrative Summary card */}
-            {report && <EcosystemTrends reportText={report} />}
-
-            {/* Real-time Systemic Alerts Section */}
-            {alerts.length > 0 && (
-              <div
-                style={{
-                  background: "#0A1425",
-                  border: "1px solid #111C2E",
-                  borderRadius: 14,
-                  padding: 24,
-                  boxShadow: "0 8px 32px rgba(0,0,0,0.2)",
-                }}
-              >
-                <div
-                  style={{
-                    fontSize: 11,
-                    fontWeight: 700,
-                    color: "#4A6080",
-                    letterSpacing: 1.5,
-                    fontFamily: "JetBrains Mono, monospace",
-                    marginBottom: 20,
-                  }}
-                >
-                  SYSTEMIC SAFETY RISK ALERTS
-                </div>
-
-                <div style={{ display: "flex", flexDirection: "column", gap: 14 }}>
-                  {alerts.map((alert, i) => (
-                    <div
-                      key={i}
-                      style={{
-                        background: "#050B14",
-                        borderLeft: `4px solid ${getAlertColor(alert.severity)}`,
-                        borderRadius: "0 8px 8px 0",
-                        padding: "16px 20px",
-                        display: "grid",
-                        gridTemplateColumns: "1fr auto",
-                        gap: 16,
-                        alignItems: "center",
-                      }}
-                    >
-                      <div>
-                        <div style={{ display: "flex", gap: 12, alignItems: "center", marginBottom: 6 }}>
-                          <span
-                            style={{
-                              fontSize: 9,
-                              fontWeight: 800,
-                              color: getAlertColor(alert.severity),
-                              background: `${getAlertColor(alert.severity)}1A`,
-                              border: `1px solid ${getAlertColor(alert.severity)}`,
-                              borderRadius: 4,
-                              padding: "2px 6px",
-                              fontFamily: "JetBrains Mono, monospace",
-                            }}
-                          >
-                            {alert.severity} ALERT
-                          </span>
-                          <span style={{ fontSize: 13, fontWeight: 700, color: "#E2E8F0" }}>{alert.message}</span>
-                        </div>
-                        <div style={{ fontSize: 11, color: "#64748B", lineHeight: 1.4 }}>
-                          Recommendation: {alert.recommendation}
-                        </div>
-                      </div>
-
-                      <span
-                        style={{
-                          fontSize: 10,
-                          color: "#64748B",
-                          fontFamily: "JetBrains Mono, monospace",
-                          background: "rgba(255,255,255,0.02)",
-                          border: "1px solid #111C2E",
-                          borderRadius: 6,
-                          padding: "4px 10px",
-                        }}
-                      >
-                        {alert.category}
-                      </span>
-                    </div>
-                  ))}
-                </div>
-              </div>
-            )}
-
-          </div>
+          <p style={{ color: "#64748B" }}>No ecosystem profile data found.</p>
         )}
       </div>
-
-      <style>{`
-        @keyframes fade-in {
-          from { opacity: 0; transform: translateY(12px); }
-          to { opacity: 1; transform: translateY(0); }
-        }
-      `}</style>
     </main>
   );
 }

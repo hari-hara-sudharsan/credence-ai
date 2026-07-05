@@ -1,212 +1,282 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import API from "@/lib/api";
 
-import ApiKeyCard from "@/components/ApiKeyCard";
-import EndpointCard from "@/components/EndpointCard";
-import WebhookCard from "@/components/WebhookCard";
-import SDKDownloadCard from "@/components/SDKDownloadCard";
-import ApiPlayground from "@/components/ApiPlayground";
-import { Card, CardContent } from "@/components/ui/card";
-
-interface HealthMetric {
-  integration_name: string;
-  adapter_version: string;
-  last_request: string;
-  total_requests: number;
-  success_rate: number;
-  average_latency_ms: number;
-}
-
-interface Analytics {
-  total_api_requests: number;
-  active_integrations: number;
-  average_latency_ms: number;
-  success_rate: number;
-  most_used_endpoint: string;
-}
-
 export default function DevelopersPage() {
-  const [activeTab, setActiveTab] = useState<"health" | "keys" | "endpoints" | "sdks" | "webhooks" | "playground">("health");
-  const [analytics, setAnalytics] = useState<Analytics | null>(null);
-  const [healthData, setHealthData] = useState<HealthMetric[]>([]);
-  const [loading, setLoading] = useState<boolean>(false);
+  const [wallet, setWallet] = useState("0x5bb83E60a7a05A0e1b077B66412a26306e334208");
+  const [endpoint, setEndpoint] = useState("/api/v1/trust");
+  const [responsePayload, setResponsePayload] = useState<any>(null);
+  const [loading, setLoading] = useState(false);
+  const [apiKey, setApiKey] = useState("credence_live_test_7f28c9b01e3");
 
-  const fetchHealthData = async () => {
+  const sendRequest = async () => {
     setLoading(true);
+    setResponsePayload(null);
     try {
-      const res = await API.get("/developer/health");
-      setAnalytics(res.data.analytics);
-      setHealthData(res.data.integrations);
-    } catch (err) {
-      console.error("Failed to fetch integration health data:", err);
+      const res = await API.get(`${endpoint}/${wallet.trim()}`);
+      setResponsePayload(res.data);
+    } catch (err: any) {
+      setResponsePayload({ error: err.response?.data?.detail || err.message });
     } finally {
       setLoading(false);
     }
   };
 
-  useEffect(() => {
-    fetchHealthData();
-  }, []);
+  const sdkCode = `import { Credence } from "@credence/trust-sdk";
 
-  const TABS = [
-    { id: "health", label: "Health & Analytics" },
-    { id: "keys", label: "API Keys" },
-    { id: "endpoints", label: "API Reference" },
-    { id: "sdks", label: "SDK Downloads" },
-    { id: "webhooks", label: "Webhooks" },
-    { id: "playground", label: "Playground" }
-  ];
+// Initialize the SDK with your API Key
+const credence = new Credence({
+  apiKey: "${apiKey}"
+});
+
+// Verify trust profile for any HashKey wallet
+const profile = await credence.verify("${wallet}");
+
+console.log("Trust Score:", profile.trustScore);
+console.log("Risk Tier:", profile.tier); // e.g. "PRIME"
+
+if (profile.trustScore > 800) {
+  unlockPremiumFinancialTerms();
+}`;
 
   return (
-    <main className="min-h-screen bg-[#040C1A] text-[#E2E8F0] antialiased">
-      <style>{`
-        @import url('https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,300..700&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;700&display=swap');
-
-        .font-display { font-family: 'Fraunces', serif; font-optical-sizing: auto; }
-        .font-mono { font-family: 'JetBrains Mono', monospace; }
-        .font-sans { font-family: 'Inter', sans-serif; }
-
-        @keyframes rise-in {
-          from { opacity: 0; transform: translateY(12px); }
-          to { opacity: 1; transform: translateY(0); }
-        }
-        .rise-in { animation: rise-in 0.5s cubic-bezier(0.16, 1, 0.3, 1) both; }
-      `}</style>
-
-      <div className="relative max-w-7xl mx-auto px-6 sm:px-8 py-16 sm:py-24 space-y-12">
+    <main
+      style={{
+        minHeight: "100vh",
+        background: "#040C1A",
+        color: "#E2E8F0",
+        fontFamily: "Inter, sans-serif",
+        padding: "80px 24px 100px",
+      }}
+    >
+      <div style={{ maxWidth: 1200, margin: "0 auto" }}>
         {/* Eyebrow */}
-        <div className="flex items-center gap-2 font-mono text-xs tracking-[0.18em] text-[#6B7280] uppercase">
-          <span>Credence Protocol — Developer Documentation Center</span>
+        <div
+          style={{
+            fontFamily: "JetBrains Mono, monospace",
+            fontSize: 10,
+            color: "#00E5FF",
+            letterSpacing: 2,
+            textTransform: "uppercase",
+            marginBottom: 16,
+          }}
+        >
+          Developer Infrastructure
         </div>
 
-        {/* Hero Section */}
-        <div className="pb-6 border-b border-[#2A3142]/40">
-          <h1 className="font-display text-4xl sm:text-5xl font-medium leading-[1.1] mb-4 text-[#E8E6DE]">
-            Developer Platform
+        {/* Hero */}
+        <div style={{ marginBottom: 40 }}>
+          <h1 style={{ fontSize: 40, fontWeight: 800, letterSpacing: -1, marginBottom: 12 }}>
+            Programmable Trust API
           </h1>
-          <p className="font-sans text-[#6B7280] text-base sm:text-lg max-w-3xl">
-            Build on top of Credence AI using production-ready API controllers, custom client SDK libraries, and background webhooks event pipelines.
+          <p style={{ fontSize: 16, color: "#64748B", maxWidth: 800, margin: 0, lineHeight: 1.6 }}>
+            Integrate Credence's real-time AI credit and reputation data into any HashKey application with a single API call.
           </p>
         </div>
 
-        {/* Sub-Navigation Tabs */}
-        <div className="flex flex-wrap gap-2 border-b border-[#2A3142]/30 pb-1">
-          {TABS.map((tab) => {
-            const isSelected = activeTab === tab.id;
-            return (
-              <button
-                key={tab.id}
-                onClick={() => setActiveTab(tab.id as any)}
-                className={`font-mono text-[11px] tracking-wider uppercase px-4 py-2 border-b-2 transition-all cursor-pointer ${
-                  isSelected 
-                    ? "border-[#00E5FF] text-[#00E5FF] font-semibold" 
-                    : "border-transparent text-[#6B7280] hover:text-[#E8E6DE]/80"
-                }`}
-              >
-                {tab.label}
-              </button>
-            );
-          })}
+        {/* Developer Key & Specs */}
+        <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 32, marginBottom: 40 }}>
+          <div
+            style={{
+              background: "linear-gradient(135deg, #0A192F 0%, #050B14 100%)",
+              border: "1px solid #1D2E49",
+              borderRadius: 14,
+              padding: 24,
+            }}
+          >
+            <h3 style={{ fontSize: 16, fontWeight: 700, marginBottom: 8, color: "#E2E8F0" }}>
+              API Access Credentials
+            </h3>
+            <p style={{ fontSize: 12, color: "#64748B", marginBottom: 16 }}>
+              Use your credentials to authenticate programmatic HTTPS queries to the Credence network.
+            </p>
+            <div style={{ display: "flex", flexDirection: "column", gap: 6 }}>
+              <label style={{ fontSize: 10, fontWeight: 700, color: "#64748B" }}>PROJECT API KEY</label>
+              <input
+                type="text"
+                readOnly
+                value={apiKey}
+                style={{
+                  background: "#050B14",
+                  border: "1px solid #1D2E49",
+                  borderRadius: 8,
+                  padding: "10px 14px",
+                  fontSize: 13,
+                  color: "#34D399",
+                  fontFamily: "JetBrains Mono, monospace",
+                }}
+              />
+            </div>
+          </div>
+
+          <div
+            style={{
+              background: "linear-gradient(135deg, #0A192F 0%, #050B14 100%)",
+              border: "1px solid #1D2E49",
+              borderRadius: 14,
+              padding: 24,
+              display: "flex",
+              flexDirection: "column",
+              justifyContent: "space-between",
+            }}
+          >
+            <div>
+              <h3 style={{ fontSize: 16, fontWeight: 700, marginBottom: 8, color: "#E2E8F0" }}>
+                Developer SDK Integration
+              </h3>
+              <p style={{ fontSize: 12, color: "#64748B", margin: 0, lineHeight: 1.5 }}>
+                Get started quickly using our pre-built Javascript/TypeScript SDK package `@credence/trust-sdk`.
+              </p>
+            </div>
+            <code style={{ fontSize: 11, color: "#34D399", fontFamily: "JetBrains Mono, monospace", background: "#050B14", padding: "8px 12px", borderRadius: 8, border: "1px solid #1D2E49" }}>
+              npm install @credence/trust-sdk
+            </code>
+          </div>
         </div>
 
-        {/* Render Tab Content */}
-        <div className="rise-in">
-          {activeTab === "health" && (
-            <div className="space-y-6">
-              {/* Analytics Summary Row */}
-              {analytics && (
-                <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
-                  <div className="border border-[#2A3142]/70 bg-[#1A1F2B]/30 rounded-sm p-4">
-                    <span className="font-mono text-[9px] tracking-wider text-[#6B7280] uppercase">Total API Requests</span>
-                    <div className="font-display text-2xl font-bold text-[#E8E6DE] mt-1">
-                      {analytics.total_api_requests.toLocaleString()}
-                    </div>
-                  </div>
-                  <div className="border border-[#2A3142]/70 bg-[#1A1F2B]/30 rounded-sm p-4">
-                    <span className="font-mono text-[9px] tracking-wider text-[#6B7280] uppercase">Success Rate</span>
-                    <div className="font-display text-2xl font-bold text-[#3DDC97] mt-1">
-                      {analytics.success_rate}%
-                    </div>
-                  </div>
-                  <div className="border border-[#2A3142]/70 bg-[#1A1F2B]/30 rounded-sm p-4">
-                    <span className="font-mono text-[9px] tracking-wider text-[#6B7280] uppercase">Average Latency</span>
-                    <div className="font-display text-2xl font-bold text-[#00E5FF] mt-1">
-                      {analytics.average_latency_ms} <span className="font-sans text-xs text-[#6B7280] font-normal">ms</span>
-                    </div>
-                  </div>
-                  <div className="border border-[#2A3142]/70 bg-[#1A1F2B]/30 rounded-sm p-4">
-                    <span className="font-mono text-[9px] tracking-wider text-[#6B7280] uppercase">Active Integrations</span>
-                    <div className="font-display text-2xl font-bold text-[#E8E6DE] mt-1">
-                      {analytics.active_integrations}
-                    </div>
-                  </div>
-                </div>
-              )}
+        {/* API Playground Sandbox */}
+        <div style={{ display: "grid", gridTemplateColumns: "1.2fr 1fr", gap: 32 }}>
+          {/* Playground Panel */}
+          <div
+            style={{
+              background: "#081325",
+              border: "1px solid #111C2E",
+              borderRadius: 16,
+              padding: 32,
+              boxShadow: "0 12px 48px rgba(0,0,0,0.3)",
+            }}
+          >
+            <h2 style={{ fontSize: 20, fontWeight: 800, color: "#E2E8F0", marginBottom: 20 }}>
+              Endpoint Sandbox Explorer
+            </h2>
 
-              {/* Integrations Health Table */}
-              <Card className="border-[#2A3142] bg-[#1A1F2B]/40 text-[#E8E6DE] p-6 space-y-4">
-                <div className="flex items-center justify-between pb-3 border-b border-[#2A3142]/40">
-                  <div className="flex items-center gap-2">
-                    <span className="inline-block w-1.5 h-3 bg-[#00E5FF] rounded-sm" />
-                    <h3 className="font-mono text-xs tracking-[0.1em] text-[#E8E6DE] uppercase">
-                      Integration Health Dashboard
-                    </h3>
-                  </div>
-                  <button 
-                    onClick={fetchHealthData}
-                    disabled={loading}
-                    className="font-mono text-[9px] text-[#00E5FF] hover:underline cursor-pointer"
-                  >
-                    {loading ? "Refreshing..." : "Refresh Stats"}
-                  </button>
+            <div style={{ display: "flex", flexDirection: "column", gap: 20, marginBottom: 24 }}>
+              <div>
+                <label style={{ fontSize: 11, color: "#64748B", display: "block", marginBottom: 6 }}>
+                  SELECT TRUST ENDPOINT
+                </label>
+                <div style={{ display: "flex", gap: 10 }}>
+                  {["/api/v1/trust", "/api/v1/credit", "/api/v1/reputation", "/api/profiles"].map((ep) => (
+                    <button
+                      key={ep}
+                      onClick={() => setEndpoint(ep)}
+                      style={{
+                        flex: 1,
+                        background: endpoint === ep ? "#00E5FF" : "#050B14",
+                        border: "1px solid #1D2E49",
+                        borderRadius: 8,
+                        color: endpoint === ep ? "#040C1A" : "#94A3B8",
+                        fontWeight: 700,
+                        fontSize: 11,
+                        padding: "8px 0",
+                        cursor: "pointer",
+                      }}
+                    >
+                      {ep.replace("/api/", "")}
+                    </button>
+                  ))}
                 </div>
+              </div>
 
-                <div className="overflow-x-auto">
-                  <table className="w-full text-left font-mono text-[11px] text-[#E8E6DE]/80">
-                    <thead>
-                      <tr className="border-b border-[#2A3142]/35 text-[#6B7280] text-[10px]">
-                        <th className="pb-3">Integration Name</th>
-                        <th className="pb-3">Adapter Version</th>
-                        <th className="pb-3">Total Calls</th>
-                        <th className="pb-3">Latency</th>
-                        <th className="pb-3">Success Rate</th>
-                        <th className="pb-3 text-right">Status</th>
-                      </tr>
-                    </thead>
-                    <tbody className="divide-y divide-[#2A3142]/20">
-                      {healthData.map((row) => (
-                        <tr key={row.integration_name} className="hover:bg-[#0B0E14]/15">
-                          <td className="py-4 font-semibold text-[#E8E6DE]/95">{row.integration_name}</td>
-                          <td className="py-4 text-[#6B7280]">{row.adapter_version}</td>
-                          <td className="py-4">{row.total_requests.toLocaleString()}</td>
-                          <td className="py-4 text-[#00E5FF]">{row.average_latency_ms} ms</td>
-                          <td className="py-4 text-[#3DDC97]">{row.success_rate}%</td>
-                          <td className="py-4 text-right">
-                            <span className="inline-flex items-center gap-1.5 font-sans text-[10px] text-[#3DDC97] bg-[#3DDC97]/10 px-2 py-0.5 rounded-sm">
-                              <span className="w-1.5 h-1.5 bg-[#3DDC97] rounded-full animate-pulse" />
-                              Healthy
-                            </span>
-                          </td>
-                        </tr>
-                      ))}
-                    </tbody>
-                  </table>
-                </div>
-              </Card>
+              <div>
+                <label style={{ fontSize: 11, color: "#64748B", display: "block", marginBottom: 6 }}>
+                  TARGET WALLET ADDRESS
+                </label>
+                <input
+                  type="text"
+                  value={wallet}
+                  onChange={(e) => setWallet(e.target.value)}
+                  style={{
+                    width: "100%",
+                    background: "#050B14",
+                    border: "1px solid #1D2E49",
+                    borderRadius: 8,
+                    padding: "10px 14px",
+                    color: "#E2E8F0",
+                    fontSize: 13,
+                    fontFamily: "JetBrains Mono, monospace",
+                    outline: "none",
+                  }}
+                />
+              </div>
+
+              <button
+                onClick={sendRequest}
+                disabled={loading}
+                style={{
+                  background: "#34D399",
+                  border: "none",
+                  borderRadius: 8,
+                  color: "#040C1A",
+                  fontWeight: 800,
+                  fontSize: 13,
+                  padding: "12px 0",
+                  cursor: "pointer",
+                }}
+              >
+                {loading ? "SENDING REQUEST..." : "SEND TEST REQUEST ➔"}
+              </button>
             </div>
-          )}
 
-          {activeTab === "keys" && <ApiKeyCard />}
+            {/* Sandbox Response Payload */}
+            <div>
+              <label style={{ fontSize: 11, color: "#64748B", display: "block", marginBottom: 6 }}>
+                JSON RESPONSE PAYLOAD
+              </label>
+              <pre
+                style={{
+                  background: "#050B14",
+                  border: "1px solid #1D2E49",
+                  borderRadius: 8,
+                  padding: 16,
+                  color: "#00E5FF",
+                  fontFamily: "JetBrains Mono, monospace",
+                  fontSize: 11.5,
+                  overflowX: "auto",
+                  minHeight: 180,
+                  margin: 0,
+                }}
+              >
+                {responsePayload
+                  ? JSON.stringify(responsePayload, null, 2)
+                  : "// Press Send to receive structured payload response"}
+              </pre>
+            </div>
+          </div>
 
-          {activeTab === "endpoints" && <EndpointCard />}
-
-          {activeTab === "sdks" && <SDKDownloadCard />}
-
-          {activeTab === "webhooks" && <WebhookCard />}
-
-          {activeTab === "playground" && <ApiPlayground />}
+          {/* Code Snippet Panel */}
+          <div
+            style={{
+              background: "#081325",
+              border: "1px solid #111C2E",
+              borderRadius: 16,
+              padding: 32,
+              display: "flex",
+              flexDirection: "column",
+            }}
+          >
+            <h3 style={{ fontSize: 18, fontWeight: 700, color: "#E2E8F0", marginBottom: 16 }}>
+              Integration Snippet
+            </h3>
+            <pre
+              style={{
+                background: "#050B14",
+                border: "1px solid #1D2E49",
+                borderRadius: 8,
+                padding: 16,
+                color: "#E2E8F0",
+                fontFamily: "JetBrains Mono, monospace",
+                fontSize: 11.5,
+                overflowX: "auto",
+                flex: 1,
+                margin: 0,
+                lineHeight: 1.5,
+              }}
+            >
+              {sdkCode}
+            </pre>
+          </div>
         </div>
       </div>
     </main>

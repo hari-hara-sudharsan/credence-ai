@@ -7,6 +7,15 @@ import "@openzeppelin/contracts/utils/ReentrancyGuard.sol";
 import "@openzeppelin/contracts/token/ERC20/IERC20.sol";
 import "@openzeppelin/contracts/token/ERC20/utils/SafeERC20.sol";
 
+interface IReputationRegistry {
+    function recordRepayment(address wallet, uint256 amount) external;
+    function getScore(address wallet) external view returns (uint256);
+}
+
+interface ICreditPassportV2 {
+    function walletPassports(address wallet) external view returns (bytes32);
+}
+
 /**
  * @title SettlementManager
  * @notice Separates loan approval from payment execution.
@@ -34,13 +43,26 @@ contract SettlementManager is AccessControl, Pausable, ReentrancyGuard {
         uint256 executedAt;
     }
 
+    struct HSPSettlement {
+        uint256 id;
+        address user;
+        uint256 amount;
+        bytes32 settlementHash;
+        bool completed;
+        uint256 trustImpact;
+    }
+
     // Storage
     mapping(uint256 => Settlement) public settlements;
+    mapping(uint256 => HSPSettlement) public hspSettlements;
     uint256 public settlementCount;
 
     // Lending asset for ERC20 mode
     IERC20 public lendingAsset;
     bool public erc20Enabled;
+
+    IReputationRegistry public reputationRegistry;
+    ICreditPassportV2 public creditPassportV2;
 
     // Events
     event SettlementCreated(
@@ -64,6 +86,12 @@ contract SettlementManager is AccessControl, Pausable, ReentrancyGuard {
         address indexed borrower,
         uint256 amount,
         bytes32 settlementRef
+    );
+
+    event TrustSettlementCompleted(
+        address indexed wallet,
+        uint256 amount,
+        uint256 newTrustScore
     );
 
     event SettlementVerified(uint256 indexed settlementId, bytes32 settlementRef);
@@ -175,6 +203,24 @@ contract SettlementManager is AccessControl, Pausable, ReentrancyGuard {
         s.settlementRef = ref;
         s.executedAt = block.timestamp;
 
+        // Record HSPSettlement
+        uint256 trustImpact = 25;
+        hspSettlements[settlementId] = HSPSettlement({
+            id: settlementId,
+            user: s.borrower,
+            amount: s.amount,
+            settlementHash: ref,
+            completed: true,
+            trustImpact: trustImpact
+        });
+
+        // Trigger Reputation update
+        if (address(reputationRegistry) != address(0)) {
+            reputationRegistry.recordRepayment(s.borrower, s.amount);
+            uint256 newTrustScore = reputationRegistry.getScore(s.borrower);
+            emit TrustSettlementCompleted(s.borrower, s.amount, newTrustScore);
+        }
+
         emit SettlementExecuted(settlementId, s.loanId, s.borrower, s.amount, ref);
         emit HSPSettlementCompleted(s.loanId, s.borrower, s.amount, ref);
     }
@@ -209,4 +255,12 @@ contract SettlementManager is AccessControl, Pausable, ReentrancyGuard {
 
     function pause() external onlyRole(DEFAULT_ADMIN_ROLE) { _pause(); }
     function unpause() external onlyRole(DEFAULT_ADMIN_ROLE) { _unpause(); }
+
+    function setReputationRegistry(address _reputationRegistry) external onlyRole(DEFAULT_ADMIN_ROLE) {
+        reputationRegistry = IReputationRegistry(_reputationRegistry);
+    }
+
+    function setCreditPassportV2(address _creditPassportV2) external onlyRole(DEFAULT_ADMIN_ROLE) {
+        creditPassportV2 = ICreditPassportV2(_creditPassportV2);
+    }
 }

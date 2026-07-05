@@ -19,7 +19,9 @@ const ADVANCED_LINKS = [
   { href: "/oracle", label: "Oracle" },
   { href: "/marketplace", label: "Marketplace" },
   { href: "/system", label: "Monitoring" },
-  { href: "/institution", label: "Institution" }
+  { href: "/institution", label: "Institution" },
+  { href: "/trust-graph", label: "Trust Graph" },
+  { href: "/ecosystem", label: "Ecosystem" }
 ];
 
 

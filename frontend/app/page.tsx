@@ -96,7 +96,7 @@ export default function HomePage() {
               margin: "0 auto 20px",
             }}
           >
-            AI Credit Infrastructure for HashKey DeFi
+            The Trust Layer Powering HashKey Finance
           </h1>
 
           <p
@@ -108,7 +108,7 @@ export default function HomePage() {
               margin: "0 auto 36px",
             }}
           >
-            Turn wallet reputation into borrowing power through AI underwriting and verifiable trust.
+            Credence AI transforms wallets into verifiable financial identities through AI underwriting, reputation, and on-chain trust infrastructure.
           </p>
 
           {/* CTAs */}
