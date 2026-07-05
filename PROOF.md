@@ -8,13 +8,13 @@
 
 | # | Contract | Layer | Address | Explorer |
 |---|---|---|---|---|
-| 1 | GovernanceRegistry | Governance | `0xF13fD57De8E4b1e935A958c2F7D3aeBec79724e4` | [View](https://hashkey.blockscout.com/address/0xF13fD57De8E4b1e935A958c2F7D3aeBec79724e4) |
-| 2 | CreditPassportV2 | Identity | `0x6837bCE41A0E57CF200C005DC0b14E6E8a5d5dce` | [View](https://hashkey.blockscout.com/address/0x6837bCE41A0E57CF200C005DC0b14E6E8a5d5dce) |
-| 3 | OracleRegistry | AI Verification | `0x14A2dBc6EF88d5D64e67D3f2F59D876A5C4f422E` | [View](https://hashkey.blockscout.com/address/0x14A2dBc6EF88d5D64e67D3f2F59D876A5C4f422E) |
-| 4 | LoanManager | Loan Logic | `0xD9B1047fD9Aa6e0c0e70e90e3d1F48990a8A6B85` | [View](https://hashkey.blockscout.com/address/0xD9B1047fD9Aa6e0c0e70e90e3d1F48990a8A6B85) |
-| 5 | LendingPool | Capital Layer | *Deploy pending* | — |
-| 6 | SettlementManager | Payment Layer | *Deploy pending* | — |
-| 7 | ReputationRegistry | Trust History | *Deploy pending* | — |
+| 1 | GovernanceRegistry | Governance | `0x98297dF9f8ffC79bc8e6BA3Ec606136adacb6f81` | [View](https://hashkey.blockscout.com/address/0x98297dF9f8ffC79bc8e6BA3Ec606136adacb6f81) |
+| 2 | CreditPassportV2 | Identity | `0xD6b040736e948621c5b6E0a494473c47a6113eA8` | [View](https://hashkey.blockscout.com/address/0xD6b040736e948621c5b6E0a494473c47a6113eA8) |
+| 3 | OracleRegistry | AI Verification | `0x2Dd78Fd9B8F40659Af32eF98555B8b31bC97A351` | [View](https://hashkey.blockscout.com/address/0x2Dd78Fd9B8F40659Af32eF98555B8b31bC97A351) |
+| 4 | LoanManager | Loan Logic | `0x2988f0bE02e1a679430aEb4A6B9B10429F1e8e80` | [View](https://hashkey.blockscout.com/address/0x2988f0bE02e1a679430aEb4A6B9B10429F1e8e80) |
+| 5 | LendingPool | Capital Layer | `0x928BA9D30669c41695422a68a1C307a6529F0050` | [View](https://hashkey.blockscout.com/address/0x928BA9D30669c41695422a68a1C307a6529F0050) |
+| 6 | SettlementManager | Payment Layer | `0x4f3eEE789936a0eca627484bf680464f2F37b9FB` | [View](https://hashkey.blockscout.com/address/0x4f3eEE789936a0eca627484bf680464f2F37b9FB) |
+| 7 | ReputationRegistry | Trust History | `0x110e9fB1ABEc92521E4511d5f45B4917B4c941Ab` | [View](https://hashkey.blockscout.com/address/0x110e9fB1ABEc92521E4511d5f45B4917B4c941Ab) |
 
 ---
 
@@ -82,7 +82,7 @@
 
 | Action | Status |
 |---|---|
-| Contract Deployments | ✅ 4 deployed, 3 pending |
+| Contract Deployments | ✅ All 7 Contracts Deployed |
 | Credit Passport Mint | ✅ Verified |
 | Oracle Attestation | ✅ Verified |
 | Loan Creation | ✅ Verified |

@@ -29,9 +29,9 @@ export default function SubmissionPage() {
     { name: "CreditPassportV2", address: "0xD6b040736e948621c5b6E0a494473c47a6113eA8", explorer: "https://hashkey.blockscout.com/address/0xD6b040736e948621c5b6E0a494473c47a6113eA8" },
     { name: "OracleRegistry", address: "0x2Dd78Fd9B8F40659Af32eF98555B8b31bC97A351", explorer: "https://hashkey.blockscout.com/address/0x2Dd78Fd9B8F40659Af32eF98555B8b31bC97A351" },
     { name: "LoanManager", address: "0x2988f0bE02e1a679430aEb4A6B9B10429F1e8e80", explorer: "https://hashkey.blockscout.com/address/0x2988f0bE02e1a679430aEb4A6B9B10429F1e8e80" },
-    { name: "LendingPool", address: "Pending Deployment", explorer: "#" },
-    { name: "SettlementManager", address: "Pending Deployment", explorer: "#" },
-    { name: "ReputationRegistry", address: "Pending Deployment", explorer: "#" }
+    { name: "LendingPool", address: "0x928BA9D30669c41695422a68a1C307a6529F0050", explorer: "https://hashkey.blockscout.com/address/0x928BA9D30669c41695422a68a1C307a6529F0050" },
+    { name: "SettlementManager", address: "0x4f3eEE789936a0eca627484bf680464f2F37b9FB", explorer: "https://hashkey.blockscout.com/address/0x4f3eEE789936a0eca627484bf680464f2F37b9FB" },
+    { name: "ReputationRegistry", address: "0x110e9fB1ABEc92521E4511d5f45B4917B4c941Ab", explorer: "https://hashkey.blockscout.com/address/0x110e9fB1ABEc92521E4511d5f45B4917B4c941Ab" }
   ];
 
   return (
