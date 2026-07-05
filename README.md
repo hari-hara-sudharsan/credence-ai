@@ -4,25 +4,35 @@ AI-powered decentralized credit infrastructure layer for Web3, built on HashKey 
 
 ## Architecture Overview
 ```
-           Wallet Activity
-                 ↓
-      AI Intelligence Core
-                 ↓
-     Oracle Attestation Signer
-                 ↓
-     GovernanceRegistry (Cancun)
-                 ↓
-        Credit Passport V2
-                 ↓
-       Cross-Protocol Adaptations
+                 Credence AI
+                     |
+              OracleRegistry
+          (AI trust verification)
+                     |
+              CreditPassportV2
+           (portable identity)
+                     |
+              LoanManager
+             (loan lifecycle)
+          /                    \
+ LendingPool             SettlementManager
+(capital)                (payment execution)
+          \                    /
+             ReputationRegistry
+          (credit history engine)
+                     |
+             GovernanceRegistry
 ```
 
 ## Core Components
-1. **Wallet Analyzer**: Collects token balances and tx records metrics.
-2. **Credit & Risk Engines**: Determines composite credit score, rating tiers, and defaults forecasting probabilities.
-3. **Universal Verification Network**: Coordinates EIP-712 structured attestations.
-4. **Credit Passport V2**: Portable NFT and identity state mapping.
-5. **Policy Engine**: Allows third-party money markets to evaluate custom lending conditions at the API gate.
+1. **Wallet Analyzer**: Collects on-chain wallet transactions and balances.
+2. **Transparent Underwriting Engine**: Deterministic weighted model calculating risk and credit scores (Age 20%, Tx 25%, Repayment 30%, DeFi 15%, Risk 10%).
+3. **Oracle Verification Registry**: Cryptographic verification of EIP-712 typed attestations signed by verified AI agents.
+4. **Credit Passport V2**: Portable on-chain identity credentials.
+5. **Loan Manager**: Oversees loan creation, activation, and coordinates with the Reputation and Settlement engines.
+6. **Lending Pool**: Share-based lending registry with AccessControl and proportional interest accrual.
+7. **Settlement Manager**: Secure payment settlement layer for native ETH and ERC20/HSP assets.
+8. **Reputation Registry**: On-chain trust registry tracking streaks and repayment achievements.
 
 ## Getting Started
 
