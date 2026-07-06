@@ -336,7 +336,7 @@ describe("CreditPassportV2", function () {
 
     // 1. Mint Passport
     await expect(
-      registry.mintPassport(passportHash, attestationHash, wallet.address, metadataURI, expiresAt)
+      registry.mintPassport(passportHash, attestationHash, wallet.address, metadataURI, expiresAt, "HUMAN", 800n, "PRIME")
     )
       .to.emit(registry, "PassportMinted")
       .withArgs(passportHash, wallet.address, 0n);
@@ -355,7 +355,7 @@ describe("CreditPassportV2", function () {
     const newExpiresAt = BigInt(Math.floor(Date.now() / 1000) + 7200);
 
     await expect(
-      registry.refreshPassport(passportHash, newPassportHash, newMetadataURI, newExpiresAt)
+      registry.refreshPassport(passportHash, newPassportHash, newMetadataURI, newExpiresAt, "HUMAN", 850n, "PRIME")
     )
       .to.emit(registry, "PassportRefreshed")
       .withArgs(passportHash, newPassportHash, wallet.address);

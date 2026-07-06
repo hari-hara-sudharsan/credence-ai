@@ -1,11 +1,27 @@
 // SPDX-License-Identifier: MIT
 pragma solidity ^0.8.28;
 
+import "@openzeppelin/contracts/access/AccessControl.sol";
+import "@openzeppelin/contracts/utils/Pausable.sol";
+import "@openzeppelin/contracts/utils/ReentrancyGuard.sol";
+
 interface IReputationRegistry {
     function recordRepayment(address wallet, uint256 amount) external;
 }
 
-contract LoanManager {
+interface ITrustReceiptRegistry {
+    function issueReceipt(
+        address entity,
+        string calldata actionType,
+        int256 trustImpact,
+        bytes32 proofHash
+    ) external returns (uint256);
+}
+
+contract LoanManager is AccessControl, Pausable, ReentrancyGuard {
+    constructor() {
+        _grantRole(DEFAULT_ADMIN_ROLE, msg.sender);
+    }
     enum LoanStatus { PENDING, ACTIVE, REPAID, CANCELLED }
     enum SettlementStatus { PENDING, SETTLED, FAILED }
 
@@ -34,6 +50,7 @@ contract LoanManager {
     event LoanRepaid(string loanId);
     event LoanCancelled(string loanId);
     event LoanSettled(string loanId, address borrower, uint256 amount, bytes32 settlementReference);
+    event TrustReceiptCallFailed(address indexed entity, string actionType);
 
 
     // Business rules constraints
@@ -53,7 +70,8 @@ contract LoanManager {
         uint256 duration,
         bytes32 offerHash,
         string calldata offerId
-    ) external {
+    ) external whenNotPaused nonReentrant {
+        require(borrower != address(0), "Invalid borrower address");
         require(bytes(loanId).length > 0, "Loan ID cannot be empty");
         require(loans[loanId].borrower == address(0), "Loan already exists");
         require(approvedAmount > 0, "Loan amount must be positive");
@@ -85,7 +103,7 @@ contract LoanManager {
     /**
      * @notice Activate a pending loan. Sets the due date.
      */
-    function activateLoan(string calldata loanId) external {
+    function activateLoan(string calldata loanId) external whenNotPaused nonReentrant {
         Loan storage loan = loans[loanId];
         require(loan.borrower != address(0), "Loan does not exist");
         require(loan.status == LoanStatus.PENDING, "Loan not in PENDING status");
@@ -99,16 +117,22 @@ contract LoanManager {
 
     // ── Interface ────────────────────────────────────────────────────
     IReputationRegistry public reputationRegistry;
+    address public trustReceiptRegistry;
 
-    function setReputationRegistry(address _reputationRegistry) external {
-        // In a real production environment, you'd protect this with an admin modifier
+    function setReputationRegistry(address _reputationRegistry) external onlyRole(DEFAULT_ADMIN_ROLE) {
+        require(_reputationRegistry != address(0), "Invalid registry address");
         reputationRegistry = IReputationRegistry(_reputationRegistry);
+    }
+
+    function setTrustReceiptRegistry(address _registry) external onlyRole(DEFAULT_ADMIN_ROLE) {
+        require(_registry != address(0), "Invalid registry address");
+        trustReceiptRegistry = _registry;
     }
 
     /**
      * @notice Repay an active loan, transitioning it to REPAID.
      */
-    function repayLoan(string calldata loanId) external {
+    function repayLoan(string calldata loanId) external whenNotPaused nonReentrant {
         Loan storage loan = loans[loanId];
         require(loan.borrower != address(0), "Loan does not exist");
         require(loan.status == LoanStatus.ACTIVE, "Loan is not active");
@@ -120,6 +144,20 @@ contract LoanManager {
             reputationRegistry.recordRepayment(loan.borrower, loan.approvedAmount);
         }
 
+        if (trustReceiptRegistry != address(0)) {
+            bytes32 proofHash = keccak256(abi.encodePacked(loanId, block.timestamp));
+            try ITrustReceiptRegistry(trustReceiptRegistry).issueReceipt(
+                loan.borrower,
+                "LOAN_REPAID",
+                80,
+                proofHash
+            ) returns (uint256) {
+                // Success
+            } catch {
+                emit TrustReceiptCallFailed(loan.borrower, "LOAN_REPAID");
+            }
+        }
+
         emit LoanRepaid(loanId);
     }
 
@@ -127,7 +165,7 @@ contract LoanManager {
     /**
      * @notice Cancel a pending loan before activation.
      */
-    function cancelLoan(string calldata loanId) external {
+    function cancelLoan(string calldata loanId) external whenNotPaused nonReentrant {
         Loan storage loan = loans[loanId];
         require(loan.borrower != address(0), "Loan does not exist");
         require(loan.status == LoanStatus.PENDING, "Loan is not pending");
@@ -185,7 +223,7 @@ contract LoanManager {
     /**
      * @notice Mark a loan as settled via stablecoin payment.
      */
-    function markSettled(string calldata loanId, bytes32 settlementReference) external {
+    function markSettled(string calldata loanId, bytes32 settlementReference) external whenNotPaused nonReentrant {
         Loan storage loan = loans[loanId];
         require(loan.borrower != address(0), "Loan does not exist");
         require(loan.status == LoanStatus.PENDING, "Loan not pending");
@@ -205,6 +243,14 @@ contract LoanManager {
      */
     function getSettlementStatus(string calldata loanId) external view returns (SettlementStatus) {
         return loanSettlementStatus[loanId];
+    }
+
+    function pause() external onlyRole(DEFAULT_ADMIN_ROLE) {
+        _pause();
+    }
+
+    function unpause() external onlyRole(DEFAULT_ADMIN_ROLE) {
+        _unpause();
     }
 }
 

@@ -31,21 +31,16 @@ export default function DevelopersPage() {
     }
   };
 
-  const sdkCode = `import { Credence } from "@credence/trust-sdk";
+  const sdkCode = `// Add Credence Trust in 5 minutes
+import { Credence } from "@credence/sdk";
 
-// Initialize the SDK with your API Key
-const credence = new Credence({
-  apiKey: "${apiKey}"
-});
+// Verify EIP-712 signed trust report for any HashKey wallet
+const trust = await Credence.verifyTrust("${wallet}");
 
-// Verify trust profile for any HashKey wallet
-const profile = await credence.verify("${wallet}");
-
-console.log("Trust Score:", profile.trustScore);
-console.log("Risk Tier:", profile.tier); // e.g. "PRIME"
-
-if (profile.trustScore > 800) {
-  unlockPremiumFinancialTerms();
+if (trust.safe) {
+  approveAccess();
+} else {
+  rejectAccess();
 }`;
 
   return (

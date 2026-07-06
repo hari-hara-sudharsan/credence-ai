@@ -83,6 +83,17 @@ export class CredenceClient {
   public async getIntegration(protocol: string, wallet: string): Promise<any> {
     return this.request("GET", `/integrations/${protocol}/${wallet}`);
   }
+
+  /**
+   * AI Risk Intelligence Predict namespace.
+   */
+  public get trust() {
+    return {
+      predict: async (wallet: string) => {
+        return this.request("GET", `/api/ai/risk/${wallet}`);
+      }
+    };
+  }
 }
 
 /**

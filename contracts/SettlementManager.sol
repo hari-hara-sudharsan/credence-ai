@@ -16,6 +16,15 @@ interface ICreditPassportV2 {
     function walletPassports(address wallet) external view returns (bytes32);
 }
 
+interface ITrustReceiptRegistry {
+    function issueReceipt(
+        address entity,
+        string calldata actionType,
+        int256 trustImpact,
+        bytes32 proofHash
+    ) external returns (uint256);
+}
+
 /**
  * @title SettlementManager
  * @notice Separates loan approval from payment execution.
@@ -93,6 +102,8 @@ contract SettlementManager is AccessControl, Pausable, ReentrancyGuard {
         uint256 amount,
         uint256 newTrustScore
     );
+
+    event TrustReceiptCallFailed(address indexed entity, string actionType);
 
     event SettlementVerified(uint256 indexed settlementId, bytes32 settlementRef);
     event SettlementFailed(uint256 indexed settlementId, string reason);
@@ -221,6 +232,19 @@ contract SettlementManager is AccessControl, Pausable, ReentrancyGuard {
             emit TrustSettlementCompleted(s.borrower, s.amount, newTrustScore);
         }
 
+        if (trustReceiptRegistry != address(0)) {
+            try ITrustReceiptRegistry(trustReceiptRegistry).issueReceipt(
+                s.borrower,
+                "HSP_SETTLEMENT",
+                25,
+                ref
+            ) returns (uint256) {
+                // Success
+            } catch {
+                emit TrustReceiptCallFailed(s.borrower, "HSP_SETTLEMENT");
+            }
+        }
+
         emit SettlementExecuted(settlementId, s.loanId, s.borrower, s.amount, ref);
         emit HSPSettlementCompleted(s.loanId, s.borrower, s.amount, ref);
     }
@@ -262,5 +286,11 @@ contract SettlementManager is AccessControl, Pausable, ReentrancyGuard {
 
     function setCreditPassportV2(address _creditPassportV2) external onlyRole(DEFAULT_ADMIN_ROLE) {
         creditPassportV2 = ICreditPassportV2(_creditPassportV2);
+    }
+
+    address public trustReceiptRegistry;
+
+    function setTrustReceiptRegistry(address _registry) external onlyRole(DEFAULT_ADMIN_ROLE) {
+        trustReceiptRegistry = _registry;
     }
 }

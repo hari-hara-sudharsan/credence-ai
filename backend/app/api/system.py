@@ -71,12 +71,45 @@ def get_deployed_contracts():
     """
     Retrieves verification addresses of active smart contracts.
     """
-    return [
-        {"contract": "LoanManager", "address": os.getenv("LOAN_MANAGER"), "status": "VERIFIED"},
-        {"contract": "OracleRegistry", "address": os.getenv("ORACLE_REGISTRY_ADDRESS"), "status": "VERIFIED"},
-        {"contract": "CreditPassportV2", "address": os.getenv("CREDIT_PASSPORT_V2_ADDRESS"), "status": "VERIFIED"},
-        {"contract": "GovernanceRegistry", "address": os.getenv("GOVERNANCE_REGISTRY_ADDRESS"), "status": "VERIFIED"}
+    from app.contracts.web3_provider import create_web3_with_retry
+    from web3 import Web3
+    
+    hsk_rpc = os.getenv("HSK_RPC")
+    w3 = None
+    if hsk_rpc:
+        try:
+            w3 = create_web3_with_retry(hsk_rpc)
+        except Exception:
+            w3 = None
+            
+    contracts_list = [
+        {"name": "LoanManager", "env_var": "LOAN_MANAGER"},
+        {"name": "OracleRegistry", "env_var": "ORACLE_REGISTRY_ADDRESS"},
+        {"name": "CreditPassportV2", "env_var": "CREDIT_PASSPORT_V2_ADDRESS"},
+        {"name": "GovernanceRegistry", "env_var": "GOVERNANCE_REGISTRY_ADDRESS"},
+        {"name": "FinancialIdentityRegistry", "env_var": "FINANCIAL_IDENTITY_REGISTRY_ADDRESS"},
+        {"name": "TrustReceiptRegistry", "env_var": "TRUST_RECEIPT_REGISTRY_ADDRESS"}
     ]
+    
+    res = []
+    for c in contracts_list:
+        address = os.getenv(c["env_var"])
+        status = "NOT_CONFIGURED"
+        if address:
+            if w3:
+                try:
+                    checksum_address = Web3.to_checksum_address(address)
+                    code = w3.eth.get_code(checksum_address)
+                    if len(code) > 0:
+                        status = "VERIFIED"
+                    else:
+                        status = "NOT_DEPLOYED"
+                except Exception:
+                    status = "INVALID_ADDRESS"
+            else:
+                status = "OFFLINE"
+        res.append({"contract": c["name"], "address": address or "N/A", "status": status})
+    return res
 
 @router.get("/readiness", response_model=ProductionReadinessResponse)
 def get_production_readiness_score():

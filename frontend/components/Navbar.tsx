@@ -21,7 +21,10 @@ const ADVANCED_LINKS = [
   { href: "/system", label: "Monitoring" },
   { href: "/institution", label: "Institution" },
   { href: "/trust-graph", label: "Trust Graph" },
-  { href: "/ecosystem", label: "Ecosystem" }
+  { href: "/ecosystem", label: "Ecosystem" },
+  { href: "/trust-intelligence", label: "Trust Intelligence" },
+  { href: "/network", label: "Network Telemetry" },
+  { href: "/protocol-status", label: "Protocol Status" }
 ];
 
 

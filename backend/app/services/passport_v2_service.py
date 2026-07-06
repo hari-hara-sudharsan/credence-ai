@@ -24,7 +24,10 @@ CREDIT_PASSPORT_V2_ABI = [
             {"internalType": "bytes32", "name": "attestationHash", "type": "bytes32"},
             {"internalType": "address", "name": "wallet", "type": "address"},
             {"internalType": "string", "name": "metadataURI", "type": "string"},
-            {"internalType": "uint256", "name": "expiresAt", "type": "uint256"}
+            {"internalType": "uint256", "name": "expiresAt", "type": "uint256"},
+            {"internalType": "string", "name": "entityType", "type": "string"},
+            {"internalType": "uint256", "name": "trustScore", "type": "uint256"},
+            {"internalType": "string", "name": "financialTier", "type": "string"}
         ],
         "name": "mintPassport",
         "outputs": [{"internalType": "uint256", "name": "", "type": "uint256"}],
@@ -36,7 +39,10 @@ CREDIT_PASSPORT_V2_ABI = [
             {"internalType": "bytes32", "name": "oldPassportHash", "type": "bytes32"},
             {"internalType": "bytes32", "name": "newPassportHash", "type": "bytes32"},
             {"internalType": "string", "name": "newMetadataURI", "type": "string"},
-            {"internalType": "uint256", "name": "newExpiresAt", "type": "uint256"}
+            {"internalType": "uint256", "name": "newExpiresAt", "type": "uint256"},
+            {"internalType": "string", "name": "entityType", "type": "string"},
+            {"internalType": "uint256", "name": "trustScore", "type": "uint256"},
+            {"internalType": "string", "name": "financialTier", "type": "string"}
         ],
         "name": "refreshPassport",
         "outputs": [],
@@ -109,6 +115,30 @@ class PassportV2Service:
         trust_score = reputation_engine.calculate_trust_score(wallet_checksum)
         badges = BadgeEngine.generate(features)
         segment = SegmentEngine.classify(features)
+
+        # Entity type and financial tier classification
+        tx_count = features.get("transaction_count", 0)
+        balance = features.get("balance", 0.0)
+        unique_contracts = features.get("protocol_diversity_score", 0) / 2
+        
+        if balance >= 10000.0:
+            entity_type = "INSTITUTION"
+        elif unique_contracts >= 15:
+            entity_type = "DAO"
+        elif tx_count >= 100 and balance >= 2500.0:
+            entity_type = "BUSINESS"
+        elif tx_count > 0 and tx_count < 15 and unique_contracts >= 1:
+            entity_type = "AI_AGENT"
+        else:
+            entity_type = "HUMAN"
+            
+        trust_val = trust_score * 10
+        if trust_val >= 750:
+            financial_tier = "PRIME"
+        elif trust_val >= 600:
+            financial_tier = "RETAIL"
+        else:
+            financial_tier = "WATCHLIST"
 
         # 2. Protocol Profiles
         profile_context = ProtocolProfileEngine.get_protocol_profile(wallet_checksum)
@@ -217,7 +247,11 @@ class PassportV2Service:
             "expires_at": expires_at.isoformat().replace("+00:00", "Z"),
             "metadata_uri": metadata_uri,
             "signature": digital_signature,
-            "attestation_hash": attestation_hash
+            "attestation_hash": attestation_hash,
+            "entityType": entity_type,
+            "trustScore": int(trust_score * 10),
+            "financialTier": financial_tier,
+            "lastUpdated": issued_at.isoformat().replace("+00:00", "Z")
         }
 
     def generate_passport(self, wallet: str) -> dict:
@@ -237,7 +271,10 @@ class PassportV2Service:
             HexBytes(record["attestation_hash"]),
             wallet_checksum,
             record["metadata_uri"],
-            expires_at_timestamp
+            expires_at_timestamp,
+            record["entityType"],
+            record["trustScore"],
+            record["financialTier"]
         )
 
         try:
@@ -291,7 +328,10 @@ class PassportV2Service:
             HexBytes(old_record["passport_hash"]),
             HexBytes(new_record["passport_hash"]),
             new_record["metadata_uri"],
-            new_expires_timestamp
+            new_expires_timestamp,
+            new_record["entityType"],
+            new_record["trustScore"],
+            new_record["financialTier"]
         )
 
         try:

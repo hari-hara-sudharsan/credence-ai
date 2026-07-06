@@ -92,6 +92,12 @@ from app.api.p2p_lending import router as p2p_lending_router
 from app.api.capital_matching import router as capital_matching_router
 from app.api.transparent_underwriting import router as underwriting_router
 from app.api.trust_api import router as trust_api_router
+from app.api.trust_identity import router as trust_identity_router
+from app.api.trust_receipts import router as trust_receipts_router
+from app.api.ai_trust import router as ai_trust_router
+from app.api.ecosystem_api import router as ecosystem_api_router
+from app.api.trust_graph import router as trust_graph_router
+from app.api.security_api import router as security_api_router
 
 
 
@@ -148,6 +154,12 @@ app.include_router(p2p_lending_router)
 app.include_router(capital_matching_router)
 app.include_router(underwriting_router)
 app.include_router(trust_api_router)
+app.include_router(trust_identity_router, prefix="/api")
+app.include_router(trust_receipts_router, prefix="/api")
+app.include_router(ai_trust_router)
+app.include_router(ecosystem_api_router)
+app.include_router(trust_graph_router)
+app.include_router(security_api_router)
 app.include_router(credit_router)
 app.include_router(
     analysis_router

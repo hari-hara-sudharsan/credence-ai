@@ -72,6 +72,18 @@ class CredenceClient:
         """
         return self._request("GET", f"/integrations/{protocol}/{wallet}")
 
+    @property
+    def trust(self):
+        """
+        AI Risk Intelligence Predict namespace.
+        """
+        class TrustPredictor:
+            def __init__(self, request_fn):
+                self._request = request_fn
+            def predict(self, wallet: str) -> dict:
+                return self._request("GET", f"/api/ai/risk/{wallet}")
+        return TrustPredictor(self._request)
+
 def createClient(api_key: str, base_url: str = "http://127.0.0.1:8000") -> CredenceClient:
     """
     Helper function to instantiate a new CredenceClient.

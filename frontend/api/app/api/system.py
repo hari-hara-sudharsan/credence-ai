@@ -86,7 +86,9 @@ def get_deployed_contracts():
         {"name": "LoanManager", "env_var": "LOAN_MANAGER"},
         {"name": "OracleRegistry", "env_var": "ORACLE_REGISTRY_ADDRESS"},
         {"name": "CreditPassportV2", "env_var": "CREDIT_PASSPORT_V2_ADDRESS"},
-        {"name": "GovernanceRegistry", "env_var": "GOVERNANCE_REGISTRY_ADDRESS"}
+        {"name": "GovernanceRegistry", "env_var": "GOVERNANCE_REGISTRY_ADDRESS"},
+        {"name": "FinancialIdentityRegistry", "env_var": "FINANCIAL_IDENTITY_REGISTRY_ADDRESS"},
+        {"name": "TrustReceiptRegistry", "env_var": "TRUST_RECEIPT_REGISTRY_ADDRESS"}
     ]
     
     res = []

@@ -63,6 +63,14 @@ class RepaymentEngine:
                 credit_score=current_credit_score,
                 is_on_time=is_on_time
             )
+            
+            # Record trust event to the on-chain TrustGraphRegistry
+            try:
+                from app.services.graph.blockchain_publisher import GraphRegistryPublisher
+                publisher = GraphRegistryPublisher()
+                publisher.record_event(borrower, "LOAN_REPAID")
+            except Exception as graph_err:
+                print(f"Failed to record graph event: {graph_err}")
         except Exception as rep_err:
             print(f"Failed to update reputation: {rep_err}")
             

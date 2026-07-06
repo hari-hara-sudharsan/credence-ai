@@ -5,6 +5,24 @@ import "@openzeppelin/contracts/access/AccessControl.sol";
 import "@openzeppelin/contracts/utils/Pausable.sol";
 import "@openzeppelin/contracts/utils/ReentrancyGuard.sol";
 
+interface IFinancialIdentityRegistry {
+    function updateIdentity(
+        address wallet,
+        uint256 trustScore,
+        uint256 creditScore,
+        uint256 reliabilityScore
+    ) external;
+}
+
+interface ITrustReceiptRegistry {
+    function issueReceipt(
+        address entity,
+        string calldata actionType,
+        int256 trustImpact,
+        bytes32 proofHash
+    ) external returns (uint256);
+}
+
 /**
  * @title ReputationRegistry
  * @notice Permanent on-chain credit history engine for Credence AI.
@@ -35,13 +53,25 @@ contract ReputationRegistry is AccessControl, Pausable, ReentrancyGuard {
     uint256 public constant DEFAULT_PENALTY = 50;
     uint256 public constant STREAK_BONUS = 5;
 
+    address public financialIdentityRegistry;
+    address public trustReceiptRegistry;
+
     event RepaymentRecorded(address indexed wallet, uint256 amount, uint256 newScore, uint256 streak);
     event DefaultRecorded(address indexed wallet, uint256 amount, uint256 newScore);
     event ReputationUpdated(address indexed wallet, uint256 score, uint256 timestamp);
+    event TrustReceiptCallFailed(address indexed entity, string actionType);
 
     constructor() {
         _grantRole(DEFAULT_ADMIN_ROLE, msg.sender);
         _grantRole(ORACLE_ROLE, msg.sender);
+    }
+
+    function setFinancialIdentityRegistry(address _registry) external onlyRole(DEFAULT_ADMIN_ROLE) {
+        financialIdentityRegistry = _registry;
+    }
+
+    function setTrustReceiptRegistry(address _registry) external onlyRole(DEFAULT_ADMIN_ROLE) {
+        trustReceiptRegistry = _registry;
     }
 
     /**
@@ -82,6 +112,22 @@ contract ReputationRegistry is AccessControl, Pausable, ReentrancyGuard {
 
         emit RepaymentRecorded(wallet, amount, rep.currentScore, rep.streakCount);
         emit ReputationUpdated(wallet, rep.currentScore, block.timestamp);
+
+        // Propagate to FinancialIdentityRegistry
+        if (financialIdentityRegistry != address(0)) {
+            uint256 creditScore = rep.currentScore;
+            uint256 trustScore = creditScore; // aligns in reputation registry context
+            uint256 reliabilityScore = 300;
+            if (rep.totalRepayments + rep.totalDefaults > 0) {
+                reliabilityScore = (rep.totalRepayments * 1000) / (rep.totalRepayments + rep.totalDefaults);
+            }
+            try IFinancialIdentityRegistry(financialIdentityRegistry).updateIdentity(
+                wallet,
+                trustScore,
+                creditScore,
+                reliabilityScore
+            ) {} catch {}
+        }
     }
 
     /**
@@ -120,6 +166,36 @@ contract ReputationRegistry is AccessControl, Pausable, ReentrancyGuard {
 
         emit DefaultRecorded(wallet, amount, rep.currentScore);
         emit ReputationUpdated(wallet, rep.currentScore, block.timestamp);
+
+        if (trustReceiptRegistry != address(0)) {
+            bytes32 proofHash = keccak256(abi.encodePacked(wallet, amount, block.timestamp));
+            try ITrustReceiptRegistry(trustReceiptRegistry).issueReceipt(
+                wallet,
+                "LOAN_DEFAULTED",
+                -50,
+                proofHash
+            ) returns (uint256) {
+                // Success
+            } catch {
+                emit TrustReceiptCallFailed(wallet, "LOAN_DEFAULTED");
+            }
+        }
+
+        // Propagate to FinancialIdentityRegistry
+        if (financialIdentityRegistry != address(0)) {
+            uint256 creditScore = rep.currentScore;
+            uint256 trustScore = creditScore;
+            uint256 reliabilityScore = 300;
+            if (rep.totalRepayments + rep.totalDefaults > 0) {
+                reliabilityScore = (rep.totalRepayments * 1000) / (rep.totalRepayments + rep.totalDefaults);
+            }
+            try IFinancialIdentityRegistry(financialIdentityRegistry).updateIdentity(
+                wallet,
+                trustScore,
+                creditScore,
+                reliabilityScore
+            ) {} catch {}
+        }
     }
 
     /**

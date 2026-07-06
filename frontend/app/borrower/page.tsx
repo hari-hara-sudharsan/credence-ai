@@ -31,6 +31,7 @@ type Lending = {
 type DashboardData = {
   insight: Insight;
   lending: Lending;
+  identity?: any;
 };
 
 const PIPELINE_STEPS = [
@@ -123,9 +124,18 @@ export default function BorrowerPage() {
         API.post("/lending/decision", { wallet }),
       ]);
 
+      let identityData = null;
+      try {
+        const identityResp = await API.get(`/trust/identity/${wallet}`);
+        identityData = identityResp.data;
+      } catch (err) {
+        console.warn("Failed to retrieve trust identity details:", err);
+      }
+
       setData({
         insight: insight.data,
         lending: lending.data,
+        identity: identityData,
       });
       setStatus("idle");
     } catch (err) {
@@ -288,6 +298,38 @@ export default function BorrowerPage() {
                 </div>
               </div>
 
+              {/* Card 5: Trust Identity */}
+              {data.identity && (
+                <div style={{ background: "linear-gradient(135deg, #0A192F 0%, #050B14 100%)", border: "1px solid #1D2E49", borderRadius: 12, padding: 20 }}>
+                  <div style={{ fontSize: 9, fontWeight: 700, color: "#64748B", letterSpacing: 1.2, textTransform: "uppercase", marginBottom: 6 }}>
+                    Trust Identity Profile
+                  </div>
+                  <div style={{ fontSize: 24, fontWeight: 800, color: "#00E5FF", letterSpacing: -0.5 }}>
+                    {data.identity.type || "HUMAN"}
+                  </div>
+                  <div style={{ fontSize: 12, color: "#94A3B8", marginTop: 4 }}>
+                    Score: {data.identity.financialDNA?.trust} ({data.identity.tier})
+                  </div>
+                  <div style={{ fontSize: 11, color: "#34D399", fontWeight: 700, marginTop: 4 }}>
+                    Backed By {data.identity.financialDNA?.trustReceipts || 0} Verified Trust Receipts
+                  </div>
+                  <div style={{ fontSize: 11, color: "#4A6080", marginTop: 8, display: "flex", gap: 10 }}>
+                    <a
+                      href={`/identity/${wallet}`}
+                      style={{ color: "#00E5FF", textDecoration: "underline", fontWeight: 600 }}
+                    >
+                      View DNA
+                    </a>
+                    <a
+                      href={`/trust-receipts/${wallet}`}
+                      style={{ color: "#34D399", textDecoration: "underline", fontWeight: 600 }}
+                    >
+                      View Receipts Timeline →
+                    </a>
+                  </div>
+                </div>
+              )}
+
             </div>
 
             {/* Advanced detailed tables lower in structure */}
@@ -332,6 +374,33 @@ export default function BorrowerPage() {
               </div>
 
             </div>
+
+            {/* AI Underwriter Explanation Section */}
+            {data.identity && (
+              <div style={{ background: "#080F1E", border: "1px solid #111C2E", borderRadius: 12, padding: 24, marginTop: 24 }}>
+                <h3 style={{ fontSize: 13, fontWeight: 700, color: "#00E5FF", textTransform: "uppercase", letterSpacing: 1, marginBottom: 12 }}>
+                  AI Underwriting Verification Summary
+                </h3>
+                <p style={{ fontSize: 13, color: "#94A3B8", lineHeight: 1.6, margin: 0 }}>
+                  This wallet has achieved <strong style={{ color: "#34D399" }}>{data.identity.tier}</strong> status as a verified <strong style={{ color: "#00E5FF" }}>{data.identity.type}</strong>. 
+                  Our machine-learning models and on-chain telemetry have verified:
+                </p>
+                <ul style={{ display: "flex", flexDirection: "column", gap: 8, padding: 0, margin: "12px 0 0 0", listStyle: "none", fontSize: 12, color: "#94A3B8" }}>
+                  <li style={{ display: "flex", gap: 8 }}>
+                    <span style={{ color: "#34D399" }}>✦</span>
+                    <span>Completed <strong>{data.identity.financialDNA?.positiveEvents || 0}</strong> verified positive reputation actions.</span>
+                  </li>
+                  <li style={{ display: "flex", gap: 8 }}>
+                    <span style={{ color: "#FF4D6A" }}>✦</span>
+                    <span>Recorded <strong>{data.identity.financialDNA?.negativeEvents || 0}</strong> risk triggers / defaults on HashKey Chain.</span>
+                  </li>
+                  <li style={{ display: "flex", gap: 8 }}>
+                    <span style={{ color: "#00E5FF" }}>✦</span>
+                    <span>Validated by <strong>{data.identity.financialDNA?.trustReceipts || 0}</strong> cryptographically-signed trust receipts.</span>
+                  </li>
+                </ul>
+              </div>
+            )}
 
           </div>
         )}

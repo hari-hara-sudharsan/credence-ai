@@ -4,6 +4,15 @@ pragma solidity ^0.8.28;
 import "@openzeppelin/contracts/token/ERC721/extensions/ERC721URIStorage.sol";
 import "@openzeppelin/contracts/access/Ownable.sol";
 
+interface ITrustReceiptRegistry {
+    function issueReceipt(
+        address entity,
+        string calldata actionType,
+        int256 trustImpact,
+        bytes32 proofHash
+    ) external returns (uint256);
+}
+
 /**
  * @title CreditPassportV2
  * @notice Standard ERC721 registry representing verifiable credit passport credentials.
@@ -19,6 +28,10 @@ contract CreditPassportV2 is ERC721URIStorage, Ownable {
         uint256 issuedAt;
         uint256 expiresAt;
         bool revoked;
+        string entityType;
+        uint256 trustScore;
+        string financialTier;
+        uint256 lastUpdated;
     }
 
     // Storage Mappings
@@ -31,8 +44,15 @@ contract CreditPassportV2 is ERC721URIStorage, Ownable {
     event PassportMinted(bytes32 indexed passportHash, address indexed wallet, uint256 indexed tokenId);
     event PassportRefreshed(bytes32 indexed oldPassportHash, bytes32 indexed newPassportHash, address indexed wallet);
     event PassportRevoked(bytes32 indexed passportHash);
+    event TrustReceiptCallFailed(address indexed entity, string actionType);
 
     constructor() ERC721("Credence Credit Passport V2", "CCPv2") Ownable(msg.sender) {}
+
+    address public trustReceiptRegistry;
+
+    function setTrustReceiptRegistry(address _registry) external onlyOwner {
+        trustReceiptRegistry = _registry;
+    }
 
     /**
      * @notice Mints a new Credit Passport V2 representing a verifiable financial credential.
@@ -42,7 +62,10 @@ contract CreditPassportV2 is ERC721URIStorage, Ownable {
         bytes32 attestationHash,
         address wallet,
         string calldata metadataURI,
-        uint256 expiresAt
+        uint256 expiresAt,
+        string calldata entityType,
+        uint256 trustScore,
+        string calldata financialTier
     ) external returns (uint256) {
         require(passports[passportHash].wallet == address(0), "Passport already minted");
         require(wallet != address(0), "Invalid wallet address");
@@ -63,12 +86,29 @@ contract CreditPassportV2 is ERC721URIStorage, Ownable {
             metadataURI: metadataURI,
             issuedAt: block.timestamp,
             expiresAt: expiresAt,
-            revoked: false
+            revoked: false,
+            entityType: entityType,
+            trustScore: trustScore,
+            financialTier: financialTier,
+            lastUpdated: block.timestamp
         });
 
         walletPassports[wallet] = passportHash;
         passportTokens[passportHash] = tokenId;
         tokenPassports[tokenId] = passportHash;
+
+        if (trustReceiptRegistry != address(0)) {
+            try ITrustReceiptRegistry(trustReceiptRegistry).issueReceipt(
+                wallet,
+                "PASSPORT_CREATED",
+                50,
+                passportHash
+            ) returns (uint256) {
+                // Success
+            } catch {
+                emit TrustReceiptCallFailed(wallet, "PASSPORT_CREATED");
+            }
+        }
 
         emit PassportMinted(passportHash, wallet, tokenId);
         return tokenId;
@@ -81,7 +121,10 @@ contract CreditPassportV2 is ERC721URIStorage, Ownable {
         bytes32 oldPassportHash,
         bytes32 newPassportHash,
         string calldata newMetadataURI,
-        uint256 newExpiresAt
+        uint256 newExpiresAt,
+        string calldata entityType,
+        uint256 trustScore,
+        string calldata financialTier
     ) external {
         Passport storage oldPassport = passports[oldPassportHash];
         require(oldPassport.wallet != address(0), "Old passport not found");
@@ -106,7 +149,11 @@ contract CreditPassportV2 is ERC721URIStorage, Ownable {
             metadataURI: newMetadataURI,
             issuedAt: block.timestamp,
             expiresAt: newExpiresAt,
-            revoked: false
+            revoked: false,
+            entityType: entityType,
+            trustScore: trustScore,
+            financialTier: financialTier,
+            lastUpdated: block.timestamp
         });
 
         walletPassports[wallet] = newPassportHash;
