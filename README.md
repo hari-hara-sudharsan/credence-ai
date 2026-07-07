@@ -1,317 +1,377 @@
-<div align="center">
+# Credence AI
 
-# 🏦 Credence AI
+> The AI-Powered Financial Trust Infrastructure for HashKey Chain
 
-### **The Trust Layer for Programmable Finance on HashKey Chain**
-
-*Transforming wallet behavior into verifiable financial identity, enabling under-collateralized lending powered by AI.*
-
-[![Built for HashKey](https://img.shields.io/badge/Built%20for-HashKey%20Chain-blue?style=for-the-badge)](https://www.hashkey.com/)
-[![Next.js](https://img.shields.io/badge/Next.js-15-black?style=for-the-badge&logo=next.js)](https://nextjs.org)
-[![TypeScript](https://img.shields.io/badge/TypeScript-100%25-blue?style=for-the-badge&logo=typescript)](https://www.typescriptlang.org/)
-[![Solidity](https://img.shields.io/badge/Solidity-0.8.28-grey?style=for-the-badge&logo=solidity)](https://soliditylang.org/)
-[![HashKey](https://img.shields.io/badge/Network-HashKey%20Mainnet-purple?style=for-the-badge)](#)
-[![Tests Passing](https://img.shields.io/badge/Tests-162%2F162%20Passing-brightgreen?style=for-the-badge)](#)
-[![Coverage](https://img.shields.io/badge/Coverage-94%25-brightgreen?style=for-the-badge)](#)
-[![Contracts Verified](https://img.shields.io/badge/Contracts-Verified-brightgreen?style=for-the-badge)](#)
-
-### 🚀 Built for **HashKey Chain Horizon Hackathon • AI × DeFi**
-
-[🌐 Live Demo](https://frontend-kohl-psi-76.vercel.app/) •
-[📚 Documentation](https://frontend-kohl-psi-76.vercel.app/docs) •
-[💻 GitHub](https://github.com/hari-hara-sudharsan/credence-ai)
-
-</div>
+![Status](https://img.shields.io/badge/Mainnet-Live-success)
+![Network](https://img.shields.io/badge/HashKey-Mainnet-blue)
+![Contracts](https://img.shields.io/badge/Smart%20Contracts-7-success)
+![License](https://img.shields.io/badge/License-MIT-green)
 
 ---
 
-**Credence AI is the programmable trust infrastructure layer for HashKey Chain, enabling financial applications to verify identity, assess risk, and unlock under-collateralized finance using AI-powered trust intelligence.**
+## Overview
 
----
+Blockchain introduced ownership.
 
-# 🌍 Why Credence AI?
+Smart contracts introduced programmable execution.
 
-DeFi has solved **liquidity**.
+DeFi introduced permissionless liquidity.
 
-It has **not solved trust**.
+Yet every financial protocol still asks the same question:
 
-Today, every borrower is treated almost the same—regardless of years of responsible on-chain behavior.
+> **Can this wallet be trusted?**
 
-Traditional finance uses:
+Today, the answer is usually simple:
 
-- ✅ Credit history
-- ✅ Repayment behavior
-- ✅ Financial reputation
-- ✅ Risk analysis
+> **Require more collateral.**
 
-Web3 has none of these.
+Traditional DeFi treats experienced wallets and newly created wallets almost identically because financial trust cannot move across applications.
 
----
+Every protocol builds its own reputation.
 
-# 💡 Our Solution
+Every protocol starts from zero.
 
-Credence AI introduces a new primitive for DeFi:
+Every protocol duplicates the same infrastructure.
 
-## **Programmable Trust**
+**Credence AI solves this problem.**
+
+Instead of creating another lending protocol, Credence AI builds a reusable **Financial Trust Infrastructure** that every protocol on HashKey Chain can integrate.
 
 Instead of asking:
 
-> **"How much collateral do you own?"**
+> **How much collateral do you own?**
 
 Credence asks:
 
-> **"How trustworthy is your wallet?"**
-
-Wallet activity becomes a portable financial identity.
-
-- 🏆 Trust Score
-- 💳 Credit Score
-- 🪪 Credit Passport
-- 📈 Borrowing Power
-- ⭐ Reputation
-
-Trust becomes collateral.
+> **How trustworthy have you proven yourself to be?**
 
 ---
 
-# 🔄 Trust Lifecycle
+# Live Infrastructure
+
+## Live Application
+
+https://frontend-kohl-psi-76.vercel.app/
+
+## Documentation
+
+https://frontend-kohl-psi-76.vercel.app/docs
+
+## GitHub Repository
+
+https://github.com/hari-hara-sudharsan/credence-ai
+
+---
+
+# Highlights
+
+✅ Live on HashKey Mainnet
+
+✅ 7 Production Smart Contracts
+
+✅ Native HashKey Chain Deployment
+
+✅ AI-Powered Financial Identity
+
+✅ Credit Passport
+
+✅ Oracle Verification (EIP-712)
+
+✅ Native HSP Settlement Integration
+
+✅ Under-Collateralized Lending
+
+✅ P2P Lending Marketplace
+
+✅ Explainable AI Trust Engine
+
+✅ Developer Trust APIs
+
+✅ Institutional Grade Security
+
+---
+
+# The Problem
+
+Modern Web3 lacks a universal trust layer.
+
+Every protocol independently builds:
+
+- Reputation
+- Credit Scoring
+- Risk Analysis
+- Wallet History
+- Identity
+
+The result:
+
+- Fragmented trust
+- Poor capital efficiency
+- Excessive collateral requirements
+- No portable financial reputation
+
+---
+
+# The Solution
+
+Credence AI introduces a shared financial trust layer.
+
+```
+  ## System Architecture
 
 ```text
-Wallet Activity
-      │
-      ▼
-AI Trust Analysis
-      │
-      ▼
-Credit Passport
-      │
-      ▼
-Loan Eligibility
-      │
-      ▼
-Capital Access
-      │
-      ▼
-Repayment
-      │
-      ▼
-Reputation Growth
-      │
-      ▼
-Higher Borrowing Power
+                                              ┌──────────────────────────┐
+                                              │      User Wallet         │
+                                              │   (EOA / Smart Wallet)   │
+                                              └────────────┬─────────────┘
+                                                           │
+                                                           ▼
+                                             ┌────────────────────────────────┐
+                                             │      Credence AI Frontend      │
+                                             │      (React / Next.js)         │
+                                             └────────────┬───────────────────┘
+                                                          │
+                                  ┌───────────────────────┼────────────────────────┐
+                                  │                       │                        │
+                                  ▼                       ▼                        ▼
+                          ┌──────────────────┐    ┌──────────────────┐     ┌──────────────────┐
+                          │ Financial        │    │ Credit Passport  │     │ Lending & Market │
+                          │ Identity Engine  │    │ Identity Layer   │     │ Marketplace      │
+                          └────────┬─────────┘    └────────┬─────────┘     └────────┬─────────┘
+                                   │                       │                        │
+                                   └───────────────────────┼────────────────────────┘
+                                                           │
+                                                           ▼
+                                          ┌─────────────────────────────────┐
+                                          │      AI Trust Intelligence      │
+                                          │ • Trust Score                   │
+                                          │ • Risk Analysis                 │
+                                          │ • Credit Recommendation         │
+                                          └───────────────┬─────────────────┘
+                                                          │
+                                                          ▼
+                                          ┌─────────────────────────────────┐
+                                          │ Oracle Verification (EIP-712)   │
+                                          │ Signed Trust Attestations       │
+                                          └───────────────┬─────────────────┘
+                                                          │
+                                                          ▼
+                                       ┌──────────────────────────────────────────┐
+                                       │       Smart Contract Infrastructure      │
+                                       └───────────────┬──────────────────────────┘
+                                                       │
+                        ┌──────────────┬───────────────┼────────────────┬────────────────┐
+                        ▼              ▼               ▼                ▼                ▼
+                  ┌────────────┐ ┌──────────────┐ ┌──────────────┐ ┌─────────────┐ ┌──────────────┐
+                  │ Governance │ │ Credit       │ │ Loan Manager │ │ LendingPool │ │ Reputation   │
+                  │ Registry   │ │ Passport V2  │ │              │ │             │ │ Registry     │
+                  └────────────┘ └──────────────┘ └──────────────┘ └─────────────┘ └──────────────┘
+                                                       │
+                                                       ▼
+                                            ┌──────────────────────┐
+                                            │ Settlement Manager   │
+                                            │   (HashKey HSP)      │
+                                            └──────────┬───────────┘
+                                                       │
+                                                       ▼
+                                             ┌─────────────────────┐
+                                             │   HashKey Chain     │
+                                             │     Mainnet         │
+                                             └─────────────────────┘
 ```
+```
+
+Every application consumes the same trust infrastructure.
+
+Trust becomes reusable.
 
 ---
 
-# ✨ Key Features
+# Architecture
 
-## 🤖 AI Underwriting Engine
+```
+                                    Wallet
+                                       │
+                                       ▼
+                                    AI Financial Analysis
+                                       │
+                                       ▼
+                                    Financial Identity
+                                       │
+                                       ▼
+                                    Credit Passport
+                                       │
+                                       ▼
+                                    Oracle Attestation (EIP-712)
+                                       │
+                                       ▼
+                                    Smart Contract Verification
+                                       │
+                                       ▼
+                                    Loan Approval
+                                       │
+                                       ▼
+                                    HashKey Settlement
+                                       │
+                                       ▼
+                                    Repayment
+                                       │
+                                       ▼
+                                    Trust Receipt
+                                       │
+                                       ▼
+                                    Reputation Updated
+```
 
-Transparent and explainable AI underwriting.
+Every interaction improves future financial access.
 
-### Scoring Factors
+Trust compounds exactly like capital.
 
-| Factor | Weight |
-|---------|--------|
+---
+
+# Core Components
+
+## Financial Identity
+
+Every wallet receives a portable financial identity built from on-chain behavior.
+
+Identity includes:
+
+- Wallet maturity
+- Financial reliability
+- Creditworthiness
+- Reputation
+- Risk profile
+
+---
+
+## Credit Passport
+
+The Credit Passport is a portable reputation layer that every protocol can verify.
+
+Benefits:
+
+- Reusable reputation
+- Cross-protocol trust
+- Better borrowing terms
+- Faster onboarding
+
+---
+
+## Explainable AI
+
+Credence AI never directly controls capital.
+
+Instead, AI generates financial intelligence while smart contracts enforce protocol rules.
+
+```
+                                    On-chain Signals
+                                            │
+                                            ▼
+                                    Feature Extraction
+                                            │
+                                            ▼
+                                    Deterministic Trust Model
+                                            │
+                                            ▼
+                                    AI Recommendation
+                                            │
+                                            ▼
+                                    Oracle Attestation
+                                            │
+                                            ▼
+                                    Smart Contract Verification
+                                            │
+                                            ▼
+                                    Execution
+```
+
+### Trust Score Signals
+
+| Financial Signal | Weight |
+|-----------------|---------|
 | Repayment History | 30% |
 | Transaction Reliability | 25% |
 | Wallet Age | 20% |
-| DeFi Activity | 15% |
+| DeFi Participation | 15% |
 | Risk Events | 10% |
 
-### Capabilities
-
-- Explainable AI
-- Trust Score Generation
-- Credit Score
-- Default Risk Prediction
-- Loan Eligibility
-- Risk Tier Classification
+Every recommendation is transparent and explainable.
 
 ---
 
-## 🪪 Credit Passport
+# Lending Infrastructure
 
-A portable financial identity stored on-chain.
+Credence enables under-collateralized lending powered by financial trust.
 
-Includes:
-
-- Trust Score
-- Credit Score
-- Loan History
-- Repayment Record
-- Reputation Badges
-- Streaks
-- Risk Tier
-
----
-
-## 🏆 Universal Financial Identity Layer
-
-A persistent, programmable trust memory layer built directly above the Credit Passport. 
-Instead of treating all wallets as homogeneous addresses, Credence constructs unique financial identities classified by actor type and on-chain behavior.
-
-### Supported Entity Classes
-* **HUMAN**: Standard user wallets.
-* **AI_AGENT**: Automated wallets operating autonomously.
-* **DAO**: Multi-sig governance contracts.
-* **BUSINESS**: Operations wallets with high transaction frequency.
-* **INSTITUTION**: High-volume market maker and lending pool treasury wallets.
-
-### Dynamic DNA & Identity Memory
-* **Financial DNA**: Synthesizes five dimensional properties (Trust, Credit, Reliability, Risk, Activity).
-* **Reputation Registry Propagation**: Smart contract `FinancialIdentityRegistry` hooks directly to on-chain repayments, defaults, and HSP settlements to adjust credit standing in real-time.
-* **Unified APIs**: Exposes REST interfaces `/api/trust/identity/{wallet}`, `/api/trust/dna/{wallet}`, and `/api/trust/history/{wallet}` for external integrations.
-
----
-
-## 🧾 Verifiable Trust Receipt Layer
-
-A permanent, cryptographic proof registry built to substantiate reputation events. Unlike traditional scoring systems that store mutable integer values, Credence certifies every reputation shift with a signed trust receipt.
-
-### Structure of a Trust Receipt
-* **receiptId**: Uniquely indexed registry number.
-* **entity**: Recipient wallet.
-* **actionType**: Dynamic behavioral flag (`LOAN_REPAID`, `LOAN_DEFAULTED`, `HSP_SETTLEMENT`, `PASSPORT_CREATED`).
-* **trustImpact**: Signed impact modifier (`+80`, `-50`, etc.).
-* **proofHash**: Deterministic Keccak256 proof hash validating transaction context.
-* **issuer**: Contract address generating the receipt.
-
-### Scoring Integration
-The integrated Trust Score leverages receipts for deterministic calculations:
-`Trust Score = Credit Score + Reputation Score + Verified Receipts Impact`
-
----
-
-## 🧠 AI Trust Intelligence Layer
-
-A predictive, autonomous risk intelligence agent layer built above the identity registry and trust memory layers. Credence AI does not simply record trust after financial actions occur—it predicts future financial reliability before capital moves.
-
-### Capabilities of the Risk Intelligence Agent
-* **Default Risk Forecasting**: Evaluates default probability dynamically based on identity parameters, streak counts, transaction frequencies, and historical trust receipts.
-* **Behavior Change Detection**: Compares active trust standing against a running historical baseline to detect immediate behavioral drift (improved consistency or deteriorating liquidity).
-* **Financial Action Recommendations**: Produces risk-adjusted suggestions for borrowing limits and lending interest rates.
-* **On-Chain Attestation Verification**: AI Trust Reports generate a deterministic `Trust Intelligence Hash` which is signed by oracle keys and verified on-chain via the `OracleRegistry` contract.
-
----
-
-## 🌐 Composable Trust Infrastructure
-
-Credence is designed to be a fundamental trust network primitive that any HashKey application can consume. Rather than building a closed system exclusively for borrowing, we expose open APIs and SDKs to support arbitrary external financial contexts:
-
-* **Ecosystem Trust Marketplace**: Supports multi-protocol registrations where external dApps can query dynamic wallet matches and record entity activity on-chain.
-* **Context-Specific Profiles**: Tailors distinct scoring models for different application contexts (e.g., Voting standing for DAOs, Autonomy validation for AI Agents, Premium discount risks for Insurance, and Verification limits for RWA tokenization).
-* **Consensus Oracle Verification**: Delivers verifiable trust reports attested by multiple independent nodes.
-
----
-
-## 🕸️ HashKey Trust Graph
-
-Credence maps financial relationships across the ecosystem, moving beyond isolated wallet scoring. By constructing a relational graph of nodes (Wallets, AI Agents, DAOs, Protocols, RWAs) and edges (loans, payments, validations), Credence analyzes network-wide behavior and capital efficiencies:
-
-* **Trust Propagation**: Translates on-chain actions like repayments or settlements into positive network trust effects.
-* **Risk Intelligence Graph**: Traces default clusters and detects anomalies before risk propagates.
-* **Ecosystem Telemetry**: Monitors total trust identities, prevents defaults on-chain, and optimizes capital efficiency.
-
----
-
-## 🏦 Lending Infrastructure
-
-Supports:
-
-- Under-Collateralized Loans
-- Lending Pools
-- P2P Lending
-- Capital Matching
-
----
-
-## 🔐 Oracle Verification
-
-Every AI decision is verified on-chain.
-
-Features:
-
-- EIP-712 Signatures
-- Replay Protection
-- Nonce Validation
-- Expiry Verification
-
----
-
-## 🌐 Developer APIs
-
-Integrate trust into any HashKey application.
-
-```ts
-const trust = await Credence.verify(wallet);
-
-if (trust.score > 800) {
-    unlockPremiumAccess();
-}
+```
+Lender
+   │
+Liquidity Pool
+   │
+Borrower
+   │
+Repayment
+   │
+Yield
 ```
 
-Available APIs
+Instead of capital searching for collateral...
 
-- Trust API
-- Credit API
-- Reputation API
-- Passport API
-- Risk API
-- HSP Settlement API
-
-### HSP Settlement API
-
-Manage and execute native HSP economic trust settlements.
-
-- `POST /api/hsp/create`: Register a new HSP settlement request.
-- `POST /api/hsp/execute`: Execute native settlement on-chain, update reputation registry, and issue trust receipts.
-- `GET /api/hsp/proof/{id}`: Fetch cryptographic proof and trust impact of a settlement.
-- `GET /api/hsp/history/{wallet}`: Fetch complete timeline history of verified HSP settlements.
+Capital discovers trust.
 
 ---
 
-# 🏗 Architecture
+# AI Marketplace
 
-```text
-                    User Wallet
-                         │
-                         ▼
-                Credence AI Frontend
-                         │
-       ┌─────────────────┼─────────────────┐
-       ▼                 ▼                 ▼
- Trust Engine     Credit Passport      Lending
-       │                 │                 │
-       └─────────────────┼─────────────────┘
-                         ▼
-              Smart Contract Layer
-                         │
-      ┌──────────────────┼─────────────────┐
-      ▼                  ▼                 ▼
- Oracle Registry   Settlement Layer   Reputation
-                         │
-                         ▼
-                   HashKey Chain
+```
+Borrower
+      │
+Financial Identity
+      │
+AI Trust Verification
+      │
+Best Lender Match
+      │
+Native HSP Settlement
 ```
 
+The marketplace connects trusted borrowers with lenders using programmable financial identity.
+
 ---
 
-# 📜 Smart Contracts
+# Native HashKey Integration
 
-| Contract | Purpose |
-|----------|---------|
+Credence AI is built specifically for HashKey Chain.
+
+Native integrations include:
+
+- HashKey Mainnet
+- HSP Settlement
+- EIP-712 Oracle Verification
+- Reputation Registry
+- Credit Passport
+- Financial Identity
+
+Every verified settlement strengthens wallet reputation.
+
+---
+
+# Smart Contracts
+
+| Contract | Responsibility |
+|-----------|----------------|
 | GovernanceRegistry | Protocol Governance |
 | CreditPassportV2 | Financial Identity |
-| OracleRegistry | AI Verification |
-| LoanManager | Loan Lifecycle |
-| LendingPool | Liquidity Layer |
-| SettlementManager | Settlement |
-| ReputationRegistry | Reputation Engine |
+| OracleRegistry | Oracle Verification |
+| LoanManager | Credit Lifecycle |
+| LendingPool | Liquidity Infrastructure |
+| SettlementManager | Native HSP Settlement |
+| ReputationRegistry | Permanent Trust Memory |
 
 ---
 
-## Contract Addresses
+# Mainnet Deployments
 
 | Contract | Address |
 |-----------|---------|
@@ -325,86 +385,147 @@ Manage and execute native HSP economic trust settlements.
 
 ---
 
-# 🔗 HashKey Integration
+# Security
 
-HashKey provides
+Credence AI is designed for institutional-grade financial infrastructure.
 
-- Assets
-- Payments
-- Settlement
+Security features include:
 
-Credence adds
+- Role-Based Access Control
+- OpenZeppelin AccessControl
+- SafeERC20
+- Reentrancy Protection
+- Pausable Contracts
+- Oracle Verification
+- EIP-712 Signatures
+- Replay Protection
+- Signature Expiry Validation
+- On-chain Auditability
 
-- AI Underwriting
-- Reputation
-- Trust Infrastructure
-- Credit Layer
-- Financial Identity
+AI recommends.
 
-Together they enable programmable finance.
+Oracle verifies.
 
----
-
-# 🔒 Security
-
-| Feature | Status |
-|----------|--------|
-| Access Control | ✅ |
-| Role-Based Permissions | ✅ |
-| Reentrancy Protection | ✅ |
-| SafeERC20 | ✅ |
-| Pausable Contracts | ✅ |
-| EIP-712 Verification | ✅ |
-| Replay Protection | ✅ |
-| Expiry Validation | ✅ |
+Smart contracts enforce.
 
 ---
 
-# ⚙ Technology Stack
+# Developer APIs
 
-## Frontend
+Developers can integrate Credence trust infrastructure into any protocol.
 
-- Next.js 15
-- React
-- TypeScript
-- TailwindCSS
-- ShadCN UI
-- Framer Motion
-- Recharts
+Available APIs:
 
-## Backend
+- Financial Identity API
+- Credit API
+- Trust API
+- Reputation API
+- Passport API
+- Risk API
+- Protocol Integration API
 
-- FastAPI
-- Node.js
-- Python
-- REST APIs
+Example:
 
-## AI
+```javascript
+const profile = await Credence.verify(wallet);
 
-- Gemini
-- Explainable AI
-- Trust Engine
-- Risk Prediction
+if (profile.trustScore >= 850) {
+    unlockInstitutionalFinance();
+}
+```
 
-## Blockchain
+One API.
+
+Every financial protocol.
+
+---
+
+# Supported Use Cases
+
+Credence AI is designed to power:
+
+- Under-Collateralized Lending
+- PayFi
+- Institutional Finance
+- Insurance
+- Real World Assets (RWA)
+- DAO Treasury Management
+- AI Agents
+- Cross-Protocol Reputation
+- Credit Markets
+
+---
+
+# Why Credence AI?
+
+Every financial revolution introduced a new primitive.
+
+- Banks introduced credit.
+- The Internet introduced digital payments.
+- Blockchain introduced programmable assets.
+
+**Credence AI introduces programmable financial trust.**
+
+Just as:
+
+- ERC-20 standardized digital assets
+- ERC-721 standardized digital ownership
+
+Credence AI standardizes programmable financial trust for HashKey Chain.
+
+---
+
+# Vision
+
+We believe trust should become as composable as tokens.
+
+Instead of every protocol maintaining isolated reputation systems, the entire ecosystem should share a common financial trust infrastructure.
+
+Our ambition is simple:
+
+> Every financial decision on HashKey Chain should begin with one question:
+
+> **"What does Credence say about this wallet?"**
+
+When that becomes reality, trust will no longer belong to individual applications.
+
+It will become shared infrastructure for the entire ecosystem.
+
+---
+
+# Tech Stack
 
 - Solidity
+- TypeScript
+- React
+- Next.js
 - Hardhat
-- HashKey Chain
 - Ethers.js
-- MetaMask
-
-## Storage
-
-- PostgreSQL
-- On-chain Registry
-- Analytics Engine
+- OpenZeppelin
+- HashKey Chain
+- EIP-712
+- AI Trust Engine
+- Oracle Infrastructure
 
 ---
 
-# 🚀 Quick Start
+# Repository Structure
 
-## Clone Repository
+```
+contracts/
+frontend/
+scripts/
+test/
+docs/
+artifacts/
+deployments/
+```
+
+---
+
+# Getting Started
+
+Clone the repository:
 
 ```bash
 git clone https://github.com/hari-hara-sudharsan/credence-ai.git
@@ -412,110 +533,58 @@ git clone https://github.com/hari-hara-sudharsan/credence-ai.git
 cd credence-ai
 ```
 
-## Frontend
+Install dependencies:
 
 ```bash
-cd frontend
-
 npm install
+```
 
+Run development server:
+
+```bash
 npm run dev
 ```
 
-## Backend
+Compile contracts:
 
 ```bash
-cd backend
+npx hardhat compile
+```
 
-pip install -r requirements.txt
+Deploy contracts:
 
-uvicorn main:app --reload
+```bash
+npx hardhat run scripts/deploy.ts
 ```
 
 ---
 
+# Documentation
 
-# 📊 Impact
+Documentation:
 
-| Capability | Status |
-|------------|--------|
-| AI Underwriting | ✅ |
-| Credit Passport | ✅ |
-| Lending Infrastructure | ✅ |
-| Reputation Engine | ✅ |
-| Trust APIs | ✅ |
-| Production Security | ✅ |
+https://frontend-kohl-psi-76.vercel.app/docs
 
 ---
 
-# 🏛️ Architecture & Vision
+# Contributing
 
-### 1. What problem does Credence AI solve?
-Web3 lacks a composable trust identity layer, forcing lending protocols to require heavy over-collateralization. Opaque credit assessments lock capital efficiency.
+Contributions are welcome.
 
-### 2. Why AI?
-Dynamic behavioral intelligence is needed to forecast default probability. Machine learning computes credit risk, streaks, and reliability indicators in real time instead of relying on rigid, historical credit histories.
-
-### 3. Why blockchain?
-Financial identity must be owned by the user, censorship-resistant, and verified cryptographically. Storing attestations as EIP-712 signatures prevents single points of failure.
-
-### 4. Why HashKey?
-HashKey Chain is the premier compliant EVM gateway for institutional capital and digital assets. It provides the high-performance transaction layer where cross-protocol trust can propagate at scale.
-
-### 5. Why Credence?
-Credence bridges the gap between capital demand and security, mapping relationships across the ecosystem into a unified Trust Graph.
-
-```
-  Applications
-       │
-       ▼
-  Credence API & SDK
-       │
-       ▼
-  Trust Intelligence (AI Underwriter)
-       │
-       ▼
-  Verification Contracts (TrustVerifier)
-       │
-       ▼
-  HashKey Chain (Cancun EVM)
-```
+Please open an issue or submit a pull request to improve the protocol.
 
 ---
 
-# 🌀 The Credence Trust Flywheel
+# License
 
-Credence does not only measure trust. It implements a self-improving trust flywheel where verified behaviors increase reusable financial opportunities across the entire HashKey Chain ecosystem:
-
-```mermaid
-graph TD
-    A["Verified Action: Settle / Repay"] -->|1. Generate Proof| B["Trust Receipt Registry"]
-    B -->|2. Update Standing| C["Reputation Registry"]
-    C -->|3. Recalculate Score| D["Financial Identity"]
-    D -->|4. Synchronize Terms| E["Dynamic Terms Engine"]
-    E -->|5. Lower Rates & Higher Limits| F["Consuming Protocols: Lending & PayFi"]
-```
-
-- **Universal Identity**: Every financial interaction upgrades a single on-chain credit passport.
-- **Dynamic Terms**: Lowers interest rates and collateral requirements in real-time as users settle outstanding commitments.
-- **Protocol Composability**: Independent consumer apps query the same verified trust ratings, ensuring complete economic capital efficiency.
+MIT License
 
 ---
 
-# 🎯 Vision
+# Credence AI
 
-> **Every wallet deserves a financial identity.**
+**One Financial Identity.**
 
-Credence AI transforms trust into a reusable on-chain asset, enabling under-collateralized lending and powering the next generation of programmable finance across HashKey Chain.
+**One Trust Layer.**
 
----
-
-<div align="center">
-
-## ⭐ Trust becomes collateral.
-
-### **Credence AI — The Trust Layer for Web3 Finance.**
-
-Built with ❤️ for the **HashKey Chain Horizon Hackathon**
-
-</div>
+**Infinite Financial Applications.**
