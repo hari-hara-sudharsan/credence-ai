@@ -122,20 +122,20 @@ Credence AI introduces a shared financial trust layer.
               
 
 
-                                   ┌──────────────────────────┐
-                                   │      User Wallet         │
-                                   │   (EOA / Smart Wallet)   │
-                                   └────────────┬─────────────┘
-                                                │
-                                                ▼
-                               ┌────────────────────────────────┐
-                               │      Credence AI Frontend      │
-                               │      (React / Next.js)         │
-                               └────────────┬───────────────────┘
-                                            │
-                    ┌───────────────────────┼────────────────────────┐
-                    │                       │                        │
-                    ▼                       ▼                        ▼
+                             ┌──────────────────────────┐
+                             │      User Wallet         │
+                             │   (EOA / Smart Wallet)   │
+                             └────────────┬─────────────┘
+                                          │
+                                          ▼
+                          ┌────────────────────────────────┐
+                          │      Credence AI Frontend      │
+                          │      (React / Next.js)         │
+                          └─────────────────────────────---┘
+                                         │
+               ┌──────────────────────────────────────────────┐
+               │                         │                    │
+               ▼                         ▼                    ▼
         ┌──────────────────┐    ┌──────────────────┐     ┌──────────────────┐
         │ Financial        │    │ Credit Passport  │     │ Lending & Market │
         │ Identity Engine  │    │ Identity Layer   │     │ Marketplace      │
@@ -146,9 +146,9 @@ Credence AI introduces a shared financial trust layer.
                                          ▼
                         ┌─────────────────────────────────┐
                         │      AI Trust Intelligence      │
-                        │ • Trust Score                  │
-                        │ • Risk Analysis                │
-                        │ • Credit Recommendation        │
+                        │ • Trust Score                   │
+                        │ • Risk Analysis                 │
+                        │ • Credit Recommendation         │
                         └───────────────┬─────────────────┘
                                         │
                                         ▼
@@ -192,37 +192,37 @@ Trust becomes reusable.
 # Architecture
 
 ```
-Wallet
-   │
-   ▼
-AI Financial Analysis
-   │
-   ▼
-Financial Identity
-   │
-   ▼
-Credit Passport
-   │
-   ▼
-Oracle Attestation (EIP-712)
-   │
-   ▼
-Smart Contract Verification
-   │
-   ▼
-Loan Approval
-   │
-   ▼
-HashKey Settlement
-   │
-   ▼
-Repayment
-   │
-   ▼
-Trust Receipt
-   │
-   ▼
-Reputation Updated
+             Wallet
+                │
+                ▼
+             AI Financial Analysis
+                │
+                ▼
+             Financial Identity
+                │
+                ▼
+             Credit Passport
+                │
+                ▼
+             Oracle Attestation (EIP-712)
+                │
+                ▼
+             Smart Contract Verification
+                │
+                ▼
+             Loan Approval
+                │
+                ▼
+             HashKey Settlement
+                │
+                ▼
+             Repayment
+                │
+                ▼
+             Trust Receipt
+                │
+                ▼
+             Reputation Updated
 ```
 
 Every interaction improves future financial access.
@@ -267,25 +267,25 @@ Credence AI never directly controls capital.
 Instead, AI generates financial intelligence while smart contracts enforce protocol rules.
 
 ```
-On-chain Signals
-        │
-        ▼
-Feature Extraction
-        │
-        ▼
-Deterministic Trust Model
-        │
-        ▼
-AI Recommendation
-        │
-        ▼
-Oracle Attestation
-        │
-        ▼
-Smart Contract Verification
-        │
-        ▼
-Execution
+             On-chain Signals
+                     │
+                     ▼
+             Feature Extraction
+                     │
+                     ▼
+             Deterministic Trust Model
+                     │
+                     ▼
+             AI Recommendation
+                     │
+                     ▼
+             Oracle Attestation
+                     │
+                     ▼
+             Smart Contract Verification
+                     │
+                     ▼
+             Execution
 ```
 
 ### Trust Score Signals
@@ -307,15 +307,15 @@ Every recommendation is transparent and explainable.
 Credence enables under-collateralized lending powered by financial trust.
 
 ```
-Lender
-   │
-Liquidity Pool
-   │
-Borrower
-   │
-Repayment
-   │
-Yield
+            Lender
+               │
+            Liquidity Pool
+               │
+            Borrower
+               │
+            Repayment
+               │
+            Yield
 ```
 
 Instead of capital searching for collateral...
@@ -327,15 +327,15 @@ Capital discovers trust.
 # AI Marketplace
 
 ```
-Borrower
-      │
-Financial Identity
-      │
-AI Trust Verification
-      │
-Best Lender Match
-      │
-Native HSP Settlement
+             Borrower
+                   │
+             Financial Identity
+                   │
+             AI Trust Verification
+                   │
+             Best Lender Match
+                   │
+             Native HSP Settlement
 ```
 
 The marketplace connects trusted borrowers with lenders using programmable financial identity.
