@@ -142,7 +142,8 @@ from app.api.v1.trust_defense import router as trust_defense_router
 
 app = FastAPI(
     title="Credence AI",
-    version="1.0.0"
+    version="1.0.0",
+    strict_slashes=False
 )
 
 @app.on_event("startup")

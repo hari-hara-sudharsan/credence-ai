@@ -23,6 +23,7 @@ router = APIRouter(
 
 
 @router.post("/")
+@router.post("")
 def generate_report(
     request: WalletRequest
 ):

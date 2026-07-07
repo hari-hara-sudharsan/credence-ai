@@ -11,15 +11,16 @@ class FeatureExtractor:
         if not first_tx_timestamp:
             return 0
 
-        first_date = datetime.fromisoformat(
-            first_tx_timestamp.replace("Z", "+00:00")
-        )
-
-        today = datetime.now(timezone.utc)
-
-        return (
-            today - first_date
-        ).days
+        try:
+            first_date = datetime.fromisoformat(
+                first_tx_timestamp.replace("Z", "+00:00")
+            )
+            today = datetime.now(timezone.utc)
+            return (
+                today - first_date
+            ).days
+        except Exception:
+            return 30
 
     def activity_score(
         self,
