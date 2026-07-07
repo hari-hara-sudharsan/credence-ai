@@ -116,10 +116,10 @@ The result:
 
 Credence AI introduces a shared financial trust layer.
 
-```
+
   ## System Architecture
 
-```text
+--
                                               ┌──────────────────────────┐
                                               │      User Wallet         │
                                               │   (EOA / Smart Wallet)   │
@@ -178,18 +178,17 @@ Credence AI introduces a shared financial trust layer.
                                              │   HashKey Chain     │
                                              │     Mainnet         │
                                              └─────────────────────┘
-```
-```
+
+
 
 Every application consumes the same trust infrastructure.
 
 Trust becomes reusable.
 
----
 
 # Architecture
 
-```
+--
                                     Wallet
                                        │
                                        ▼
