@@ -34,6 +34,13 @@ def get_reputation_insights(wallet: str):
     except Exception as e:
         raise HTTPException(status_code=500, detail=f"Failed to gather insights: {str(e)}")
 
+@router.get("/insights/{wallet}")
+def get_reputation_insights_alt(wallet: str):
+    """
+    Alternative route mapping for frontend compatibility.
+    """
+    return get_reputation_insights(wallet)
+
 @router.get("/{wallet}/connections")
 def get_reputation_connections(wallet: str):
     """
