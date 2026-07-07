@@ -20,37 +20,32 @@ interface Props {
   onRefresh: (optimisticData?: { balanceChange?: number; type?: "deposit" | "withdraw" }) => void;
 }
 
+const LENDING_POOL_ABI = [
+  "function deposit() external payable",
+  "function withdraw(uint256 sharesToBurn) external"
+];
+const LENDING_POOL_ADDRESS = "0x928BA9D30669c41695422a68a1C307a6529F0050";
+
 export default function DepositCard({ position, onRefresh }: Props) {
   const [amount, setAmount] = useState("1000");
   const [loading, setLoading] = useState(false);
-
-  const signAndVerify = async (action: string, amountVal: string): Promise<boolean> => {
-    if (!window.ethereum) {
-      alert("Please install MetaMask to authorize transactions.");
-      return false;
-    }
-    try {
-      const provider = new ethers.BrowserProvider(window.ethereum);
-      const signer = await provider.getSigner();
-      const message = `Authorize ${action} of ${amountVal} HSK on Credence Lending Pool.`;
-      await signer.signMessage(message);
-      return true;
-    } catch (err: any) {
-      if (err.code === 4001 || err.message?.includes("rejected")) {
-        alert("Transaction signature rejected.");
-      } else {
-        alert("Failed to sign transaction. Please try again.");
-      }
-      return false;
-    }
-  };
 
   const handleDeposit = async () => {
     if (!amount || parseFloat(amount) <= 0) return;
     setLoading(true);
     try {
-      const signed = await signAndVerify("deposit", amount);
-      if (!signed) return;
+      if (!window.ethereum) {
+        alert("Please install MetaMask to authorize transactions.");
+        return;
+      }
+      const provider = new ethers.BrowserProvider(window.ethereum);
+      const signer = await provider.getSigner();
+      const contract = new ethers.Contract(LENDING_POOL_ADDRESS, LENDING_POOL_ABI, signer);
+
+      // Execute on-chain deposit
+      const value = ethers.parseEther(amount);
+      const tx = await contract.deposit({ value });
+      await tx.wait();
 
       try {
         await API.post("/pool/deposit", {
@@ -62,9 +57,13 @@ export default function DepositCard({ position, onRefresh }: Props) {
       }
       onRefresh({ balanceChange: parseFloat(amount), type: "deposit" });
       alert(`Liquidity deposit of ${amount} HSK was successfully executed on-chain.`);
-    } catch (err) {
+    } catch (err: any) {
       console.error(err);
-      alert("Deposit failed. Check your wallet balance and RPC logs.");
+      if (err.code === 4001 || err.message?.includes("rejected")) {
+        alert("Transaction rejected by user.");
+      } else {
+        alert("Deposit failed. Check your wallet balance and RPC logs.");
+      }
     } finally {
       setLoading(false);
     }
@@ -74,8 +73,18 @@ export default function DepositCard({ position, onRefresh }: Props) {
     if (!amount || parseFloat(amount) <= 0) return;
     setLoading(true);
     try {
-      const signed = await signAndVerify("withdrawal", amount);
-      if (!signed) return;
+      if (!window.ethereum) {
+        alert("Please install MetaMask to authorize transactions.");
+        return;
+      }
+      const provider = new ethers.BrowserProvider(window.ethereum);
+      const signer = await provider.getSigner();
+      const contract = new ethers.Contract(LENDING_POOL_ADDRESS, LENDING_POOL_ABI, signer);
+
+      // Execute on-chain withdraw
+      const shares = ethers.parseEther(amount);
+      const tx = await contract.withdraw(shares);
+      await tx.wait();
 
       try {
         await API.post("/pool/withdraw", {
@@ -86,10 +95,14 @@ export default function DepositCard({ position, onRefresh }: Props) {
         console.warn("Backend API call failed, applying frontend fallback:", apiErr);
       }
       onRefresh({ balanceChange: parseFloat(amount), type: "withdraw" });
-      alert(`Withdrawal of ${amount} HSK successfully settled.`);
-    } catch (err) {
+      alert(`Withdrawal of ${amount} HSK successfully settled on-chain.`);
+    } catch (err: any) {
       console.error(err);
-      alert("Withdraw failed. Insufficient position balance.");
+      if (err.code === 4001 || err.message?.includes("rejected")) {
+        alert("Transaction rejected by user.");
+      } else {
+        alert("Withdraw failed. Insufficient position balance or pool liquidity.");
+      }
     } finally {
       setLoading(false);
     }
