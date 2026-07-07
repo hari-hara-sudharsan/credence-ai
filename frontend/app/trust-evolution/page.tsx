@@ -120,6 +120,21 @@ export default function TrustIdentityCenterPage() {
     }
   }, [wallet, activeTab]);
 
+  // Load real wallet FICO score on mount/change
+  useEffect(() => {
+    if (wallet) {
+      API.get(`/v1/trust/${wallet}`)
+        .then((res) => {
+          if (res.data?.trustScore) {
+            setFlywheelScore(res.data.trustScore);
+            setImpactScore(res.data.trustScore);
+            setFlywheelTier(res.data.tier || "EMERGING");
+          }
+        })
+        .catch(console.error);
+    }
+  }, [wallet]);
+
   // --- FLYWHEEL LOGIC ---
   const triggerEvolution = async (type: "HSP" | "REPAYMENT") => {
     setFlywheelLoading(true);

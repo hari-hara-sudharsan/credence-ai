@@ -20,16 +20,16 @@ export default function PoolPage() {
 
   useEffect(() => {
     if (wallet) {
-      API.post("/insights/", { wallet }).then((res) => {
-        if (res.data?.credit_score) {
-          setScore(res.data.credit_score);
+      API.get(`/v1/trust/${wallet}`).then((res) => {
+        if (res.data?.trustScore) {
+          setScore(res.data.trustScore);
         }
       }).catch(console.error);
 
-      API.post("/lending/decision", { wallet }).then((res) => {
-        if (res.data) {
-          setLimit(res.data.max_loan_amount || 5000);
-          setRate(res.data.interest_rate || 5.0);
+      API.get(`/v1/protocol/decision?wallet=${wallet}&application=LENDING`).then((res) => {
+        if (res.data && res.data.terms) {
+          setLimit(res.data.terms.limit || 5000);
+          setRate(res.data.terms.interestRate || 5.0);
         }
       }).catch(console.error);
     }

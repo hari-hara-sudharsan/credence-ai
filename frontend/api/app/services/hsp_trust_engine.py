@@ -265,6 +265,20 @@ class HSPTrustEngine:
         db[settlement_id] = record
         write_json(DB_FILENAME, db)
 
+        # Record audit event for governance log transparency
+        try:
+            from app.services.audit_engine import AuditEngine
+            audit = AuditEngine()
+            audit.record_event(
+                action="EXECUTE_HSP_SETTLEMENT",
+                performed_by=borrower_checksum.lower(),
+                resource=settlement_id,
+                result=f"Settled {record['amount']} HSK via HSP Flywheel Engine. Proof: {tx_hash_hex}"
+            )
+        except Exception as audit_err:
+            import logging
+            logging.warning(f"Audit log record failed: {audit_err}")
+
         return {
             "txHash": tx_hash_hex,
             "settlementProof": f"hsp_proof_{settlement_id}",

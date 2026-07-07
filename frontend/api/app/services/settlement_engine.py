@@ -120,6 +120,20 @@ class SettlementEngine:
         db[loan_id] = record
         write_json(DB_FILENAME, db)
 
+        # Record audit event for governance log transparency
+        try:
+            from app.services.audit_engine import AuditEngine
+            audit = AuditEngine()
+            audit.record_event(
+                action="EXECUTE_HSP_SETTLEMENT",
+                performed_by=borrower_checksum.lower(),
+                resource=loan_id,
+                result=f"Settled {amount} HSK under Attestation ID att_hsp_settle. Tx: {contract_tx}"
+            )
+        except Exception as audit_err:
+            import logging
+            logging.warning(f"Audit log record failed: {audit_err}")
+
         return record
 
     def verify_settlement(self, settlement_id: str) -> bool:

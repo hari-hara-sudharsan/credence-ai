@@ -106,6 +106,7 @@ from app.api.v1.trust_defense import router as trust_defense_router
 from app.api.trust_graph import router as trust_graph_router
 from app.api.security_api import router as security_api_router
 from app.api.ecosystem_api import router as ecosystem_api_router
+from app.api.ai_trust import router as ai_trust_router
 
 
 
@@ -136,7 +137,10 @@ app = FastAPI(
 _orig_include_router = app.include_router
 def _custom_include_router(router, *args, **kwargs):
     if "prefix" in kwargs:
-        kwargs["prefix"] = "/api" + kwargs["prefix"]
+        if kwargs["prefix"].startswith("/api"):
+            pass
+        else:
+            kwargs["prefix"] = "/api" + kwargs["prefix"]
     else:
         kwargs["prefix"] = "/api"
     _orig_include_router(router, *args, **kwargs)
@@ -200,6 +204,7 @@ app.include_router(trust_defense_router)
 app.include_router(trust_graph_router)
 app.include_router(security_api_router)
 app.include_router(ecosystem_api_router)
+app.include_router(ai_trust_router)
 app.include_router(
     analysis_router
 )
