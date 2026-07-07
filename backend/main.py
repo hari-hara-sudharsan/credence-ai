@@ -1,3 +1,21 @@
+import os
+
+# Dynamic fallback configuration parameters for production/Vercel serverless execution
+os.environ.setdefault("HSK_RPC", "https://mainnet.hsk.xyz")
+os.environ.setdefault("PRIVATE_KEY", "fd433b318b82fcc679f0b4df058ddad07cd741cfa06fa8db7a804e11db311d4d")
+os.environ.setdefault("CREDIT_REGISTRY", "0xFc8cd61D26aF1A419B23F3bA08BE68aF3D9e827a")
+os.environ.setdefault("LOAN_MANAGER", "0x2988f0bE02e1a679430aEb4A6B9B10429F1e8e80")
+os.environ.setdefault("LOAN_MANAGER_ADDRESS", "0x2988f0bE02e1a679430aEb4A6B9B10429F1e8e80")
+os.environ.setdefault("P2P_MARKET_ADDRESS", "0xF1CecB4757fdD9dbE22cDb4e965300cA129b84CF")
+os.environ.setdefault("ORACLE_REGISTRY_ADDRESS", "0x2Dd78Fd9B8F40659Af32eF98555B8b31bC97A351")
+os.environ.setdefault("CREDIT_PASSPORT_V2_ADDRESS", "0xD6b040736e948621c5b6E0a494473c47a6113eA8")
+os.environ.setdefault("VERIFICATION_REGISTRY_ADDRESS", "0x87006e75a5B6bE9D1bbF61AC8Cd84f05D9140589")
+os.environ.setdefault("GOVERNANCE_REGISTRY_ADDRESS", "0x98297dF9f8ffC79bc8e6BA3Ec606136adacb6f81")
+os.environ.setdefault("REPUTATION_REGISTRY_ADDRESS", "0x110e9fB1ABEc92521E4511d5f45B4917B4c941Ab")
+os.environ.setdefault("SETTLEMENT_MANAGER_ADDRESS", "0x4f3eEE789936a0eca627484bf680464f2F37b9FB")
+os.environ.setdefault("LENDING_POOL_ADDRESS", "0x928BA9D30669c41695422a68a1C307a6529F0050")
+os.environ.setdefault("GROQ_API_KEY", "gsk_dummy_key_value_12345")
+
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 from app.api.wallet import router as wallet_router
