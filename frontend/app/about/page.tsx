@@ -40,13 +40,13 @@ function useCountUp(target: number, durationMs = 1400) {
 
 export default function AboutPage() {
   const { wallet } = useWallet();
-  const [targetScore, setTargetScore] = useState<number>(742);
+  const [targetScore, setTargetScore] = useState<number>(600);
 
   useEffect(() => {
     if (wallet) {
-      API.post("/insights/", { wallet }).then((res) => {
-        if (res.data?.credit_score) {
-          setTargetScore(res.data.credit_score);
+      API.get(`/profiles/${wallet}`).then((res) => {
+        if (res.data?.lending_score) {
+          setTargetScore(res.data.lending_score);
         }
       }).catch(console.error);
     }

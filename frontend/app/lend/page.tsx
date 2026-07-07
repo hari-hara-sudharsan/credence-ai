@@ -52,16 +52,16 @@ export default function LendPage() {
       console.warn("Failed to load opportunities, applying high-fidelity frontend fallback:", err);
       
       // Resolve active user credit score if wallet connected
-      let userScore = 742;
+      let userScore = 600;
       try {
         if (wallet) {
-          const insightResp = await API.post("/insights/", { wallet });
-          if (insightResp.data?.credit_score) {
-            userScore = insightResp.data.credit_score;
+          const profilesRes = await API.get(`/profiles/${wallet}`);
+          if (profilesRes.data?.lending_score) {
+            userScore = profilesRes.data.lending_score;
           }
         }
       } catch (e) {
-        console.warn("Failed to fetch user insights for Lend page:", e);
+        console.warn("Failed to fetch user profiles for Lend page:", e);
       }
 
       const mockOpportunities: Opportunity[] = [

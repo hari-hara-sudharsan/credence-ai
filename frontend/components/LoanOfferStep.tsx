@@ -7,7 +7,7 @@ interface Props {
 }
 
 export default function LoanOfferStep({ analysis, session, onNext }: Props) {
-  const score = analysis?.credit_score || session?.credit_score || 742;
+  const score = analysis?.credit_score || session?.credit_score || 600;
   const rate = analysis?.lending?.interest_rate || session?.lending?.interest_rate || 5.0;
   const collateralRatio = analysis?.lending?.collateral_ratio || session?.lending?.collateral_ratio || 30;
   const amount = analysis?.lending?.max_loan_amount || session?.lending?.max_loan_amount || 500;

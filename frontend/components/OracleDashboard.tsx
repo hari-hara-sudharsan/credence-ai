@@ -25,16 +25,16 @@ export default function OracleDashboard() {
     } catch (err: any) {
       console.warn("Oracle registry query failed, applying frontend fallback:", err);
       
-      let userScore = 742;
+      let userScore = 600;
       try {
         if (wallet) {
-          const insightResp = await API.post("/insights/", { wallet });
-          if (insightResp.data?.credit_score) {
-            userScore = insightResp.data.credit_score;
+          const profilesRes = await API.get(`/profiles/${wallet}`);
+          if (profilesRes.data?.lending_score) {
+            userScore = profilesRes.data.lending_score;
           }
         }
       } catch (e) {
-        console.warn("Failed to fetch user insights for OracleDashboard:", e);
+        console.warn("Failed to fetch user profiles for OracleDashboard:", e);
       }
 
       setError(null);

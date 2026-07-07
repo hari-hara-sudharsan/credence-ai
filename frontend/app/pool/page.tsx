@@ -14,7 +14,7 @@ export default function PoolPage() {
   const [metrics, setMetrics] = useState<any | null>(null);
   const [position, setPosition] = useState<any | null>(null);
 
-  const [score, setScore] = useState<number>(742);
+  const [score, setScore] = useState<number>(600);
   const [limit, setLimit] = useState<number>(5000);
   const [rate, setRate] = useState<number>(5.0);
 
