@@ -21,6 +21,7 @@ class CredenceTrustAgent:
         change = self.detect_behavior_change(wallet)
         rec = self.recommend_financial_action(wallet)
         health = self.monitor_trust_health(wallet)
+        reliability = self.analyzeSettlementReliability(wallet)
         
         return {
             "wallet": wallet,
@@ -29,6 +30,7 @@ class CredenceTrustAgent:
             "behavior_change": change,
             "recommendation": rec,
             "health_monitor": health,
+            "settlement_reliability": reliability,
             "timestamp": int(time.time())
         }
 
@@ -291,4 +293,52 @@ class CredenceTrustAgent:
                 "Execute 1 Settlement through HSP Pool"
             ],
             "growthPath": path
+        }
+
+    def analyzeSettlementReliability(self, wallet: str) -> dict:
+        """
+        Analyzes the HSP settlement history of a wallet and outputs reliability metrics.
+        """
+        from app.database.persistence import read_json
+        db = read_json("hsp_settlements.json", {})
+        wallet_lower = wallet.lower()
+        
+        settlements = [r for r in db.values() if r.get("borrower", "").lower() == wallet_lower]
+        total = len(settlements)
+        verified = sum(1 for r in settlements if r.get("verified", False))
+        failed = total - verified
+        
+        amounts = [r.get("amount", 0.0) for r in settlements]
+        total_amount = sum(amounts)
+        avg_amount = total_amount / total if total > 0 else 0.0
+        
+        ratio = int((verified * 100) / total) if total > 0 else 100
+        
+        if total > 0:
+            analysis = f"This wallet completed {verified} verified HashKey settlements with {ratio}% reliability."
+            if failed > 0:
+                analysis += f" Identified {failed} pending/failed settlements in execution history."
+            else:
+                analysis += " Demonstrates flawless transactional execution velocity."
+        else:
+            analysis = "No previous on-chain HSP settlement history detected. Baseline reliability rating applied."
+            
+        recs = []
+        if ratio < 90:
+            recs.append("Improve settlement ratio by ensuring sufficient liquidity prior to due dates.")
+        if total < 5:
+            recs.append("Execute additional low-value HSP settlements to build history track record.")
+        else:
+            recs.append("Maintain high repayment consistency to preserve Prime tier terms.")
+            
+        return {
+            "wallet": wallet_lower,
+            "total_settlements": total,
+            "verified_settlements": verified,
+            "failed_settlements": failed,
+            "reliability_ratio": ratio,
+            "total_amount": total_amount,
+            "average_amount": avg_amount,
+            "analysis_report": analysis,
+            "recommendations": recs
         }

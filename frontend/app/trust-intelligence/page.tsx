@@ -69,8 +69,8 @@ export default function TrustIntelligencePage() {
         setRecommendation(recRes.data);
         
         // Load timeline from user identity profile
-        const profileRes = await API.get(`/profiles/${wallet}`); // Dummy to fetch additional features
-        const identityProfile = await API.get(`/v1/trust-graph/${wallet}`); // fallback list
+        const profileRes = await API.get(`/api/profiles/${wallet}`); // Dummy to fetch additional features
+        const identityProfile = await API.get(`/api/v1/trust-graph/${wallet}`); // fallback list
         
         // Synthesize simulated behavior timeline or retrieve from identity
         const mockTimeline: TimelineItem[] = [

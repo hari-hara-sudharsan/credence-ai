@@ -2,6 +2,7 @@
 
 import { useEffect, useState } from "react";
 import API from "@/lib/api";
+import { useWallet } from "@/context/WalletContext";
 import BorrowRequestCard from "@/components/BorrowRequestCard";
 import FundingModal from "@/components/FundingModal";
 
@@ -27,6 +28,7 @@ interface Opportunity {
 }
 
 export default function LendPage() {
+  const { wallet } = useWallet();
   const [opportunities, setOpportunities] = useState<Opportunity[]>([]);
   const [loading, setLoading] = useState(true);
   const [fundingRequest, setFundingRequest] = useState<LoanRequest | null>(null);
@@ -49,24 +51,39 @@ export default function LendPage() {
     } catch (err) {
       console.warn("Failed to load opportunities, applying high-fidelity frontend fallback:", err);
       
+      // Resolve active user credit score if wallet connected
+      let userScore = 742;
+      try {
+        if (wallet) {
+          const insightResp = await API.post("/insights/", { wallet });
+          if (insightResp.data?.credit_score) {
+            userScore = insightResp.data.credit_score;
+          }
+        }
+      } catch (e) {
+        console.warn("Failed to fetch user insights for Lend page:", e);
+      }
+
       const mockOpportunities: Opportunity[] = [
         {
           request: {
             request_id: "req_101",
-            borrower: "0x5bb83E60a7a05A0e1b077B66412a26306e334208",
+            borrower: wallet || "0x5bb83E60a7a05A0e1b077B66412a26306e334208",
             amount: 2500,
-            interest_rate: 4.8,
+            interest_rate: parseFloat((userScore >= 700 ? 4.8 : 7.2).toFixed(1)),
             duration_days: 90,
             purpose: "Lending Pool Collateral Staking",
-            credit_score: 742,
-            risk_level: "LOW",
-            badge: "PRIME",
-            ai_confidence: 94.5,
+            credit_score: userScore,
+            risk_level: userScore >= 700 ? "LOW" : "MEDIUM",
+            badge: userScore >= 750 ? "PRIME" : "TRUSTED",
+            ai_confidence: parseFloat((userScore / 8.5).toFixed(1)),
             status: "OPEN",
             created_at: new Date(Date.now() - 3600000 * 4).toISOString()
           },
-          match_score: 92,
-          recommendation: "Strongly recommended: Low default risk based on recurring on-chain repayments."
+          match_score: parseFloat((userScore / 8.5 + 10).toFixed(1)),
+          recommendation: userScore >= 700 
+            ? "Strong Opportunity — High credit quality with excellent repayment probability."
+            : "Good Opportunity — Solid fundamentals with moderate risk-reward profile."
         },
         {
           request: {
@@ -103,7 +120,7 @@ export default function LendPage() {
 
   useEffect(() => {
     loadOpportunities();
-  }, [riskFilter, minScore]);
+  }, [riskFilter, minScore, wallet]);
 
   const handleFund = async (requestId: string, lenderWallet: string) => {
     await API.post(`/p2p/fund/${requestId}`, { lender_wallet: lenderWallet });

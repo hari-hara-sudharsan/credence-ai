@@ -47,7 +47,7 @@ export default function IdentityPage() {
       setLoading(true);
       setError(null);
       try {
-        const response = await API.get(`/trust/identity/${wallet}`);
+        const response = await API.get(`/api/trust/identity/${wallet}`);
         setData(response.data);
       } catch (err) {
         console.error("Error fetching identity data:", err);

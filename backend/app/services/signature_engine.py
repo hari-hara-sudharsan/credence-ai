@@ -169,3 +169,112 @@ class SignatureEngine:
             return recovered_address.lower() == self.oracle_address.lower()
         except Exception:
             return False
+
+    def sign_protocol_decision(
+        self,
+        wallet: str,
+        application: str,
+        trust_score: int,
+        limit: int,
+        timestamp: int,
+        verifying_contract: str = None
+    ) -> str:
+        """
+        Signs a protocol decision using EIP-712 standard.
+        """
+        contract_addr = verifying_contract or os.getenv("TRUST_MARKPLACE_ADDRESS") or "0x8fa3582490dfb0e1b077b66412a26306e334208a"
+        
+        structured_data = {
+            "types": {
+                "EIP712Domain": [
+                    {"name": "name", "type": "string"},
+                    {"name": "version", "type": "string"},
+                    {"name": "chainId", "type": "uint256"},
+                    {"name": "verifyingContract", "type": "address"}
+                ],
+                "ProtocolDecision": [
+                    {"name": "wallet", "type": "address"},
+                    {"name": "application", "type": "string"},
+                    {"name": "trustScore", "type": "uint256"},
+                    {"name": "limit", "type": "uint256"},
+                    {"name": "timestamp", "type": "uint256"}
+                ]
+            },
+            "primaryType": "ProtocolDecision",
+            "domain": {
+                "name": "Credence AI",
+                "version": "1",
+                "chainId": self.chain_id,
+                "verifyingContract": Web3.to_checksum_address(contract_addr)
+            },
+            "message": {
+                "wallet": Web3.to_checksum_address(wallet),
+                "application": application,
+                "trustScore": int(trust_score),
+                "limit": int(limit),
+                "timestamp": int(timestamp)
+            }
+        }
+
+        signable_message = encode_typed_data(full_message=structured_data)
+        signed_message = self.account.sign_message(signable_message)
+        sig = signed_message.signature.hex()
+        if not sig.startswith("0x"):
+            sig = "0x" + sig
+        return sig
+
+    def verify_protocol_decision(
+        self,
+        wallet: str,
+        application: str,
+        trust_score: int,
+        limit: int,
+        timestamp: int,
+        signature: str,
+        verifying_contract: str = None
+    ) -> bool:
+        """
+        Verifies the protocol decision signature.
+        """
+        contract_addr = verifying_contract or os.getenv("TRUST_MARKPLACE_ADDRESS") or "0x8fa3582490dfb0e1b077b66412a26306e334208a"
+        
+        structured_data = {
+            "types": {
+                "EIP712Domain": [
+                    {"name": "name", "type": "string"},
+                    {"name": "version", "type": "string"},
+                    {"name": "chainId", "type": "uint256"},
+                    {"name": "verifyingContract", "type": "address"}
+                ],
+                "ProtocolDecision": [
+                    {"name": "wallet", "type": "address"},
+                    {"name": "application", "type": "string"},
+                    {"name": "trustScore", "type": "uint256"},
+                    {"name": "limit", "type": "uint256"},
+                    {"name": "timestamp", "type": "uint256"}
+                ]
+            },
+            "primaryType": "ProtocolDecision",
+            "domain": {
+                "name": "Credence AI",
+                "version": "1",
+                "chainId": self.chain_id,
+                "verifyingContract": Web3.to_checksum_address(contract_addr)
+            },
+            "message": {
+                "wallet": Web3.to_checksum_address(wallet),
+                "application": application,
+                "trustScore": int(trust_score),
+                "limit": int(limit),
+                "timestamp": int(timestamp)
+            }
+        }
+
+        signable_message = encode_typed_data(full_message=structured_data)
+        try:
+            sig_bytes = HexBytes(signature) if isinstance(signature, str) else signature
+            recovered_address = Account.recover_message(signable_message, signature=sig_bytes)
+            return recovered_address.lower() == self.oracle_address.lower()
+        except Exception:
+            return False
+

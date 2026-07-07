@@ -6,7 +6,7 @@ import API from "@/lib/api";
 interface Props {
   analysis: any;
   wallet: string;
-  onNext: () => void;
+  onNext: (report: any) => void;
 }
 
 export default function CreditDecisionStep({ analysis, wallet, onNext }: Props) {
@@ -102,7 +102,7 @@ export default function CreditDecisionStep({ analysis, wallet, onNext }: Props) 
       </div>
 
       <button
-        onClick={onNext}
+        onClick={() => onNext(report)}
         style={{
           width: "100%",
           background: "#34D399",

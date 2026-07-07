@@ -1138,6 +1138,671 @@
         }
       }
     },
+    "/api/trust/identity/{wallet}": {
+      "get": {
+        "tags": [
+          "Universal Trust Identity"
+        ],
+        "summary": "Get Trust Identity",
+        "description": "Returns complete financial identity container for the wallet.",
+        "operationId": "get_trust_identity_api_trust_identity__wallet__get",
+        "parameters": [
+          {
+            "name": "wallet",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "title": "Wallet"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {}
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/trust/dna/{wallet}": {
+      "get": {
+        "tags": [
+          "Universal Trust Identity"
+        ],
+        "summary": "Get Trust Dna",
+        "description": "Returns selective Financial DNA for the wallet.",
+        "operationId": "get_trust_dna_api_trust_dna__wallet__get",
+        "parameters": [
+          {
+            "name": "wallet",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "title": "Wallet"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {}
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/trust/history/{wallet}": {
+      "get": {
+        "tags": [
+          "Universal Trust Identity"
+        ],
+        "summary": "Get Trust History",
+        "description": "Returns wallet events history timeline.",
+        "operationId": "get_trust_history_api_trust_history__wallet__get",
+        "parameters": [
+          {
+            "name": "wallet",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "title": "Wallet"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {}
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/trust/receipts/{wallet}": {
+      "get": {
+        "tags": [
+          "Verifiable Trust Receipts"
+        ],
+        "summary": "Get Wallet Receipts",
+        "description": "Retrieves and formats receipts for the wallet timeline view.",
+        "operationId": "get_wallet_receipts_api_trust_receipts__wallet__get",
+        "parameters": [
+          {
+            "name": "wallet",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "title": "Wallet"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {}
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/trust/receipt/{id}": {
+      "get": {
+        "tags": [
+          "Verifiable Trust Receipts"
+        ],
+        "summary": "Get Receipt By Id",
+        "description": "Retrieves detailed proof of a single trust receipt.",
+        "operationId": "get_receipt_by_id_api_trust_receipt__id__get",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "title": "Id"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {}
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/ai/trust-report/{wallet}": {
+      "get": {
+        "tags": [
+          "AI Trust Intelligence"
+        ],
+        "summary": "Get Ai Trust Report",
+        "description": "Returns complete AI trust analysis report for a given wallet address.",
+        "operationId": "get_ai_trust_report_api_ai_trust_report__wallet__get",
+        "parameters": [
+          {
+            "name": "wallet",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "title": "Wallet"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {}
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/ai/risk/{wallet}": {
+      "get": {
+        "tags": [
+          "AI Trust Intelligence"
+        ],
+        "summary": "Get Ai Risk Prediction",
+        "description": "Returns AI risk prediction details (risk, confidence, trend, reasons).",
+        "operationId": "get_ai_risk_prediction_api_ai_risk__wallet__get",
+        "parameters": [
+          {
+            "name": "wallet",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "title": "Wallet"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {}
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/ai/recommend/{wallet}": {
+      "get": {
+        "tags": [
+          "AI Trust Intelligence"
+        ],
+        "summary": "Get Ai Financial Recommendation",
+        "description": "Returns AI risk-adjusted financial recommendations.",
+        "operationId": "get_ai_financial_recommendation_api_ai_recommend__wallet__get",
+        "parameters": [
+          {
+            "name": "wallet",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "title": "Wallet"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {}
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/ecosystem/profile/{wallet}": {
+      "get": {
+        "tags": [
+          "Ecosystem Integration"
+        ],
+        "summary": "Get Ecosystem Profile",
+        "description": "Retrieves the multi-protocol context-specific trust profile for the wallet.",
+        "operationId": "get_ecosystem_profile_api_v1_ecosystem_profile__wallet__get",
+        "parameters": [
+          {
+            "name": "wallet",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "title": "Wallet"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {}
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/ecosystem/access/{wallet}": {
+      "get": {
+        "tags": [
+          "Ecosystem Integration"
+        ],
+        "summary": "Get Ecosystem Access",
+        "description": "Lists the protocols for which the wallet is currently verified and eligible.",
+        "operationId": "get_ecosystem_access_api_v1_ecosystem_access__wallet__get",
+        "parameters": [
+          {
+            "name": "wallet",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "title": "Wallet"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {}
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      },
+      "post": {
+        "tags": [
+          "Ecosystem Integration"
+        ],
+        "summary": "Check Protocol Access",
+        "description": "Evaluates context fit and returns an access decision for a specific protocol.",
+        "operationId": "check_protocol_access_api_v1_ecosystem_access__wallet__post",
+        "parameters": [
+          {
+            "name": "wallet",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "title": "Wallet"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/AccessRequest"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/DecisionResponse"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/ecosystem/recommend/{wallet}": {
+      "get": {
+        "tags": [
+          "Ecosystem Integration"
+        ],
+        "summary": "Get Ecosystem Recommendation",
+        "description": "Returns AI Trust Agent's recommendations for ecosystem access.",
+        "operationId": "get_ecosystem_recommendation_api_v1_ecosystem_recommend__wallet__get",
+        "parameters": [
+          {
+            "name": "wallet",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "title": "Wallet"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {}
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/graph/network": {
+      "get": {
+        "tags": [
+          "HashKey Trust Graph"
+        ],
+        "summary": "Get Network Health Statistics",
+        "description": "Returns health indices, active wallets, volumes, and prevented defaults globally.",
+        "operationId": "get_network_health_statistics_api_graph_network_get",
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {}
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/graph/{wallet}": {
+      "get": {
+        "tags": [
+          "HashKey Trust Graph"
+        ],
+        "summary": "Get Trust Graph Data",
+        "description": "Returns nodes and edges mapping the entity's trust network.",
+        "operationId": "get_trust_graph_data_api_graph__wallet__get",
+        "parameters": [
+          {
+            "name": "wallet",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "title": "Wallet"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {}
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/graph/insights/{wallet}": {
+      "get": {
+        "tags": [
+          "HashKey Trust Graph"
+        ],
+        "summary": "Get Trust Graph Insights",
+        "description": "Assembles ranking standings, growth opportunities, and recommendations.",
+        "operationId": "get_trust_graph_insights_api_graph_insights__wallet__get",
+        "parameters": [
+          {
+            "name": "wallet",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "title": "Wallet"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {}
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/security/health": {
+      "get": {
+        "tags": [
+          "Security & Monitoring Telemetry"
+        ],
+        "summary": "Get Security Health Status",
+        "description": "Returns real-time health checks of smart contracts and AI scoring modules.",
+        "operationId": "get_security_health_status_api_v1_security_health_get",
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {}
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/security/wallet/{wallet}": {
+      "get": {
+        "tags": [
+          "Security & Monitoring Telemetry"
+        ],
+        "summary": "Run Wallet Security Audit",
+        "description": "Performs security profiling and detects abnormal behavior pattern spikes.",
+        "operationId": "run_wallet_security_audit_api_v1_security_wallet__wallet__get",
+        "parameters": [
+          {
+            "name": "wallet",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "title": "Wallet"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {}
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
     "/credit/score": {
       "post": {
         "tags": [
@@ -6072,6 +6737,19 @@
   },
   "components": {
     "schemas": {
+      "AccessRequest": {
+        "properties": {
+          "protocol": {
+            "type": "string",
+            "title": "Protocol"
+          }
+        },
+        "type": "object",
+        "required": [
+          "protocol"
+        ],
+        "title": "AccessRequest"
+      },
       "AgentInsight": {
         "properties": {
           "type": {
@@ -6496,6 +7174,34 @@
           "recommendations"
         ],
         "title": "CreditForecast"
+      },
+      "DecisionResponse": {
+        "properties": {
+          "approved": {
+            "type": "boolean",
+            "title": "Approved"
+          },
+          "tier": {
+            "type": "string",
+            "title": "Tier"
+          },
+          "reason": {
+            "type": "string",
+            "title": "Reason"
+          },
+          "fitScore": {
+            "type": "integer",
+            "title": "Fitscore"
+          }
+        },
+        "type": "object",
+        "required": [
+          "approved",
+          "tier",
+          "reason",
+          "fitScore"
+        ],
+        "title": "DecisionResponse"
       },
       "DemoSession": {
         "properties": {

@@ -10,10 +10,30 @@ import InterestModel from "@/components/InterestModel";
 import PoolAnalytics from "@/components/PoolAnalytics";
 
 export default function PoolPage() {
-  const { wallet: connectedWallet } = useWallet();
+  const { wallet } = useWallet();
   const [metrics, setMetrics] = useState<any | null>(null);
   const [position, setPosition] = useState<any | null>(null);
-  const wallet = connectedWallet || "";
+
+  const [score, setScore] = useState<number>(742);
+  const [limit, setLimit] = useState<number>(5000);
+  const [rate, setRate] = useState<number>(5.0);
+
+  useEffect(() => {
+    if (wallet) {
+      API.post("/insights/", { wallet }).then((res) => {
+        if (res.data?.credit_score) {
+          setScore(res.data.credit_score);
+        }
+      }).catch(console.error);
+
+      API.post("/lending/decision", { wallet }).then((res) => {
+        if (res.data) {
+          setLimit(res.data.max_loan_amount || 5000);
+          setRate(res.data.interest_rate || 5.0);
+        }
+      }).catch(console.error);
+    }
+  }, [wallet]);
 
   const refreshData = async (optimisticData?: { balanceChange?: number; type?: "deposit" | "withdraw" }) => {
     // Always fetch pool stats
@@ -153,7 +173,7 @@ export default function PoolPage() {
           {/* Left Column: controls & positioning */}
           <div style={{ display: "flex", flexDirection: "column", gap: 24 }}>
             <DepositCard position={position} onRefresh={refreshData} />
-            <BorrowPanel score={742} limit={5000} rate={5.0} />
+            <BorrowPanel score={score} limit={limit} rate={rate} />
           </div>
 
           {/* Right Column: Dynamic interest & analytics */}

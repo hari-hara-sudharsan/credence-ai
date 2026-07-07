@@ -84,6 +84,12 @@ class CredenceSDK {
       networkRank
     };
   }
+
+  public readonly protocol = {
+    evaluate: async (payload: { wallet: string; type: string }): Promise<any> => {
+      return (this as any).request("GET", `/api/v1/protocol/decision?wallet=${payload.wallet}&application=${payload.type}`);
+    }
+  };
 }
 
 const Credence = new CredenceSDK();

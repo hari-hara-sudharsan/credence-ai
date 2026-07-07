@@ -1,10 +1,19 @@
 "use client";
 
 interface Props {
+  analysis?: any;
+  session?: any;
   onNext: () => void;
 }
 
-export default function LoanOfferStep({ onNext }: Props) {
+export default function LoanOfferStep({ analysis, session, onNext }: Props) {
+  const score = analysis?.credit_score || session?.credit_score || 742;
+  const rate = analysis?.lending?.interest_rate || session?.lending?.interest_rate || 5.0;
+  const collateralRatio = analysis?.lending?.collateral_ratio || session?.lending?.collateral_ratio || 30;
+  const amount = analysis?.lending?.max_loan_amount || session?.lending?.max_loan_amount || 500;
+  const lockAmount = Math.round((amount * collateralRatio) / 100);
+  const tradLockAmount = Math.round(amount * 1.5);
+
   return (
     <div style={{ padding: "10px 0" }}>
       <h3 style={{ fontSize: 20, fontWeight: 800, color: "#E2E8F0", marginBottom: 16 }}>
@@ -35,7 +44,7 @@ export default function LoanOfferStep({ onNext }: Props) {
             Collateral: 150%
           </div>
           <div style={{ fontSize: 11, color: "#64748B", marginTop: 4 }}>
-            Borrow Power: Limited. Requires locking $750 to borrow $500.
+            Borrow Power: Limited. Requires locking ${tradLockAmount} to borrow ${amount}.
           </div>
         </div>
 
@@ -69,10 +78,10 @@ export default function LoanOfferStep({ onNext }: Props) {
             CREDENCE AI
           </div>
           <div style={{ fontSize: 20, fontWeight: 700, color: "#E2E8F0" }}>
-            Collateral: 30%
+            Collateral: {collateralRatio}%
           </div>
           <div style={{ fontSize: 11, color: "#34D399", marginTop: 4 }}>
-            Borrow Power: Unlocked. Only locks $150 due to high Credit Score (742).
+            Borrow Power: Unlocked. Only locks ${lockAmount} due to high Credit Score ({score}).
           </div>
         </div>
       </div>
@@ -91,7 +100,7 @@ export default function LoanOfferStep({ onNext }: Props) {
             lineHeight: 1.4
           }}
         >
-          💡 <strong>Judge Hint:</strong> This step shows AI underwriting replacing excessive collateral requirement with a reputation-backed model, reducing capital locks by 120%.
+          💡 <strong>Judge Hint:</strong> This step shows AI underwriting replacing excessive collateral requirement with a reputation-backed model, reducing capital locks by {150 - collateralRatio}%.
         </div>
       )}
 
@@ -109,11 +118,11 @@ export default function LoanOfferStep({ onNext }: Props) {
         <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 16 }}>
           <div>
             <div style={{ fontSize: 10, color: "#64748B", marginBottom: 4 }}>BORROW AMOUNT</div>
-            <div style={{ fontSize: 18, fontWeight: 700, color: "#E2E8F0" }}>500 HSP</div>
+            <div style={{ fontSize: 18, fontWeight: 700, color: "#E2E8F0" }}>{amount} HSP</div>
           </div>
           <div>
             <div style={{ fontSize: 10, color: "#64748B", marginBottom: 4 }}>INTEREST RATE</div>
-            <div style={{ fontSize: 18, fontWeight: 700, color: "#34D399" }}>5.0% APY</div>
+            <div style={{ fontSize: 18, fontWeight: 700, color: "#34D399" }}>{rate}% APY</div>
           </div>
           <div>
             <div style={{ fontSize: 10, color: "#64748B", marginBottom: 4 }}>LOAN DURATION</div>
@@ -121,7 +130,7 @@ export default function LoanOfferStep({ onNext }: Props) {
           </div>
           <div>
             <div style={{ fontSize: 10, color: "#64748B", marginBottom: 4 }}>COLLATERAL TO LOCK</div>
-            <div style={{ fontSize: 18, fontWeight: 700, color: "#E2E8F0" }}>150 HSP (30%)</div>
+            <div style={{ fontSize: 18, fontWeight: 700, color: "#E2E8F0" }}>{lockAmount} HSP ({collateralRatio}%)</div>
           </div>
         </div>
       </div>

@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import API from "@/lib/api";
 import { useWallet } from "@/context/WalletContext";
 import WalletAnalysisStep from "./WalletAnalysisStep";
@@ -37,6 +37,19 @@ export default function BorrowFlow() {
   const [analysis, setAnalysis] = useState<any | null>(null);
   const [loading, setLoading] = useState(false);
   const [allocating, setAllocating] = useState(false);
+
+  // Load initial state from localStorage after mount to avoid hydration mismatch
+  useEffect(() => {
+    const savedStage = localStorage.getItem("borrow_stage");
+    const savedSession = localStorage.getItem("borrow_session");
+    const savedAnalysis = localStorage.getItem("borrow_analysis");
+    const savedWallet = localStorage.getItem("borrow_wallet_input");
+
+    if (savedStage) setStage(savedStage as BorrowStage);
+    if (savedSession) setSession(JSON.parse(savedSession));
+    if (savedAnalysis) setAnalysis(JSON.parse(savedAnalysis));
+    if (savedWallet) setWalletInput(savedWallet);
+  }, []);
 
   // Use connected wallet if available, otherwise use manual input
   const activeWallet = connectedWallet || walletInput;
@@ -82,6 +95,11 @@ export default function BorrowFlow() {
     try {
       const res = await API.post("/demo-flow/start", { wallet: activeWallet.trim() });
       setSession(res.data);
+      localStorage.setItem("borrow_session", JSON.stringify(res.data));
+      localStorage.setItem("borrow_wallet_input", activeWallet.trim());
+      if (typeof window !== "undefined") {
+        window.dispatchEvent(new Event("wallet_input_changed"));
+      }
       
       // Move to ANALYZING stage
       const nextRes = await API.post("/demo-flow/next", {
@@ -89,11 +107,14 @@ export default function BorrowFlow() {
         next_stage: "ANALYZING"
       });
       setSession(nextRes.data);
+      localStorage.setItem("borrow_session", JSON.stringify(nextRes.data));
       setStage(BorrowStage.ANALYZING);
+      localStorage.setItem("borrow_stage", BorrowStage.ANALYZING);
     } catch (err) {
       console.error(err);
       // Local fallback in case network issues
       setStage(BorrowStage.ANALYZING);
+      localStorage.setItem("borrow_stage", BorrowStage.ANALYZING);
     } finally {
       setLoading(false);
     }
@@ -107,11 +128,13 @@ export default function BorrowFlow() {
           next_stage: next
         });
         setSession(nextRes.data);
+        localStorage.setItem("borrow_session", JSON.stringify(nextRes.data));
       } catch (err) {
         console.error(err);
       }
     }
     setStage(next);
+    localStorage.setItem("borrow_stage", next);
   };
 
   // Helper to determine step check completion
@@ -206,6 +229,39 @@ export default function BorrowFlow() {
             );
           })}
         </div>
+
+        <button
+          id="reset-session-btn"
+          onClick={() => {
+            localStorage.removeItem("borrow_stage");
+            localStorage.removeItem("borrow_session");
+            localStorage.removeItem("borrow_analysis");
+            localStorage.removeItem("borrow_wallet_input");
+            setStage(BorrowStage.CONNECT_WALLET);
+            setSession(null);
+            setAnalysis(null);
+            setWalletInput("");
+            if (typeof window !== "undefined") {
+              window.dispatchEvent(new Event("wallet_input_changed"));
+            }
+          }}
+          style={{
+            marginTop: 40,
+            width: "100%",
+            background: "rgba(239, 68, 68, 0.08)",
+            border: "1px solid rgba(239, 68, 68, 0.2)",
+            borderRadius: 6,
+            color: "#EF4444",
+            fontSize: 11,
+            fontWeight: 600,
+            padding: "8px 12px",
+            cursor: "pointer",
+            transition: "all 0.2s ease",
+            textAlign: "center",
+          }}
+        >
+          Reset Session State
+        </button>
       </div>
 
       {/* Main step details view area */}
@@ -249,7 +305,13 @@ export default function BorrowFlow() {
                 <input
                   type="text"
                   value={connectedWallet || walletInput}
-                  onChange={(e) => setWalletInput(e.target.value)}
+                  onChange={(e) => {
+                    setWalletInput(e.target.value);
+                    localStorage.setItem("borrow_wallet_input", e.target.value);
+                    if (typeof window !== "undefined") {
+                      window.dispatchEvent(new Event("wallet_input_changed"));
+                    }
+                  }}
                   disabled={!!connectedWallet}
                   placeholder="0x..."
                   style={{
@@ -296,6 +358,7 @@ export default function BorrowFlow() {
             wallet={activeWallet}
             onComplete={(data) => {
               setAnalysis(data);
+              localStorage.setItem("borrow_analysis", JSON.stringify(data));
               handleStageTransition(BorrowStage.CREDIT_READY);
             }}
           />
@@ -305,12 +368,19 @@ export default function BorrowFlow() {
           <CreditDecisionStep
             analysis={analysis}
             wallet={activeWallet}
-            onNext={() => handleStageTransition(BorrowStage.OFFER_GENERATED)}
+            onNext={(reportData) => {
+              const updatedAnalysis = { ...analysis, ...reportData };
+              setAnalysis(updatedAnalysis);
+              localStorage.setItem("borrow_analysis", JSON.stringify(updatedAnalysis));
+              handleStageTransition(BorrowStage.OFFER_GENERATED);
+            }}
           />
         )}
 
         {stage === BorrowStage.OFFER_GENERATED && (
           <LoanOfferStep
+            analysis={analysis}
+            session={session}
             onNext={() => handleStageTransition(BorrowStage.ORACLE_VERIFIED)}
           />
         )}

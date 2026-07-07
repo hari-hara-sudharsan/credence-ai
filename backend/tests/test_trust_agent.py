@@ -46,5 +46,15 @@ class TestCredenceTrustAgent(unittest.TestCase):
         self.assertIn("recommendation", res)
         self.assertTrue(len(res["qualifications"]) > 0)
 
+    def test_analyze_settlement_reliability(self):
+        res = self.agent.analyzeSettlementReliability(self.test_wallet)
+        self.assertEqual(res["wallet"], self.test_wallet.lower())
+        self.assertIn("total_settlements", res)
+        self.assertIn("verified_settlements", res)
+        self.assertIn("failed_settlements", res)
+        self.assertIn("reliability_ratio", res)
+        self.assertIn("analysis_report", res)
+        self.assertIn("recommendations", res)
+
 if __name__ == "__main__":
     unittest.main()

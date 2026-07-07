@@ -54,9 +54,30 @@ export function WalletProvider({
   children: React.ReactNode;
 }) {
   const [wallet, setWallet] = useState("");
+  const [localWallet, setLocalWallet] = useState("");
   const [chainId, setChainId] = useState<number | null>(null);
   const [provider, setProvider] = useState<ethers.BrowserProvider | null>(null);
   const [signer, setSigner] = useState<ethers.JsonRpcSigner | null>(null);
+
+  useEffect(() => {
+    if (typeof window !== "undefined") {
+      const saved = localStorage.getItem("borrow_wallet_input");
+      if (saved) setLocalWallet(saved);
+
+      const handleStorageChange = () => {
+        const savedVal = localStorage.getItem("borrow_wallet_input");
+        setLocalWallet(savedVal || "");
+      };
+      window.addEventListener("storage", handleStorageChange);
+      window.addEventListener("wallet_input_changed", handleStorageChange);
+      return () => {
+        window.removeEventListener("storage", handleStorageChange);
+        window.removeEventListener("wallet_input_changed", handleStorageChange);
+      };
+    }
+  }, []);
+
+  const activeWallet = wallet || localWallet;
 
   const isCorrectChain = chainId === HASHKEY_MAINNET_CHAIN_ID;
 
@@ -162,14 +183,29 @@ export function WalletProvider({
   return (
     <WalletContext.Provider
       value={{
-        wallet,
+        wallet: activeWallet,
         chainId,
         provider,
         signer,
         isCorrectChain,
-        setWallet,
+        setWallet: (w) => {
+          setWallet(w);
+          if (typeof window !== "undefined") {
+            localStorage.setItem("borrow_wallet_input", w);
+            window.dispatchEvent(new Event("wallet_input_changed"));
+          }
+        },
         connect,
-        disconnect,
+        disconnect: () => {
+          disconnect();
+          if (typeof window !== "undefined") {
+            localStorage.removeItem("borrow_wallet_input");
+            localStorage.removeItem("borrow_stage");
+            localStorage.removeItem("borrow_session");
+            localStorage.removeItem("borrow_analysis");
+            window.dispatchEvent(new Event("wallet_input_changed"));
+          }
+        },
         switchToMainnet,
       }}
     >

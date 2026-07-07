@@ -88,3 +88,16 @@ LoanManager trusts verified result
 - P2PLendingMarket:    18 tests (full lifecycle)
 - Counter:              1 test + 256 fuzz runs
 ```
+
+---
+
+## 🛡️ Trust Manipulation Threat Model
+
+Credence AI implements an active defense threat model to protect the trust scoring network against adversarial manipulation:
+
+| Attack Vector | Threat Description | Mitigation Strategy |
+|---|---|---|
+| **Sybil Farming** | Creating large clusters of dummy wallets to simulate transaction activity. | **detectSybilRisk**: Analyzes funding overlaps, counterparties diversity, and cluster correlations. Calibrates Authenticity Factor penalties. |
+| **Fake Volume (Wash Trading)** | Artificially inflated balances / transaction volumes without economic risk. | **detectCircularTransactions**: Flag-checks repeated counterparty loops (A ➔ B ➔ C ➔ A) and penalizes scores. |
+| **Micro-Repayment Farming** | Executing hundreds of $0.01 repayments to raise streak count and score. | **detectReputationFarming**: Applies frequency limits on low-value transactions. Score increments are blocked. |
+| **Reputation Tampering** | Manipulating off-chain parameters to fake credit profiles. | **Defense Oracle Verification**: The `TrustDefenseRegistry` smart contract logs and validates check hashes on-chain before updates. |

@@ -24,7 +24,15 @@ const ADVANCED_LINKS = [
   { href: "/ecosystem", label: "Ecosystem" },
   { href: "/trust-intelligence", label: "Trust Intelligence" },
   { href: "/network", label: "Network Telemetry" },
-  { href: "/protocol-status", label: "Protocol Status" }
+  { href: "/protocol-status", label: "Protocol Status" },
+  { href: "/hsp-proof", label: "HSP Proof" },
+  { href: "/trust-impact-demo", label: "Trust Impact Demo" },
+  { href: "/ecosystem-demo", label: "Ecosystem Demo" },
+  { href: "/trust-evolution", label: "Trust Evolution" },
+  { href: "/trust-security", label: "Trust Security" },
+  { href: "/status", label: "System Status" },
+  { href: "/developers", label: "Developer SDK" },
+  { href: "/proof", label: "Judge Verification" }
 ];
 
 

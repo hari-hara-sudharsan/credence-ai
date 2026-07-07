@@ -12,6 +12,16 @@ graph_engine = HashKeyTrustGraph()
 network_engine = NetworkIntelligence()
 trust_agent = CredenceTrustAgent()
 
+@router.get("/network")
+def get_network_health_statistics():
+    """
+    Returns health indices, active wallets, volumes, and prevented defaults globally.
+    """
+    try:
+        return network_engine.calculate_ecosystem_health()
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=str(e))
+
 @router.get("/{wallet}")
 def get_trust_graph_data(wallet: str):
     """
@@ -38,15 +48,5 @@ def get_trust_graph_insights(wallet: str):
             "opportunities": insights.get("opportunities", []),
             "growthPath": growth.get("growthPath", "")
         }
-    except Exception as e:
-        raise HTTPException(status_code=500, detail=str(e))
-
-@router.get("/network")
-def get_network_health_statistics():
-    """
-    Returns health indices, active wallets, volumes, and prevented defaults globally.
-    """
-    try:
-        return network_engine.calculate_ecosystem_health()
     except Exception as e:
         raise HTTPException(status_code=500, detail=str(e))

@@ -18,8 +18,17 @@ contract TrustMarketplace is AccessControl, Pausable {
         uint256 joinedAt;
     }
 
+    struct ConsumerProtocol {
+        address protocol;
+        string category;
+        uint256 totalRequests;
+        bool active;
+    }
+
     mapping(address => Protocol) public protocols;
     address[] public protocolAddresses;
+
+    mapping(address => ConsumerProtocol) public consumerProtocols;
 
     // Track usage records: entity => action type => usage count
     mapping(address => mapping(string => uint256)) public usageRecords;
@@ -29,10 +38,121 @@ contract TrustMarketplace is AccessControl, Pausable {
     event TrustRequested(address indexed protocolAddress, address indexed entity, bytes32 attestationHash);
     event TrustDelivered(address indexed protocolAddress, address indexed entity, bytes32 attestationHash, bool success);
     event UsageRecorded(address indexed entity, string actionType, uint256 newCount);
+    event TrustConsumed(address indexed protocol, address indexed entity, string category, bytes32 indexed decisionId);
+    event ProtocolIntegrated(address indexed protocol, string category);
+
+    bytes32 public constant DOMAIN_TYPEHASH = keccak256(
+        "EIP712Domain(string name,string version,uint256 chainId,address verifyingContract)"
+    );
+
+    bytes32 public constant DECISION_TYPEHASH = keccak256(
+        "ProtocolDecision(address wallet,string application,uint256 trustScore,uint256 limit,uint256 timestamp)"
+    );
+
+    bytes32 public separator;
 
     constructor(address admin) {
         _grantRole(DEFAULT_ADMIN_ROLE, admin);
         _grantRole(VERIFIER_ROLE, admin);
+        separator = keccak256(
+            abi.encode(
+                DOMAIN_TYPEHASH,
+                keccak256(bytes("Credence AI")),
+                keccak256(bytes("1")),
+                177, // HashKey Chain Mainnet ID
+                address(this)
+            )
+        );
+    }
+
+    /**
+     * @notice Verifies standard EIP-712 protocol decision signature against expected oracle verifiers.
+     */
+    function verifyProtocolDecision(
+        address wallet,
+        string calldata application,
+        uint256 trustScore,
+        uint256 limit,
+        uint256 timestamp,
+        bytes calldata signature
+    ) public view returns (bool) {
+        bytes32 digest = keccak256(
+            abi.encodePacked(
+                "\x19\x01",
+                separator,
+                keccak256(
+                    abi.encode(
+                        DECISION_TYPEHASH,
+                        wallet,
+                        keccak256(bytes(application)),
+                        trustScore,
+                        limit,
+                        timestamp
+                    )
+                )
+            )
+        );
+        address signer = recoverSigner(digest, signature);
+        return hasRole(VERIFIER_ROLE, signer);
+    }
+
+    /**
+     * @notice Recover the signer address from digest and signature bytes.
+     */
+    function recoverSigner(bytes32 digest, bytes memory signature) public pure returns (address) {
+        if (signature.length != 65) {
+            return address(0);
+        }
+        bytes32 r;
+        bytes32 s;
+        uint8 v;
+        assembly {
+            r := mload(add(signature, 32))
+            s := mload(add(signature, 64))
+            v := byte(0, mload(add(signature, 96)))
+        }
+        return ecrecover(digest, v, r, s);
+    }
+
+    /**
+     * @notice Registers a consumer protocol to consume trust decisions
+     */
+    function registerConsumerProtocol(address protocol, string calldata category) external onlyRole(VERIFIER_ROLE) {
+        require(protocol != address(0), "Invalid protocol address");
+        consumerProtocols[protocol] = ConsumerProtocol({
+            protocol: protocol,
+            category: category,
+            totalRequests: 0,
+            active: true
+        });
+        emit ProtocolIntegrated(protocol, category);
+    }
+
+    /**
+     * @notice Request trust decision for a wallet
+     */
+    function requestTrustDecision(address entity, string calldata category) external whenNotPaused returns (bytes32 decisionId) {
+        require(consumerProtocols[msg.sender].active, "Caller must be active consumer protocol");
+        consumerProtocols[msg.sender].totalRequests += 1;
+        decisionId = keccak256(abi.encodePacked(msg.sender, entity, category, block.timestamp, consumerProtocols[msg.sender].totalRequests));
+        emit TrustConsumed(msg.sender, entity, category, decisionId);
+    }
+
+    /**
+     * @notice Record trust usage metrics
+     */
+    function recordTrustUsage(address entity, string calldata actionType) external whenNotPaused {
+        require(consumerProtocols[msg.sender].active, "Caller must be active consumer protocol");
+        usageRecords[entity][actionType] += 1;
+        emit UsageRecorded(entity, actionType, usageRecords[entity][actionType]);
+    }
+
+    /**
+     * @notice Fetch consumer protocol statistics
+     */
+    function getProtocolStats(address protocol) external view returns (ConsumerProtocol memory) {
+        require(consumerProtocols[protocol].protocol != address(0), "Protocol not registered");
+        return consumerProtocols[protocol];
     }
 
     /**

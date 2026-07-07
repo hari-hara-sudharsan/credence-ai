@@ -2,11 +2,13 @@
 
 import { useEffect, useState } from "react";
 import API from "@/lib/api";
+import { useWallet } from "@/context/WalletContext";
 import OracleMetrics from "@/components/OracleMetrics";
 import VerificationExplorer from "@/components/VerificationExplorer";
 import AttestationHistory from "@/components/AttestationHistory";
 
 export default function OracleDashboard() {
+  const { wallet } = useWallet();
   const [attestations, setAttestations] = useState<any[]>([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
@@ -22,12 +24,25 @@ export default function OracleDashboard() {
       setAttestations(response.data);
     } catch (err: any) {
       console.warn("Oracle registry query failed, applying frontend fallback:", err);
+      
+      let userScore = 742;
+      try {
+        if (wallet) {
+          const insightResp = await API.post("/insights/", { wallet });
+          if (insightResp.data?.credit_score) {
+            userScore = insightResp.data.credit_score;
+          }
+        }
+      } catch (e) {
+        console.warn("Failed to fetch user insights for OracleDashboard:", e);
+      }
+
       setError(null);
       setAttestations([
         {
           attestation_id: "att_101",
-          wallet: "0x5bb83E60a7a05A0e1b077B66412a26306e334208",
-          credit_score: 742,
+          wallet: wallet || "0x5bb83E60a7a05A0e1b077B66412a26306e334208",
+          credit_score: userScore,
           attestation_hash: "0x8fa489f998a116ffd9245e7d606ae50ed2fa8e99e264da6db68c4699e5ae7d2",
           revoked: false,
           issued_at: new Date(Date.now() - 3600000 * 2).toISOString(),
@@ -59,7 +74,7 @@ export default function OracleDashboard() {
 
   useEffect(() => {
     fetchData();
-  }, []);
+  }, [wallet]);
 
   const handleRevoke = async (hash: string) => {
     try {
