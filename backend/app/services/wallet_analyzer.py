@@ -2,15 +2,24 @@ from app.services.wallet_collector import WalletCollector
 from app.services.feature_extractor import FeatureExtractor
 
 
+import time
+
 class WalletAnalyzer:
+    _cache = {}
+    CACHE_DURATION_SECS = 300
 
     def __init__(self):
-
         self.collector = WalletCollector()
-
         self.extractor = FeatureExtractor()
 
     def analyze(self, wallet: str):
+        wallet_lower = wallet.lower()
+        now = time.time()
+        
+        if wallet_lower in self._cache:
+            cached_data, timestamp = self._cache[wallet_lower]
+            if now - timestamp < self.CACHE_DURATION_SECS:
+                return cached_data
 
         raw = self.collector.collect(wallet)
 
@@ -48,7 +57,7 @@ class WalletAnalyzer:
             )
         )
 
-        return {
+        result = {
             "wallet": wallet,
             "balance": raw.balance,
             "wallet_age_days": wallet_age,
@@ -59,3 +68,6 @@ class WalletAnalyzer:
             "financial_reliability_score": financial_reliability,
             "sybil_risk_score": sybil_score
         }
+        
+        self._cache[wallet_lower] = (result, now)
+        return result

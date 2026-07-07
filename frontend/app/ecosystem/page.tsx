@@ -234,6 +234,11 @@ export default function EcosystemMarketplacePage() {
               <p style={{ textAlign: "center", color: "#64748B", padding: 40 }}>Please connect your wallet.</p>
             ) : loading ? (
               <p style={{ textAlign: "center", color: "#64748B" }}>Syncing Ecosystem Access...</p>
+            ) : error ? (
+              <div style={{ textAlign: "center", padding: 40 }}>
+                <p style={{ color: "#EF4444", marginBottom: 12 }}>{error}</p>
+                <button onClick={fetchEcosystemData} style={{ background: "rgba(0, 229, 255, 0.08)", border: "1px solid rgba(0, 229, 255, 0.25)", borderRadius: 8, color: "#00E5FF", padding: "8px 16px", cursor: "pointer", fontSize: 13, fontWeight: 700 }}>Retry Sync</button>
+              </div>
             ) : (
               <>
                 {/* AI Advice */}
