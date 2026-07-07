@@ -313,7 +313,12 @@ export default function TrustIdentityCenterPage() {
   // --- SECURITY LOGIC ---
   const runSecurityAudit = async (targetWallet?: string) => {
     setSecurityLoading(true);
+    setSecurityReport(null);
     const activeWallet = targetWallet || securityWalletInput || wallet || "0x5bb83E60a7a05A0e1b077B66412a26306e334208";
+    
+    // Artificial delay to guarantee the AUDITING... transition state is clearly visible
+    await new Promise((r) => setTimeout(r, 800));
+
     try {
       const res = await API.get(`/security/report/${activeWallet}`);
       setSecurityReport(res.data);
