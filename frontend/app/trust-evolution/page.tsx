@@ -262,14 +262,31 @@ export default function TrustIdentityCenterPage() {
     }
   };
 
-  const resetImpactDemo = () => {
+  const resetImpactDemo = async () => {
     setImpactStage("BEFORE");
-    setImpactScore(620);
-    setImpactLendingLimit(1000);
-    setImpactLendingRate(15);
-    setImpactPayfiLimit(200);
     setImpactSettlementId("");
     setImpactTxHash("");
+    if (!wallet) {
+      setImpactScore(620);
+      setImpactLendingLimit(1000);
+      setImpactLendingRate(15);
+      setImpactPayfiLimit(200);
+      return;
+    }
+    try {
+      const trustRes = await API.get(`/v1/trust/${wallet}`);
+      setImpactScore(trustRes.data.trustScore || 620);
+      const decisionRes = await API.get(`/v1/protocol/decision?wallet=${wallet}&application=LENDING`);
+      setImpactLendingLimit(decisionRes.data.terms.limit || 1000);
+      setImpactLendingRate(decisionRes.data.terms.interestRate || 15);
+      const payfiRes = await API.get(`/v1/protocol/decision?wallet=${wallet}&application=PAYFI`);
+      setImpactPayfiLimit(payfiRes.data.terms.limit || 200);
+    } catch {
+      setImpactScore(620);
+      setImpactLendingLimit(1000);
+      setImpactLendingRate(15);
+      setImpactPayfiLimit(200);
+    }
   };
 
   // --- INTELLIGENCE LOGIC ---
@@ -287,21 +304,8 @@ export default function TrustIdentityCenterPage() {
       setIntelRisk(riskRes.data);
       setIntelRec(recRes.data);
 
-      const mockTimeline: TimelineItem[] = [
-        {
-          event: "PASSPORT_CREATED",
-          impact: "+50",
-          reason: "Universal credit passport registered on Cancun.",
-          timestamp: new Date(Date.now() - 5 * 24 * 3600 * 1000).toISOString(),
-        },
-        {
-          event: "LOAN_REPAID",
-          impact: "+80",
-          reason: "AI Risk Agent validated repayment proof on-chain.",
-          timestamp: new Date(Date.now() - 2 * 24 * 3600 * 1000).toISOString(),
-        },
-      ];
-      setIntelTimeline(mockTimeline);
+      const timelineRes = await API.get(`/trust/history/${wallet}`);
+      setIntelTimeline(timelineRes.data || []);
     } catch (err: any) {
       console.error("Error loading trust intelligence:", err);
       setIntelError("Failed to query AI risk models.");
@@ -580,8 +584,10 @@ export default function TrustIdentityCenterPage() {
                       const y = 120 + 70 * Math.sin(angle);
                       return (
                         <g key={node.id} onClick={() => setSelectedNode(node)} style={{ cursor: "pointer" }}>
-                          <circle cx={x} cy={y} r="14" fill={node.type === "PROTOCOL" ? "#064E3B" : "#1F2937"} stroke={node.type === "PROTOCOL" ? "#34D399" : "#9CA3AF"} />
-                          <text x={x} y={y + 3} fill="#FFF" fontSize="6" textAnchor="middle">{node.id.slice(0, 3)}</text>
+                          <circle cx={x} cy={y} r="16" fill={node.type === "PROTOCOL" ? "#064E3B" : "#1F2937"} stroke={node.type === "PROTOCOL" ? "#34D399" : "#9CA3AF"} />
+                          <text x={x} y={y + 2} fill="#FFF" fontSize="6" textAnchor="middle">
+                            {node.id.startsWith("0x") ? `${node.id.slice(0, 4)}..` : (node.id.includes("Protocol") ? "PROT" : node.id.includes("Registry") ? "REG" : node.id.includes("Pool") ? "POOL" : node.id.slice(0, 4).toUpperCase())}
+                          </text>
                         </g>
                       );
                     })}
@@ -627,11 +633,11 @@ export default function TrustIdentityCenterPage() {
             <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 32, marginBottom: 24 }}>
               {/* Before Repayment card */}
               <div style={{ background: "#080F1D", border: "1px solid #111C2E", borderRadius: 12, padding: 24 }}>
-                <strong style={{ color: "#EF4444", fontSize: 13, display: "block", marginBottom: 12 }}>INITIAL STANDING (FICO 620)</strong>
+                <strong style={{ color: "#EF4444", fontSize: 13, display: "block", marginBottom: 12 }}>INITIAL STANDING (FICO {flywheelScore})</strong>
                 <div style={{ display: "flex", flexDirection: "column", gap: 10 }}>
-                  <div><span style={{ fontSize: 11, color: "#64748B" }}>Lending Limit:</span> <strong style={{ color: "#FFF" }}>$1,000</strong></div>
-                  <div><span style={{ fontSize: 11, color: "#64748B" }}>Interest Rate:</span> <strong style={{ color: "#FFF" }}>15% APR</strong></div>
-                  <div><span style={{ fontSize: 11, color: "#64748B" }}>PayFi Limit:</span> <strong style={{ color: "#FFF" }}>$200</strong></div>
+                  <div><span style={{ fontSize: 11, color: "#64748B" }}>Lending Limit:</span> <strong style={{ color: "#FFF" }}>${lendingLimit.toLocaleString()}</strong></div>
+                  <div><span style={{ fontSize: 11, color: "#64748B" }}>Interest Rate:</span> <strong style={{ color: "#FFF" }}>{lendingRate}% APR</strong></div>
+                  <div><span style={{ fontSize: 11, color: "#64748B" }}>PayFi Limit:</span> <strong style={{ color: "#FFF" }}>${payfiLimit.toLocaleString()}</strong></div>
                 </div>
               </div>
 
@@ -677,7 +683,7 @@ export default function TrustIdentityCenterPage() {
                     On-chain upgrade complete! Tx Hash: {impactTxHash.slice(0, 16)}...
                   </span>
                   <button onClick={resetImpactDemo} style={{ background: "rgba(239, 68, 68, 0.08)", border: "1px solid rgba(239, 68, 68, 0.2)", borderRadius: 8, color: "#EF4444", fontSize: 12, padding: "8px 16px", cursor: "pointer" }}>
-                    Reset Demo
+                    Reset Analysis
                   </button>
                 </div>
               )}

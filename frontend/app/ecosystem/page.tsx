@@ -57,29 +57,7 @@ export default function EcosystemMarketplacePage() {
       const profilesRes = await API.get(`/profiles/${wallet}`);
       const score = profilesRes.data.lending_score || 700;
 
-      const list: ProtocolOpportunity[] = [
-        {
-          protocol: "Lending Protocol",
-          eligibility: 95,
-          offer: "Prime Loan Line (5% APR)",
-          approved: score >= 550,
-          reason: "Score meets prime lending risk requirements."
-        },
-        {
-          protocol: "PayFi Payments Pool",
-          eligibility: 90,
-          offer: "$5,000 Instant Transfer limit",
-          approved: score >= 600,
-          reason: "Accrued reliability factor verified."
-        },
-        {
-          protocol: "RWA Tokenization Pool",
-          eligibility: 85,
-          offer: "Eligible for real estate collateral assets",
-          approved: score >= 650,
-          reason: "Universal identity and streak updates complete."
-        }
-      ];
+      const list: ProtocolOpportunity[] = oppRes.data.matches || [];
 
       setOpportunities(list);
       setAiRec(recRes.data);

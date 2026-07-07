@@ -45,7 +45,8 @@ def get_ecosystem_access(wallet: str):
             
         return {
             "trustVerified": len(available) > 0,
-            "availableProtocols": available
+            "availableProtocols": available,
+            "matches": matches
         }
     except Exception as e:
         raise HTTPException(status_code=500, detail=str(e))
