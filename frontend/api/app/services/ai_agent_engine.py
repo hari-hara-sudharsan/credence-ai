@@ -162,7 +162,8 @@ class AIFinancialAgent:
             ans = f"Your current credit score stands at {score} with a {risk} risk rating. The trajectory forecast is projected as {traj}."
             recs = [
                 "Maintain high transaction activity velocity.",
-                "Repay active loan allocations before outstanding limits."
+                "Repay active loan allocations before outstanding limits.",
+                "Each trust score increase automatically unlocks higher borrow limits on Lending and larger credit lines on PayFi."
             ]
         elif agent_type == "LENDER_AGENT":
             ans = f"Borrower holds a {risk} risk rating with an estimated default probability of {context['default_probability_now']}%."
@@ -171,14 +172,88 @@ class AIFinancialAgent:
                 "Ensure EIP-712 oracle signatures are validated before release."
             ]
         else:
-            ans = f"Wallet parameters match verification status (Passport: {context['passport_valid']})."
+            ans = f"Wallet parameters match verification status (Passport: {context['passport_valid']}). Consuming protocols (Lending, PayFi, RWA) will dynamically synchronize terms."
             recs = [
                 "Apply Lending policy evaluations for credit limit approvals.",
-                "Review adapter ratings to adjust margin parameters."
+                "Review adapter ratings to adjust margin parameters.",
+                "Verify EIP-712 oracle signature proofs on-chain inside consumer apps."
             ]
 
         return {
             "answer": ans,
             "confidence": 85.0,
             "recommendations": recs
+        }
+
+    def analyzeSettlementReliability(self, wallet: str) -> dict:
+        """
+        Analyzes the HSP settlement history of a wallet and outputs reliability metrics.
+        """
+        from app.database.persistence import read_json
+        db = read_json("hsp_settlements.json", {})
+        wallet_lower = wallet.lower()
+        
+        settlements = [r for r in db.values() if r.get("borrower", "").lower() == wallet_lower]
+        total = len(settlements)
+        verified = sum(1 for r in settlements if r.get("verified", False))
+        failed = total - verified
+        
+        amounts = [r.get("amount", 0.0) for r in settlements]
+        total_amount = sum(amounts)
+        avg_amount = total_amount / total if total > 0 else 0.0
+        
+        ratio = int((verified * 100) / total) if total > 0 else 100
+        
+        if total > 0:
+            analysis = f"This wallet completed {verified} verified HashKey settlements with {ratio}% reliability."
+            if failed > 0:
+                analysis += f" Identified {failed} pending/failed settlements in execution history."
+            else:
+                analysis += " Demonstrates flawless transactional execution velocity."
+        else:
+            analysis = "No previous on-chain HSP settlement history detected. Baseline reliability rating applied."
+            
+        recs = []
+        if ratio < 90:
+            recs.append("Improve settlement ratio by ensuring sufficient liquidity prior to due dates.")
+        if total < 5:
+            recs.append("Execute additional low-value HSP settlements to build history track record.")
+        else:
+            recs.append("Maintain high repayment consistency to preserve Prime tier terms.")
+            
+        return {
+            "wallet": wallet_lower,
+            "total_settlements": total,
+            "verified_settlements": verified,
+            "failed_settlements": failed,
+            "reliability_ratio": ratio,
+            "total_amount": total_amount,
+            "average_amount": avg_amount,
+            "analysis_report": analysis,
+            "recommendations": recs
+        }
+
+    def analyzeTrustAuthenticity(self, wallet: str) -> dict:
+        """
+        AI-driven explanation of wallet authenticity, farming behavior, and risk signals.
+        """
+        from app.services.security.trust_defense_engine import TrustDefenseEngine
+        defense = TrustDefenseEngine()
+        report = defense.generate_defense_report(wallet)
+        
+        if not report["trustSafe"]:
+            msg = "Warning: Possible artificial reputation farming detected."
+        else:
+            msg = (
+                "This wallet's reputation appears authentic. "
+                "Signals: \u2713 Diverse counterparties, \u2713 Real settlement history, "
+                "\u2713 Natural activity pattern, \u2713 No Sybil links."
+            )
+            
+        return {
+            "wallet": wallet.lower(),
+            "authenticityScore": report["authenticityScore"],
+            "sybilRisk": report["sybilRisk"],
+            "trustSafe": report["trustSafe"],
+            "analysis": msg
         }

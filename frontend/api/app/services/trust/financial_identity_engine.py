@@ -81,6 +81,25 @@ class FinancialIdentityEngine:
 
         recommendation = "Eligible for premium lending" if tier == "PRIME" else "Standard rate applies" if tier == "RETAIL" else "Risk monitoring active"
 
+        from app.database.persistence import read_json
+        stats_db = read_json("financial_identity_stats.json", {})
+        stats = stats_db.get(wallet_lower, {
+            "settlementCount": 0,
+            "successfulSettlements": 0,
+            "lastSettlement": None
+        })
+
+        from app.services.security.trust_defense_engine import TrustDefenseEngine
+        defense = TrustDefenseEngine()
+        defense_report = defense.generate_defense_report(wallet_lower)
+        authenticity_score = defense_report["authenticityScore"]
+        sybil_risk = defense_report["sybilRisk"]
+        trust_confidence = "VERIFIED" if defense_report["trustSafe"] else "SUSPICIOUS"
+
+        # Apply Authenticity Score factor: Real Trust = Reputation * Authenticity Factor
+        reputation = dna["trust"]
+        real_trust = int(reputation * (authenticity_score / 100.0))
+
         return {
             "wallet": wallet_lower,
             "type": entity_type,
@@ -90,8 +109,34 @@ class FinancialIdentityEngine:
             "passportStatus": passport.get("passport_status") or passport.get("passportStatus") or "ACTIVE",
             "passportId": passport.get("passport_id") or passport.get("passportId") or 1,
             "recommendation": recommendation,
-            "timeline": timeline
+            "timeline": timeline,
+            "settlementCount": stats["settlementCount"],
+            "successfulSettlements": stats["successfulSettlements"],
+            "lastSettlement": stats["lastSettlement"],
+            "trustScore": real_trust,
+            "authenticityScore": authenticity_score,
+            "sybilRisk": sybil_risk,
+            "trustConfidence": trust_confidence,
+            "hspReliability": int((stats["successfulSettlements"] * 100) / stats["settlementCount"]) if stats["settlementCount"] > 0 else 100
         }
+
+    def record_settlement(self, wallet: str, success: bool):
+        from app.database.persistence import read_json, write_json
+        stats_db = read_json("financial_identity_stats.json", {})
+        wallet_lower = wallet.lower()
+        if wallet_lower not in stats_db:
+            stats_db[wallet_lower] = {
+                "settlementCount": 0,
+                "successfulSettlements": 0,
+                "lastSettlement": None
+            }
+        stats = stats_db[wallet_lower]
+        stats["settlementCount"] += 1
+        if success:
+            stats["successfulSettlements"] += 1
+        stats["lastSettlement"] = int(time.time())
+        stats_db[wallet_lower] = stats
+        write_json("financial_identity_stats.json", stats_db)
 
     def classify_entity(self, wallet: str) -> dict:
         """
@@ -108,7 +153,7 @@ class FinancialIdentityEngine:
             balance = 0.0
             unique_contracts = 0
 
-        # Heuristic rules for entity detection
+        # Dynamic heuristic rules for entity detection
         if balance >= 10000.0:
             return {"type": "INSTITUTION", "confidence": 92}
         elif unique_contracts >= 15:

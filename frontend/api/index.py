@@ -99,6 +99,15 @@ from app.api.trust_api import router as trust_api_router
 from app.api.trust_identity import router as trust_identity_router
 from app.api.trust_receipts import router as trust_receipts_router
 
+from app.api.hsp import router as hsp_router
+from app.api.v1.protocol import router as protocol_router
+from app.api.v1.trust_evolution import router as trust_evolution_router
+from app.api.v1.trust_defense import router as trust_defense_router
+from app.api.trust_graph import router as trust_graph_router
+from app.api.security_api import router as security_api_router
+from app.api.ecosystem_api import router as ecosystem_api_router
+
+
 
 
 
@@ -184,6 +193,13 @@ app.include_router(trust_api_router)
 app.include_router(trust_identity_router)
 app.include_router(trust_receipts_router)
 app.include_router(credit_router)
+app.include_router(hsp_router)
+app.include_router(protocol_router)
+app.include_router(trust_evolution_router)
+app.include_router(trust_defense_router)
+app.include_router(trust_graph_router)
+app.include_router(security_api_router)
+app.include_router(ecosystem_api_router)
 app.include_router(
     analysis_router
 )

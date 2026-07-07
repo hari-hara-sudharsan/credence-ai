@@ -147,6 +147,12 @@ export default function InstitutionAIReport({ initialReport }: Props) {
               </div>
             </div>
 
+            {stressResult.reason && (
+              <div style={{ fontSize: 11, color: "#94A3B8", padding: "10px 0", borderBottom: "1px solid #111C2E", marginBottom: 12, lineHeight: 1.5 }}>
+                <strong style={{ color: "#FF4D6A" }}>Analysis Note:</strong> {stressResult.reason}
+              </div>
+            )}
+
             <div>
               <span style={{ fontSize: 9, color: "#64748B", display: "block", marginBottom: 6 }}>
                 MITIGATION ACTIONS ROADMAP

@@ -2,8 +2,8 @@
     "stats": {
         "total_liquidity": 100.0,
         "borrowed_amount": 0.0,
-        "available_liquidity": 115.0,
-        "total_interest_earned": 15.0,
+        "available_liquidity": 120.0,
+        "total_interest_earned": 20.0,
         "average_interest": 0.0
     },
     "lenders": {

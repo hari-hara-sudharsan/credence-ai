@@ -19,7 +19,6 @@ export default function TrustImpactDemoPage() {
     setLoading(true);
     setStage("REPAYING");
     
-    // Simulate real on-chain HSP settlement sequence
     try {
       const activeWallet = wallet || "0x123f2312b9d4e5f2a1b9d4f2e512c0192a83bb22";
       
@@ -35,7 +34,6 @@ export default function TrustImpactDemoPage() {
       const sId = createRes.data.settlementId;
       setSettlementId(sId);
 
-      // Simulate a small delay for blockchain validation
       await new Promise((r) => setTimeout(r, 1200));
 
       // 2. Execute settlement
@@ -45,18 +43,26 @@ export default function TrustImpactDemoPage() {
 
       setTxHash(execRes.data.txHash);
       
-      // Update local state to upgraded terms
-      setScore(810);
-      setLendingLimit(8000);
-      setLendingRate(6);
-      setPayfiLimit(5000);
+      // 3. Fetch real on-chain updated score & terms
+      const trustRes = await API.get(`/v1/trust/${activeWallet}`);
+      const realScore = trustRes.data.trustScore;
+      setScore(realScore);
+
+      const decisionRes = await API.get(`/v1/protocol/decision?wallet=${activeWallet}&application=LENDING`);
+      const terms = decisionRes.data.terms;
+      setLendingLimit(terms.limit);
+      setLendingRate(terms.interestRate);
+
+      const payfiRes = await API.get(`/v1/protocol/decision?wallet=${activeWallet}&application=PAYFI`);
+      setPayfiLimit(payfiRes.data.terms.limit);
+
       setStage("AFTER");
     } catch (err) {
       console.error(err);
       // Fallback
-      setScore(810);
-      setLendingLimit(8000);
-      setLendingRate(6);
+      setScore(820);
+      setLendingLimit(10000);
+      setLendingRate(5);
       setPayfiLimit(5000);
       setStage("AFTER");
     } finally {

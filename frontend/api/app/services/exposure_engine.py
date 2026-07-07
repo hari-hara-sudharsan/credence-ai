@@ -44,7 +44,7 @@ class ExposureEngine:
             exposure = self._get_wallet_exposure(checksum_w)
             total += exposure
 
-            if risk in ("HIGH", "VERY_HIGH"):
+            if risk == "HIGH":
                 risk_adjusted += exposure * 1.5  # weight high risk exposures
                 high_risk_wallets.append({
                     "wallet": checksum_w,

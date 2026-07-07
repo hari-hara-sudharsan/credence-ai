@@ -53,6 +53,14 @@ class ReputationEngine:
             delta = -25
             reason = f"Loan #{loan_id[:8]} repaid late."
             trigger = "Loan repaid late"
+
+        from app.services.security.trust_defense_engine import TrustDefenseEngine
+        defense = TrustDefenseEngine()
+        report = defense.generate_defense_report(wallet)
+        if not report["trustSafe"] and delta > 0:
+            delta = 0
+            reason = f"Loan #{loan_id[:8]} repaid successfully, but trust boost was blocked by security defense registry (farming threat)."
+            trigger = "Repayment trust boost blocked"
             
         new_trust = min(100, max(0, prev_trust + delta))
         final_delta = new_trust - prev_trust
@@ -196,4 +204,42 @@ class ReputationEngine:
             "score_history": score_history,
             "behavior_summary": behavior_summary,
             "events": history_record.get("events", [])
+        }
+
+    def update_trust_score(self, wallet: str, trust_impact: int) -> dict:
+        """
+        Manually increases or decreases trust score and appends evolution event.
+        """
+        history_records = HistoryService.get_history(wallet)
+        if history_records:
+            current_credit_score = history_records[-1]["score"]
+        else:
+            current_credit_score = 600
+
+        history_record = get_reputation_history(wallet, current_credit_score=current_credit_score)
+        prev_trust = history_record["trust_score"]
+
+        delta = 5 if trust_impact >= 0 else -10
+
+        from app.services.security.trust_defense_engine import TrustDefenseEngine
+        defense = TrustDefenseEngine()
+        report = defense.generate_defense_report(wallet)
+        if not report["trustSafe"] and delta > 0:
+            delta = 0
+
+        new_trust = min(100, max(0, prev_trust + delta))
+        final_delta = new_trust - prev_trust
+
+        add_profile_version(wallet, current_credit_score, new_trust, "HSP Settlement Completed")
+        add_evolution_event(
+            wallet,
+            previous_score=prev_trust,
+            current_score=new_trust,
+            delta=final_delta,
+            reason=f"HSP verified settlement. Trust boosted by +{trust_impact} (scaled +{delta} in trust engine)."
+        )
+        return {
+            "previous_score": prev_trust,
+            "current_score": new_trust,
+            "delta": final_delta
         }

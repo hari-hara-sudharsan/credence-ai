@@ -33,3 +33,4 @@ class StressTestResponse(BaseModel):
     projected_health: int
     affected_wallets: int
     recommended_actions: List[str]
+    reason: str = ""

@@ -1,0 +1,72 @@
+{
+    "hsp_24529470_1": {
+        "settlementId": "hsp_24529470_1",
+        "loanId": "loan_test_101",
+        "loanIdUint": 101320517691793195018411480297877319409033953724577886563371097494630201427109,
+        "borrower": "0x5bb83e60a7a05a0e1b077b66412a26306e334208",
+        "lender": "0xf1cecb4757fdd9dbe22cdb4e965300ca129b84cf",
+        "amount": 500.0,
+        "purpose": "Test Settlement",
+        "status": "VERIFIED",
+        "hspProofHash": "0x0d2446cde6a944fd37e07324f68a91ac26ad339ed482d8d54739cdd18abca332",
+        "verified": true,
+        "timestamp": 1783406076,
+        "createdAt": "2026-07-07T06:34:34.515143+00:00"
+    },
+    "hsp_24529545_1": {
+        "settlementId": "hsp_24529545_1",
+        "loanId": "loan_test_101",
+        "loanIdUint": 101320517691793195018411480297877319409033953724577886563371097494630201427109,
+        "borrower": "0x5bb83e60a7a05a0e1b077b66412a26306e334208",
+        "lender": "0xf1cecb4757fdd9dbe22cdb4e965300ca129b84cf",
+        "amount": 500.0,
+        "purpose": "Test Settlement",
+        "status": "VERIFIED",
+        "hspProofHash": "0x5019abc57f2152310d33f48da0fd8d7a13490abb6c623a8c68f50c984b36ab1f",
+        "verified": true,
+        "timestamp": 1783406224,
+        "createdAt": "2026-07-07T06:37:03.869307+00:00"
+    },
+    "hsp_24529617_1": {
+        "settlementId": "hsp_24529617_1",
+        "loanId": "loan_test_101",
+        "loanIdUint": 101320517691793195018411480297877319409033953724577886563371097494630201427109,
+        "borrower": "0x5bb83e60a7a05a0e1b077b66412a26306e334208",
+        "lender": "0xf1cecb4757fdd9dbe22cdb4e965300ca129b84cf",
+        "amount": 500.0,
+        "purpose": "Test Settlement",
+        "status": "VERIFIED",
+        "hspProofHash": "0x796715528e0854365509d5f09bda6cfffcf4f6b0e40bada5a44dec62809c513c",
+        "verified": true,
+        "timestamp": 1783406368,
+        "createdAt": "2026-07-07T06:39:27.925790+00:00"
+    },
+    "hsp_24534162_1": {
+        "settlementId": "hsp_24534162_1",
+        "loanId": "loan_test_101",
+        "loanIdUint": 101320517691793195018411480297877319409033953724577886563371097494630201427109,
+        "borrower": "0x5bb83e60a7a05a0e1b077b66412a26306e334208",
+        "lender": "0xf1cecb4757fdd9dbe22cdb4e965300ca129b84cf",
+        "amount": 500.0,
+        "purpose": "Test Settlement",
+        "status": "VERIFIED",
+        "hspProofHash": "0xccfc242a47617c04de96801b60f76e39ac512790d8af5017e4c80f5885d697b8",
+        "verified": true,
+        "timestamp": 1783415458,
+        "createdAt": "2026-07-07T09:10:57.868374+00:00"
+    },
+    "hsp_24534435_1": {
+        "settlementId": "hsp_24534435_1",
+        "loanId": "loan_test_101",
+        "loanIdUint": 101320517691793195018411480297877319409033953724577886563371097494630201427109,
+        "borrower": "0x5bb83e60a7a05a0e1b077b66412a26306e334208",
+        "lender": "0xf1cecb4757fdd9dbe22cdb4e965300ca129b84cf",
+        "amount": 500.0,
+        "purpose": "Test Settlement",
+        "status": "VERIFIED",
+        "hspProofHash": "0x6944cd9088e4c1e83d9beb022937a00531b08cd0e743f3775696ec6373a4837b",
+        "verified": true,
+        "timestamp": 1783416004,
+        "createdAt": "2026-07-07T09:20:03.802741+00:00"
+    }
+}

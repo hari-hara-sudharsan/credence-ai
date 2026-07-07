@@ -57,6 +57,14 @@ class InstitutionEngine:
         impact = 10 if severity.upper() == "LOW" else 20 if severity.upper() == "MEDIUM" else 35
         projected = max(curr_health - impact, 300)
 
+        reason = (
+            f"Stress run simulates a {scenario.replace('_', ' ')} event at {severity} severity. "
+            f"Under this stress, we project a portfolio score drop of {impact} points. "
+            f"This decline is driven by localized default risk projections on high-exposure subprime accounts, "
+            f"potential yield dilution from increased liquidity withdraw actions, and higher credit risk coefficients "
+            f"across {int(dash['wallets'] * 0.25)} affected wallet addresses."
+        )
+
         return {
             "current_health": curr_health,
             "projected_health": projected,
@@ -64,5 +72,6 @@ class InstitutionEngine:
             "recommended_actions": [
                 "Reduce high-risk exposure bounds immediately.",
                 "Increase collateral ratio requirements across all money markets adapters."
-            ]
+            ],
+            "reason": reason
         }

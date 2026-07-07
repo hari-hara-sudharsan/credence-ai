@@ -191,6 +191,28 @@ export default function DepositCard({ position, onRefresh }: Props) {
           </button>
         </div>
       </div>
+
+      {/* Real On-chain Explanation Block */}
+      <div
+        style={{
+          marginTop: 24,
+          padding: 16,
+          background: "rgba(0, 229, 255, 0.03)",
+          border: "1px solid rgba(0, 229, 255, 0.15)",
+          borderRadius: 8,
+          fontSize: 12,
+          color: "#94A3B8",
+          lineHeight: 1.5,
+        }}
+      >
+        <strong style={{ color: "#00E5FF", display: "block", marginBottom: 6 }}>Real On-chain Operations Info:</strong>
+        <p style={{ margin: "0 0 8px 0" }}>
+          <strong>✓ Deposit:</strong> Sends HSK stablecoins into the <code>LendingPool</code> smart contract. The contract mints LP shares proportional to your deposit, recording your absolute ownership fraction of the pool.
+        </p>
+        <p style={{ margin: 0 }}>
+          <strong>✓ Withdraw:</strong> Burns your pool LP shares. The contract calculates your accrued yield dynamically from on-chain loan interest repayments and returns your original principal plus earnings.
+        </p>
+      </div>
     </div>
   );
 }

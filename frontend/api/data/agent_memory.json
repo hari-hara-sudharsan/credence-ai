@@ -226,5 +226,27 @@
             ],
             "generated_at": "2026-07-04T05:35:54.910081Z"
         }
+    ],
+    "0x5bb83e60a7a05a0e1b077b66412a26306e334208": [
+        {
+            "agent_type": "BORROWER",
+            "question": "What is my credit standing?",
+            "answer": "Your credit standing is currently below the required threshold for prime borrower eligibility, with a credit score of 237. However, your predicted score is 300, indicating an improving trajectory. Despite this, your default probability remains high at 99.0%, suggesting a very high risk level.",
+            "confidence": 95.0,
+            "recommendations": [
+                "Improve your credit score by demonstrating responsible financial behavior and reducing default probability",
+                "Consider alternative lending options or financial products that cater to borrowers with lower credit scores"
+            ],
+            "decision_trace": [
+                "Initializing AI agent network session",
+                "Retrieving live on-chain credentials & verification states",
+                "Loading credit score and risk profiling metrics",
+                "Computing forward-looking predictive risk trajectories",
+                "Scanning ecosystem registries and policies mapping",
+                "Routing reasoning context to LLM neural pipeline",
+                "Generated grounded advice report and decision trace"
+            ],
+            "generated_at": "2026-07-06T10:29:31.680293Z"
+        }
     ]
 }

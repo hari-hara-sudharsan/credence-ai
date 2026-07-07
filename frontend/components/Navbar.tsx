@@ -15,24 +15,13 @@ const PRIMARY_LINKS = [
 ];
 
 const ADVANCED_LINKS = [
-  { href: "/governance", label: "Governance" },
-  { href: "/oracle", label: "Oracle" },
-  { href: "/marketplace", label: "Marketplace" },
-  { href: "/system", label: "Monitoring" },
-  { href: "/institution", label: "Institution" },
-  { href: "/trust-graph", label: "Trust Graph" },
-  { href: "/ecosystem", label: "Ecosystem" },
-  { href: "/trust-intelligence", label: "Trust Intelligence" },
-  { href: "/network", label: "Network Telemetry" },
-  { href: "/protocol-status", label: "Protocol Status" },
-  { href: "/hsp-proof", label: "HSP Proof" },
-  { href: "/trust-impact-demo", label: "Trust Impact Demo" },
-  { href: "/ecosystem-demo", label: "Ecosystem Demo" },
-  { href: "/trust-evolution", label: "Trust Evolution" },
-  { href: "/trust-security", label: "Trust Security" },
-  { href: "/status", label: "System Status" },
-  { href: "/developers", label: "Developer SDK" },
-  { href: "/proof", label: "Judge Verification" }
+  { href: "/trust-evolution", label: "Trust Identity Center" },
+  { href: "/ecosystem", label: "Ecosystem & Marketplace" },
+  { href: "/governance", label: "Governance & Oracle Admin" },
+  { href: "/institution", label: "Institution CommandCenter" },
+  { href: "/system", label: "System Status & Telemetry" },
+  { href: "/developers", label: "Developer SDK Console" },
+  { href: "/proof", label: "Judge Verification Suite" }
 ];
 
 

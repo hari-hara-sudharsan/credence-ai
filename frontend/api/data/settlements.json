@@ -106,5 +106,14 @@
         "status": "SETTLED",
         "tx_hash": "0xb489c09d66880d43e6fd8b4fd0f460f45906907d0f50ff316366d6c6a543fd0a",
         "timestamp": "2026-07-05T15:28:56.961030+00:00"
+    },
+    "loan_mr9hbwb7_37yjua": {
+        "settlement_id": "hsp_14f0d49e5206249ddecb18da",
+        "loan_id": "loan_mr9hbwb7_37yjua",
+        "borrower": "0x5bb83e60a7a05a0e1b077b66412a26306e334208",
+        "amount": 500.0,
+        "status": "SETTLED",
+        "tx_hash": "0xf9afb42017155d83288ae606cc49470bed88398953c20ef2024b7872da9a2e10",
+        "timestamp": "2026-07-06T17:14:23.689049+00:00"
     }
 }
