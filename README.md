@@ -116,8 +116,10 @@ The result:
 
 Credence AI introduces a shared financial trust layer.
 
+ ## System Architecture
+
 ```
-               ## System Architecture
+              
 
 
                                    ┌──────────────────────────┐
@@ -178,7 +180,7 @@ Credence AI introduces a shared financial trust layer.
                            │   HashKey Chain     │
                            │     Mainnet         │
                            └─────────────────────┘
-`
+
 ```
 
 Every application consumes the same trust infrastructure.
