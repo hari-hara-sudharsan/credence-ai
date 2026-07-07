@@ -116,110 +116,111 @@ The result:
 
 Credence AI introduces a shared financial trust layer.
 
-
-  ## System Architecture
-
----
-                                              ┌──────────────────────────┐
-                                              │      User Wallet         │
-                                              │   (EOA / Smart Wallet)   │
-                                              └────────────┬─────────────┘
-                                                           │
-                                                           ▼
-                                             ┌────────────────────────────────┐
-                                             │      Credence AI Frontend      │
-                                             │      (React / Next.js)         │
-                                             └────────────┬───────────────────┘
-                                                          │
-                                  ┌───────────────────────┼────────────────────────┐
-                                  │                       │                        │
-                                  ▼                       ▼                        ▼
-                          ┌──────────────────┐    ┌──────────────────┐     ┌──────────────────┐
-                          │ Financial        │    │ Credit Passport  │     │ Lending & Market │
-                          │ Identity Engine  │    │ Identity Layer   │     │ Marketplace      │
-                          └────────┬─────────┘    └────────┬─────────┘     └────────┬─────────┘
-                                   │                       │                        │
-                                   └───────────────────────┼────────────────────────┘
-                                                           │
-                                                           ▼
-                                          ┌─────────────────────────────────┐
-                                          │      AI Trust Intelligence      │
-                                          │ • Trust Score                   │
-                                          │ • Risk Analysis                 │
-                                          │ • Credit Recommendation         │
-                                          └───────────────┬─────────────────┘
-                                                          │
-                                                          ▼
-                                          ┌─────────────────────────────────┐
-                                          │ Oracle Verification (EIP-712)   │
-                                          │ Signed Trust Attestations       │
-                                          └───────────────┬─────────────────┘
-                                                          │
-                                                          ▼
-                                       ┌──────────────────────────────────────────┐
-                                       │       Smart Contract Infrastructure      │
-                                       └───────────────┬──────────────────────────┘
-                                                       │
-                        ┌──────────────┬───────────────┼────────────────┬────────────────┐
-                        ▼              ▼               ▼                ▼                ▼
-                  ┌────────────┐ ┌──────────────┐ ┌──────────────┐ ┌─────────────┐ ┌──────────────┐
-                  │ Governance │ │ Credit       │ │ Loan Manager │ │ LendingPool │ │ Reputation   │
-                  │ Registry   │ │ Passport V2  │ │              │ │             │ │ Registry     │
-                  └────────────┘ └──────────────┘ └──────────────┘ └─────────────┘ └──────────────┘
-                                                       │
-                                                       ▼
-                                            ┌──────────────────────┐
-                                            │ Settlement Manager   │
-                                            │   (HashKey HSP)      │
-                                            └──────────┬───────────┘
-                                                       │
-                                                       ▼
-                                             ┌─────────────────────┐
-                                             │   HashKey Chain     │
-                                             │     Mainnet         │
-                                             └─────────────────────┘
+```
+               ## System Architecture
 
 
+                                   ┌──────────────────────────┐
+                                   │      User Wallet         │
+                                   │   (EOA / Smart Wallet)   │
+                                   └────────────┬─────────────┘
+                                                │
+                                                ▼
+                               ┌────────────────────────────────┐
+                               │      Credence AI Frontend      │
+                               │      (React / Next.js)         │
+                               └────────────┬───────────────────┘
+                                            │
+                    ┌───────────────────────┼────────────────────────┐
+                    │                       │                        │
+                    ▼                       ▼                        ▼
+        ┌──────────────────┐    ┌──────────────────┐     ┌──────────────────┐
+        │ Financial        │    │ Credit Passport  │     │ Lending & Market │
+        │ Identity Engine  │    │ Identity Layer   │     │ Marketplace      │
+        └────────┬─────────┘    └────────┬─────────┘     └────────┬─────────┘
+                 │                       │                        │
+                 └───────────────────────┼────────────────────────┘
+                                         │
+                                         ▼
+                        ┌─────────────────────────────────┐
+                        │      AI Trust Intelligence      │
+                        │ • Trust Score                  │
+                        │ • Risk Analysis                │
+                        │ • Credit Recommendation        │
+                        └───────────────┬─────────────────┘
+                                        │
+                                        ▼
+                        ┌─────────────────────────────────┐
+                        │ Oracle Verification (EIP-712)   │
+                        │ Signed Trust Attestations       │
+                        └───────────────┬─────────────────┘
+                                        │
+                                        ▼
+                     ┌──────────────────────────────────────────┐
+                     │       Smart Contract Infrastructure      │
+                     └───────────────┬──────────────────────────┘
+                                     │
+      ┌──────────────┬───────────────┼────────────────┬────────────────┐
+      ▼              ▼               ▼                ▼                ▼
+┌────────────┐ ┌──────────────┐ ┌──────────────┐ ┌─────────────┐ ┌──────────────┐
+│ Governance │ │ Credit       │ │ Loan Manager │ │ LendingPool │ │ Reputation   │
+│ Registry   │ │ Passport V2  │ │              │ │             │ │ Registry     │
+└────────────┘ └──────────────┘ └──────────────┘ └─────────────┘ └──────────────┘
+                                     │
+                                     ▼
+                          ┌──────────────────────┐
+                          │ Settlement Manager   │
+                          │   (HashKey HSP)      │
+                          └──────────┬───────────┘
+                                     │
+                                     ▼
+                           ┌─────────────────────┐
+                           │   HashKey Chain     │
+                           │     Mainnet         │
+                           └─────────────────────┘
+`
+```
 
 Every application consumes the same trust infrastructure.
 
 Trust becomes reusable.
 
+---
 
 # Architecture
 
----
-                                    Wallet
-                                       │
-                                       ▼
-                                    AI Financial Analysis
-                                       │
-                                       ▼
-                                    Financial Identity
-                                       │
-                                       ▼
-                                    Credit Passport
-                                       │
-                                       ▼
-                                    Oracle Attestation (EIP-712)
-                                       │
-                                       ▼
-                                    Smart Contract Verification
-                                       │
-                                       ▼
-                                    Loan Approval
-                                       │
-                                       ▼
-                                    HashKey Settlement
-                                       │
-                                       ▼
-                                    Repayment
-                                       │
-                                       ▼
-                                    Trust Receipt
-                                       │
-                                       ▼
-                                    Reputation Updated
+```
+Wallet
+   │
+   ▼
+AI Financial Analysis
+   │
+   ▼
+Financial Identity
+   │
+   ▼
+Credit Passport
+   │
+   ▼
+Oracle Attestation (EIP-712)
+   │
+   ▼
+Smart Contract Verification
+   │
+   ▼
+Loan Approval
+   │
+   ▼
+HashKey Settlement
+   │
+   ▼
+Repayment
+   │
+   ▼
+Trust Receipt
+   │
+   ▼
+Reputation Updated
 ```
 
 Every interaction improves future financial access.
@@ -264,25 +265,25 @@ Credence AI never directly controls capital.
 Instead, AI generates financial intelligence while smart contracts enforce protocol rules.
 
 ```
-                                    On-chain Signals
-                                            │
-                                            ▼
-                                    Feature Extraction
-                                            │
-                                            ▼
-                                    Deterministic Trust Model
-                                            │
-                                            ▼
-                                    AI Recommendation
-                                            │
-                                            ▼
-                                    Oracle Attestation
-                                            │
-                                            ▼
-                                    Smart Contract Verification
-                                            │
-                                            ▼
-                                    Execution
+On-chain Signals
+        │
+        ▼
+Feature Extraction
+        │
+        ▼
+Deterministic Trust Model
+        │
+        ▼
+AI Recommendation
+        │
+        ▼
+Oracle Attestation
+        │
+        ▼
+Smart Contract Verification
+        │
+        ▼
+Execution
 ```
 
 ### Trust Score Signals
