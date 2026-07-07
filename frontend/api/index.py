@@ -153,13 +153,17 @@ app = FastAPI(
 # Dynamically prepend /api prefix to all included routers to align with Next.js/Vercel URL mapping
 _orig_include_router = app.include_router
 def _custom_include_router(router, *args, **kwargs):
+    router_prefix = getattr(router, "prefix", "")
     if "prefix" in kwargs:
         if kwargs["prefix"].startswith("/api"):
             pass
         else:
             kwargs["prefix"] = "/api" + kwargs["prefix"]
     else:
-        kwargs["prefix"] = "/api"
+        if router_prefix.startswith("/api"):
+            kwargs["prefix"] = ""
+        else:
+            kwargs["prefix"] = "/api"
     _orig_include_router(router, *args, **kwargs)
 app.include_router = _custom_include_router
 
