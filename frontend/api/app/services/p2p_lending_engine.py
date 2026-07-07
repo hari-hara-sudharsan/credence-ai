@@ -129,10 +129,8 @@ class P2PLendingEngine:
             try:
                 from app.contracts.web3_provider import create_web3_with_retry
                 self.w3 = create_web3_with_retry(self.hsk_rpc)
-                self.contract = self.w3.eth.contract(
-                    address=Web3.to_checksum_address(self.market_address),
-                    abi=P2P_MARKET_ABI
-                )
+                # Temporarily disabled to prevent relayer msg.sender override
+                self.contract = None
             except Exception as e:
                 print(f"Warning: failed to initialize onchain P2P Market: {e}")
                 self.contract = None
