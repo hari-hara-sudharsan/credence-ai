@@ -46,7 +46,7 @@ export default function FundingModal({ requestId, borrower, amount, interestRate
           console.warn("Contract call failed (likely mock data), falling back to simulate wallet interaction", contractErr);
           // Trigger a real wallet interaction to satisfy the mock flow
           tx = await signer.sendTransaction({
-            to: borrower,
+            to: borrower.toLowerCase(),
             value: 0
           });
         }
