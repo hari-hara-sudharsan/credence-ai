@@ -2,7 +2,7 @@
 pragma solidity ^0.8.28;
 
 import { Test } from "forge-std/Test.sol";
-import { P2PLendingMarket } from "./P2PLendingMarket.sol";
+import { P2PLendingMarket } from "../contracts/src/P2PLendingMarket.sol";
 
 contract P2PLendingMarketTest is Test {
     P2PLendingMarket market;

@@ -16,6 +16,9 @@ export default defineConfig({
       viaIR: true
     }
   },
+  paths: {
+    sources: "./contracts/src"
+  },
   networks: {
     hsk: {
       type: "http",

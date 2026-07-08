@@ -2,7 +2,7 @@
 pragma solidity ^0.8.28;
 
 import {Test} from "forge-std/Test.sol";
-import {SettlementManager} from "./SettlementManager.sol";
+import {SettlementManager} from "../contracts/src/SettlementManager.sol";
 
 contract SettlementManagerTest is Test {
     SettlementManager sm;

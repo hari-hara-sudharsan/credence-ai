@@ -1,38 +1,751 @@
-# Architecture Blueprint — Credence AI
+# Credence AI — System Architecture
 
-Credence AI is structured as a decoupled layers stack that translates multi-chain footprints into portable trust scores on-chain.
+## The Financial Trust Infrastructure Of HashKey Chain
+
+Credence AI introduces a reusable trust layer that financial applications can integrate instead of rebuilding reputation systems independently.
+
+The architecture follows one principle:
+
+One financial identity.
+
+One trust layer.
+
+Infinite financial applications.
+
+---
+
+# Architecture Summary
+
+Credence converts verified financial behavior into reusable programmable trust.
 
 ```
-       [Wallet Activity]
-               ↓
-    [AI Risk Intelligence]  <-- Wallet Analyzer, CreditEngine, PredictiveRiskEngine
-               ↓
-    [Oracle Attestation]    <-- EIP-712 Signature Issuer
-               ↓
-    [Credit Passport V2]    <-- Smart Contract Registry (HashKey Chain)
-               ↓
-    [Protocol integrations] <-- Adapters (Lending, Insurance, RWA, DAO)
-               ↓
-    [Institution Center]    <-- Dashboard Platform
+Financial Activity
+
+↓
+
+AI Trust Intelligence
+
+↓
+
+Cryptographic Verification
+
+↓
+
+On-chain Reputation
+
+↓
+
+Better Financial Access
 ```
 
-## System Layers
+Trust becomes a reusable asset across the ecosystem.
 
-### 1. Data Aggregation & Analysis
-- **WalletAnalyzer**: Collects live ERC-20 balances, transaction velocities, age metric indexes, and interaction count states.
+---
 
-### 2. Risk Modeling & Prediction
-- **CreditEngine**: Calculates credit scores dynamically (300-850 scale) using weighted models.
-- **PredictiveRiskEngine**: Models multi-horizon defaults probability rates using Markov chain simulators.
+# The Three Layer Architecture
 
-### 3. Oracle Verification (EIP-712)
-- **Universal Verification Network**: Converts data profiles into cryptographically signed EIP-712 structured messages. Signatures include:
-  - `walletAddress`, `creditScore`, `riskLevel`, `timestamp`, `nonce`.
 
-### 4. Smart Contract Registries
-- **CreditPassportV2**: ERC-721/ERC-1155 identity passport tracking active verified scores.
-- **GovernanceRegistry**: Manages RBAC authority roles, oracle endpoints validation registries, and parameters rules.
-- **LoanManager**: Manages test borrow allocations, loan state progressions, and repayments.
+```
+                    Applications
 
-### 5. Adapters
-- **LendingAdapter / InsuranceAdapter / RwaAdapter**: Translates generalized profiles into domain-specific parameters (e.g. Max LTV, Coverage premiums, delegate voting weights).
+ Lending | PayFi | RWA | Insurance | DAO | AI Agents
+
+
+                         |
+
+
+                         v
+
+
+====================================================
+
+
+                  CREDENCE TRUST LAYER
+
+
+====================================================
+
+
+Layer 1:
+
+Credit Intelligence
+
+
+- Wallet Analysis
+- AI Risk Engine
+- Credit Scoring
+- Default Prediction
+
+
+                         |
+
+
+Layer 2:
+
+Trust Infrastructure
+
+
+- Credit Passport
+- Reputation Registry
+- Oracle Verification
+- Trust Receipts
+
+
+                         |
+
+
+Layer 3:
+
+Financial Execution
+
+
+- Lending Pool
+- Loan Manager
+- Settlement Manager
+- HashKey Settlement
+
+
+====================================================
+
+
+                         |
+
+
+                         v
+
+
+                 HashKey Chain
+
+```
+
+---
+
+# Design Philosophy
+
+
+Most protocols today build:
+
+```
+Application
+
++
+
+Private Reputation
+
++
+
+Private Risk System
+```
+
+
+Problem:
+
+
+Trust becomes trapped.
+
+
+---
+
+
+Credence model:
+
+
+```
+Application
+
+        |
+
+        v
+
+Credence Trust Layer
+
+        |
+
+        v
+
+Shared Financial Identity
+```
+
+
+Trust becomes portable.
+
+
+---
+
+# Complete System Flow
+
+
+## Step 1 — Wallet Connection
+
+
+```
+User Wallet
+
+↓
+
+Credence Network
+```
+
+
+A wallet becomes a financial identity.
+
+
+---
+
+# Step 2 — AI Trust Intelligence
+
+
+AI analyzes:
+
+
+- Wallet history
+- Repayment behavior
+- Transaction quality
+- Settlement records
+- Risk indicators
+
+
+Output:
+
+
+```
+Trust Score
+
+Risk Level
+
+Credit Capacity
+
+Financial Profile
+```
+
+
+---
+
+# Step 3 — Oracle Verification
+
+
+AI output does not directly modify blockchain state.
+
+
+Verification:
+
+
+```
+AI Result
+
+↓
+
+Hash
+
+↓
+
+Oracle Signature
+
+↓
+
+EIP-712 Verification
+
+↓
+
+Contract Approval
+```
+
+
+---
+
+# Step 4 — Credit Passport
+
+
+Verified trust becomes portable identity.
+
+
+```
+CreditPassportV2
+
+stores:
+
+- Trust score
+- Reputation state
+- Financial history
+- Protocol eligibility
+```
+
+
+---
+
+# Step 5 — Financial Application Usage
+
+
+Any protocol can query:
+
+
+```javascript
+const trust =
+await Credence.verify(wallet);
+
+
+if(trust.score >= 800){
+
+    unlockBetterTerms();
+
+}
+```
+
+
+---
+
+# Step 6 — Settlement Execution
+
+
+Approved actions execute through settlement infrastructure.
+
+
+```
+LoanManager
+
+↓
+
+SettlementManager
+
+↓
+
+HashKey Settlement
+
+↓
+
+Trust Receipt
+```
+
+
+---
+
+# Step 7 — Reputation Evolution
+
+
+Successful behavior improves future access.
+
+
+```
+Repay Successfully
+
+↓
+
+Reputation +
+
+↓
+
+Higher Credit Limit
+
+↓
+
+Lower Risk
+
+↓
+
+More Opportunities
+```
+
+
+---
+
+# Smart Contract Architecture
+
+
+```
+
+                GovernanceRegistry
+
+
+                        |
+
+
+                        v
+
+
+                 OracleRegistry
+
+
+                        |
+
+
+        --------------------------------
+
+
+        |                              |
+
+
+CreditPassportV2              ReputationRegistry
+
+
+        |                              |
+
+
+        --------------------------------
+
+
+                        |
+
+
+                  LoanManager
+
+
+                        |
+
+
+                  LendingPool
+
+
+                        |
+
+
+              SettlementManager
+
+
+                        |
+
+
+                HashKey Chain
+
+```
+
+
+---
+
+# Contract Responsibilities
+
+
+| Contract | Responsibility |
+|-|-|
+| GovernanceRegistry | Protocol control |
+| CreditPassportV2 | Financial identity |
+| OracleRegistry | AI verification |
+| LoanManager | Credit lifecycle |
+| LendingPool | Liquidity infrastructure |
+| SettlementManager | Settlement execution |
+| ReputationRegistry | Trust memory |
+
+
+---
+
+# AI Architecture
+
+
+```
+Blockchain Data
+
+↓
+
+Feature Extraction
+
+↓
+
+Transparent Model
+
+↓
+
+AI Intelligence
+
+↓
+
+Decision Passport
+
+↓
+
+Oracle Verification
+
+↓
+
+Smart Contract Execution
+```
+
+
+---
+
+# Why AI Is Separated
+
+
+AI systems are probabilistic.
+
+
+Financial execution requires certainty.
+
+
+Therefore:
+
+
+```
+AI recommends.
+
+Oracle verifies.
+
+Contracts enforce.
+```
+
+
+---
+
+# Developer Architecture
+
+
+External protocols integrate through:
+
+
+```
+Application
+
+↓
+
+Credence SDK
+
+↓
+
+Trust API
+
+↓
+
+Smart Contracts
+
+↓
+
+HashKey Chain
+```
+
+
+---
+
+# Example Integrations
+
+
+## Lending Protocol
+
+
+Before:
+
+
+```
+Collateral decides borrowing power
+```
+
+
+After Credence:
+
+
+```
+Trust Score + Collateral
+
+decide borrowing power
+```
+
+
+---
+
+# PayFi Application
+
+
+```
+Credit Passport
+
+↓
+
+Spending Limit
+
+↓
+
+Settlement History
+
+↓
+
+Trust Improvement
+```
+
+
+---
+
+# RWA Finance
+
+
+```
+Wallet Reputation
+
+↓
+
+Eligibility
+
+↓
+
+Asset Financing Access
+```
+
+
+---
+
+# AI Agents
+
+
+```
+Agent Behavior
+
+↓
+
+Trust History
+
+↓
+
+Autonomous Credit Access
+```
+
+
+---
+
+# Data Flow
+
+
+```
+                 User
+
+
+                  |
+
+
+                  v
+
+
+             Frontend
+
+
+                  |
+
+
+                  v
+
+
+             API Layer
+
+
+                  |
+
+
+        ------------------
+
+
+        |                |
+
+
+     AI Engine       Blockchain
+
+
+        |                |
+
+
+        ------------------
+
+
+                  |
+
+
+                  v
+
+
+          Trust Infrastructure
+
+```
+
+
+---
+
+# Infrastructure Advantages
+
+
+## Portable
+
+
+Trust follows users across applications.
+
+
+---
+
+## Composable
+
+
+Developers integrate once.
+
+
+Multiple products benefit.
+
+
+---
+
+## Transparent
+
+
+Every decision is explainable.
+
+
+---
+
+## Secure
+
+
+AI never controls funds.
+
+
+---
+
+# Why Credence Is Infrastructure
+
+
+A lending protocol answers:
+
+
+"Should this user receive this loan?"
+
+
+Credence answers:
+
+
+"Can this participant be trusted?"
+
+
+That answer powers:
+
+- Lending
+- Payments
+- Insurance
+- RWA
+- DAO finance
+- AI economies
+
+
+---
+
+# Final Architecture Vision
+
+
+ERC-20 created programmable assets.
+
+ERC-721 created programmable ownership.
+
+Credence creates programmable financial trust.
+
+
+The future financial stack:
+
+
+```
+Applications
+
+↓
+
+Trust Layer
+
+↓
+
+Settlement Layer
+
+↓
+
+Blockchain
+```
+
+
+Credence is the missing trust primitive connecting them.

@@ -2,7 +2,7 @@
 pragma solidity ^0.8.28;
 
 import {Test} from "forge-std/Test.sol";
-import {ReputationRegistry} from "./ReputationRegistry.sol";
+import {ReputationRegistry} from "../contracts/src/ReputationRegistry.sol";
 
 contract ReputationRegistryTest is Test {
     ReputationRegistry rep;
