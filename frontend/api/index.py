@@ -42,6 +42,9 @@ from app.api.history import (
 from app.api.compare import (
     router as compare_router
 )
+from app.api.activity import (
+    router as activity_router
+)
 from app.api.passport_nft import (
     router as passport_nft_router
 )
@@ -249,6 +252,9 @@ app.include_router(
 )
 app.include_router(
     compare_router
+)
+app.include_router(
+    activity_router
 )
 app.include_router(
     passport_nft_router
