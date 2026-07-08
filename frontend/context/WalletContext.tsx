@@ -9,19 +9,19 @@ declare global {
   }
 }
 
-const HASHKEY_MAINNET_CHAIN_ID = 177;
-const HASHKEY_MAINNET_CHAIN_ID_HEX = "0xB1";
+const HASHKEY_MAINNET_CHAIN_ID = 133;
+const HASHKEY_MAINNET_CHAIN_ID_HEX = "0x85";
 
 const HASHKEY_MAINNET_PARAMS = {
   chainId: HASHKEY_MAINNET_CHAIN_ID_HEX,
-  chainName: "HashKey Chain",
-  rpcUrls: ["https://mainnet.hsk.xyz"],
+  chainName: "HashKey Chain Testnet",
+  rpcUrls: ["https://hashkey-chain-testnet.rpc.thirdweb.com"],
   nativeCurrency: {
     name: "HSK",
     symbol: "HSK",
     decimals: 18,
   },
-  blockExplorerUrls: ["https://hashkey.blockscout.com"],
+  blockExplorerUrls: ["https://hashkey-testnet.blockscout.com"],
 };
 
 type WalletContextType = {

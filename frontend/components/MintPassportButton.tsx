@@ -150,7 +150,7 @@ export default function MintPassportButton({
             {txHash}
           </div>
           <a
-            href={`https://hashkey.blockscout.com/tx/${txHash}`}
+            href={`https://hashkey-testnet.blockscout.com/tx/${txHash}`}
             target="_blank"
             rel="noopener noreferrer"
             style={{
