@@ -13,6 +13,7 @@ interface PassportData {
   report: any;
   lending: any;
   history: any[];
+  activity: any[];
 }
 
 // ── Shared tokens (mirrors Marketplace) ──────────────────────────────────────
@@ -339,17 +340,19 @@ export default function PassportPage() {
 
     const load = async () => {
       try {
-        const [credit, report, lending, history] = await Promise.all([
+        const [credit, report, lending, history, activity] = await Promise.all([
           API.post("/credit/score", { wallet }),
           API.post("/report/", { wallet }),
           API.post("/lending/decision", { wallet }),
           API.get(`/history/${wallet}`),
+          API.get(`/activity/${wallet}`),
         ]);
         setData({
           credit: credit.data,
           report: report.data,
           lending: lending.data,
           history: history.data,
+          activity: activity.data,
         });
       } catch {
         setError(true);
@@ -366,6 +369,19 @@ export default function PassportPage() {
   const lendingEntries = data?.lending
     ? Object.entries(data.lending).filter(([k]) => k !== "wallet")
     : [];
+
+  const activityEvents = data?.activity || [];
+  const proofCounts = activityEvents.reduce((acc: Record<string, number>, curr: any) => {
+    const type = curr.eventType || curr.actionType; // Handle both DB and mock formats
+    if (type) {
+      acc[type] = (acc[type] || 0) + 1;
+    }
+    return acc;
+  }, {});
+
+  const hspCount = proofCounts["HSP_SETTLEMENT"] || 0;
+  const repaymentCount = proofCounts["LOAN_REPAYMENT"] || 0;
+  const protocolCount = proofCounts["PROTOCOL_VERIFICATION"] || 0;
 
   return (
     <>
@@ -536,9 +552,9 @@ export default function PassportPage() {
             {/* Proof History Section */}
             <Card title="Earned Proofs" eyebrow="Proof-of-Trust Protocol" accentColor="#00FF00">
               <div style={{ display: "flex", flexDirection: "column", gap: 8 }}>
-                <div style={{ color: "#00FF00", fontSize: 13, fontWeight: "bold" }}>✓ 15 HSP Settlement Proofs</div>
-                <div style={{ color: "#00FF00", fontSize: 13, fontWeight: "bold" }}>✓ 5 Repayment Proofs</div>
-                <div style={{ color: "#00FF00", fontSize: 13, fontWeight: "bold" }}>✓ 3 Protocol Trust Proofs</div>
+                <div style={{ color: "#00FF00", fontSize: 13, fontWeight: "bold" }}>✓ {hspCount} HSP Settlement Proofs</div>
+                <div style={{ color: "#00FF00", fontSize: 13, fontWeight: "bold" }}>✓ {repaymentCount} Repayment Proofs</div>
+                <div style={{ color: "#00FF00", fontSize: 13, fontWeight: "bold" }}>✓ {protocolCount} Protocol Trust Proofs</div>
               </div>
               <div style={{ marginTop: 12 }}>
                 <a href="/proof-of-trust" style={{ color: T.muted, fontSize: 12, textDecoration: "underline" }}>View Proof Center</a>
