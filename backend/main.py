@@ -297,9 +297,6 @@ app.include_router(
     optimization_router
 )
 app.include_router(
-    marketplace_router
-)
-app.include_router(
     institution_router
 )
 app.include_router(
