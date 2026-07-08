@@ -1,10 +1,10 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import API from "@/lib/api";
 
 export default function StatusDashboardPage() {
-  const [metrics, setMetrics] = useState({
+  const [metrics] = useState({
     totalTransactions: 124500,
     trustEvents: 18320,
     settlements: 5420,

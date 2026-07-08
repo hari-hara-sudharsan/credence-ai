@@ -2,7 +2,7 @@
 
 import React, { useState, useEffect } from "react";
 import Link from "next/link";
-import { Brain, CheckCircle, Hash, Search, ArrowRight, ShieldCheck } from "lucide-react";
+import { Brain, CheckCircle, Hash, Search, ShieldCheck } from "lucide-react";
 
 export default function AIDecisionPassportPage() {
   const [passport, setPassport] = useState<any>(null);
