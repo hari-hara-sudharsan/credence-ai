@@ -4,14 +4,14 @@ export const CONTRACT_ADDRESS =
 export const CONTRACT_ABI = [
   {
     inputs: [
-      { internalType: "address", name: "to", type: "address" },
-      { internalType: "string", name: "tokenURI", type: "string" },
-      { internalType: "uint256", name: "creditScore", type: "uint256" },
-      { internalType: "string", name: "rating", type: "string" },
-      { internalType: "uint256", name: "identityId", type: "uint256" },
-      { internalType: "uint256", name: "txVolume", type: "uint256" },
-      { internalType: "uint256", name: "loanCount", type: "uint256" },
-      { internalType: "uint256", name: "repaymentRate", type: "uint256" },
+      { internalType: "bytes32", name: "passportHash", type: "bytes32" },
+      { internalType: "bytes32", name: "attestationHash", type: "bytes32" },
+      { internalType: "address", name: "wallet", type: "address" },
+      { internalType: "string", name: "metadataURI", type: "string" },
+      { internalType: "uint256", name: "expiresAt", type: "uint256" },
+      { internalType: "string", name: "entityType", type: "string" },
+      { internalType: "uint256", name: "trustScore", type: "uint256" },
+      { internalType: "string", name: "financialTier", type: "string" },
     ],
     name: "mintPassport",
     outputs: [{ internalType: "uint256", name: "", type: "uint256" }],

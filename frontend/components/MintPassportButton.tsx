@@ -53,15 +53,19 @@ export default function MintPassportButton({
         network: "HSK",
       });
 
+      const passportHash = ethers.id(checksumWallet + Date.now().toString());
+      const attestationHash = ethers.id("Credence_AIVerification_V1");
+      const expiresAt = Math.floor(Date.now() / 1000) + 365 * 24 * 60 * 60; // 1 year from now
+
       const tx = await contract.mintPassport(
+        passportHash,
+        attestationHash,
         checksumWallet,
         metadata,
+        expiresAt,
+        "Individual",
         score,
-        rating,
-        1, // identityId
-        0, // txVolume
-        0, // loanCount
-        0  // repaymentRate
+        rating
       );
       await tx.wait();
 
