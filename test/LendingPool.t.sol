@@ -2,7 +2,7 @@
 pragma solidity ^0.8.28;
 
 import {Test} from "forge-std/Test.sol";
-import {LendingPool} from "./LendingPool.sol";
+import {LendingPool} from "../contracts/src/LendingPool.sol";
 
 contract LendingPoolTest is Test {
     LendingPool pool;
