@@ -42,6 +42,9 @@ from app.api.history import (
 from app.api.compare import (
     router as compare_router
 )
+from app.api.activity import (
+    router as activity_router
+)
 from app.api.passport_nft import (
     router as passport_nft_router
 )
@@ -147,7 +150,9 @@ from app.api.ai_trust import router as ai_trust_router
 app = FastAPI(
     title="Credence AI",
     version="1.0.0",
-    strict_slashes=False
+    strict_slashes=False,
+    docs_url="/api/docs",
+    openapi_url="/api/openapi.json"
 )
 
 # Dynamically prepend /api prefix to all included routers to align with Next.js/Vercel URL mapping
@@ -251,6 +256,9 @@ app.include_router(
     compare_router
 )
 app.include_router(
+    activity_router
+)
+app.include_router(
     passport_nft_router
 )
 app.include_router(
@@ -327,9 +335,6 @@ app.include_router(
 )
 app.include_router(
     optimization_router
-)
-app.include_router(
-    marketplace_router
 )
 app.include_router(
     institution_router

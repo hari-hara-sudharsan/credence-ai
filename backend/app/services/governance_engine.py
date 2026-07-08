@@ -175,6 +175,19 @@ class GovernanceEngine:
             if p["proposal_id"] == proposal_id:
                 p["status"] = "EXECUTED"
                 found = True
+                
+                # Verify protocol consumer application if proposal is PROTOCOL type
+                if p.get("type") == "PROTOCOL":
+                    import re
+                    match = re.search(r"Authorize protocol consumer application: (.+) \(", p["title"])
+                    if match:
+                        protocol_name = match.group(1)
+                        protocols_db = read_json("registered_protocols.json", {})
+                        key = protocol_name.lower().replace(" ", "_")
+                        if key in protocols_db:
+                            protocols_db[key]["verified"] = True
+                            write_json("registered_protocols.json", protocols_db)
+                            
                 break
 
         if not found:

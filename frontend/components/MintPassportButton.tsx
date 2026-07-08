@@ -2,7 +2,7 @@
 
 import { ethers } from "ethers";
 import { useState } from "react";
-import { useWallet, HASHKEY_MAINNET_CHAIN_ID_HEX, HASHKEY_MAINNET_PARAMS } from "@/context/WalletContext";
+import { useWallet } from "@/context/WalletContext";
 
 import {
   CONTRACT_ADDRESS,
@@ -21,11 +21,13 @@ export default function MintPassportButton({
   const { switchToMainnet } = useWallet();
   const [status, setStatus] = useState<"idle" | "minting" | "success" | "error">("idle");
   const [txHash, setTxHash] = useState<string | null>(null);
+  const [errorMsg, setErrorMsg] = useState<string | null>(null);
 
   const mint = async () => {
     if (!window.ethereum) return;
 
     setStatus("minting");
+    setErrorMsg(null);
 
     try {
       // Ensure user is on HashKey Chain Mainnet
@@ -42,21 +44,37 @@ export default function MintPassportButton({
         signer
       );
 
+      const checksumWallet = ethers.getAddress(wallet.toLowerCase());
+
       const metadata = JSON.stringify({
-        wallet,
+        wallet: checksumWallet,
         score,
         rating,
         network: "HSK",
       });
 
-      const tx = await contract.mintPassport(wallet, metadata);
+      const passportHash = ethers.id(checksumWallet + Date.now().toString());
+      const attestationHash = ethers.id("Credence_AIVerification_V1");
+      const expiresAt = Math.floor(Date.now() / 1000) + 365 * 24 * 60 * 60; // 1 year from now
+
+      const tx = await contract.mintPassport(
+        passportHash,
+        attestationHash,
+        checksumWallet,
+        metadata,
+        expiresAt,
+        "Individual",
+        score,
+        rating
+      );
       await tx.wait();
 
       setTxHash(tx.hash);
       setStatus("success");
-    } catch (e) {
+    } catch (e: any) {
       console.error(e);
       setStatus("error");
+      setErrorMsg(e.message || "Transaction failed");
     }
   };
 
@@ -177,7 +195,7 @@ export default function MintPassportButton({
             fontFamily: "JetBrains Mono, monospace",
           }}
         >
-          Mint failed. Please try again.
+          {errorMsg || "Mint failed. Please try again."}
         </div>
       )}
     </div>

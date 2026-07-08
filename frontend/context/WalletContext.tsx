@@ -14,7 +14,7 @@ const HASHKEY_MAINNET_CHAIN_ID_HEX = "0xB1";
 
 const HASHKEY_MAINNET_PARAMS = {
   chainId: HASHKEY_MAINNET_CHAIN_ID_HEX,
-  chainName: "HashKey Chain",
+  chainName: "HashKey Chain Mainnet",
   rpcUrls: ["https://mainnet.hsk.xyz"],
   nativeCurrency: {
     name: "HSK",
@@ -79,7 +79,7 @@ export function WalletProvider({
 
   const activeWallet = wallet || localWallet;
 
-  const isCorrectChain = chainId === HASHKEY_MAINNET_CHAIN_ID;
+  const isCorrectChain = chainId === parseInt(HASHKEY_MAINNET_CHAIN_ID_HEX, 16);
 
   const switchToMainnet = useCallback(async (): Promise<boolean> => {
     if (!window.ethereum) return false;

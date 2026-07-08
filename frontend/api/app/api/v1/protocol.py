@@ -47,8 +47,8 @@ def evaluate_protocol(
     except Exception as e:
         raise HTTPException(status_code=500, detail=str(e))
 
-@router.get("/v1/trust/{wallet}")
-def get_trust_profile(wallet: str = Path(..., description="Wallet address")):
+@router.get("/v1/protocol/trust/{wallet}")
+def get_protocol_trust_profile(wallet: str = Path(..., description="Wallet address")):
     try:
         fi = FinancialIdentityEngine()
         identity = fi.generate_identity(wallet)

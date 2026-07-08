@@ -250,7 +250,7 @@ export default function SubmissionPage() {
                 </a>
 
                 <a
-                  href="#"
+                  href="https://youtu.be/rczer5cuPpc"
                   style={{
                     background: "#050B14",
                     border: "1px solid #1D2E49",
@@ -265,7 +265,7 @@ export default function SubmissionPage() {
                 </a>
 
                 <a
-                  href="/documentation"
+                  href="/api/docs"
                   style={{
                     background: "#050B14",
                     border: "1px solid #1D2E49",
