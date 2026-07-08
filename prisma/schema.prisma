@@ -1,0 +1,53 @@
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+model FinancialIdentity {
+  id         String   @id @default(uuid())
+  wallet     String   @unique
+  trustScore Int
+  tier       String
+  createdAt  DateTime @default(now())
+  updatedAt  DateTime @updatedAt
+}
+
+model TrustEvent {
+  id          String   @id @default(uuid())
+  wallet      String
+  eventType   String
+  txHash      String
+  blockNumber Int
+  trustImpact Int
+}
+
+model Settlement {
+  id           String @id @default(uuid())
+  hspReference String @unique
+  amount       Float
+  status       String
+  proofHash    String @unique
+}
+
+model Loan {
+  id       String @id @default(uuid())
+  borrower String
+  amount   Float
+  interest Float
+  status   String
+}
+
+model ProtocolUsage {
+  protocol String @id
+  requests Int    @default(0)
+  approved Int    @default(0)
+}
+
+model IndexerState {
+  id                 String @id @default(uuid())
+  lastProcessedBlock Int    @default(0)
+}

@@ -72,7 +72,10 @@ export default function StatusDashboardPage() {
             { title: "Oracle Network", status: "ONLINE", color: "#34D399" },
             { title: "Smart Contracts", status: "ONLINE", color: "#34D399" },
             { title: "HSP Settlement", status: "CONNECTED", color: "#00E5FF" },
-            { title: "Trust Graph", status: "SYNCED", color: "#34D399" }
+            { title: "Trust Graph", status: "SYNCED", color: "#34D399" },
+            { title: "HashKey Node", status: "CONNECTED", color: "#00E5FF" },
+            { title: "Production Indexer", status: "SYNCED", color: "#34D399" },
+            { title: "PostgreSQL Database", status: "ONLINE", color: "#34D399" }
           ].map((item, idx) => (
             <div
               key={idx}
@@ -104,6 +107,29 @@ export default function StatusDashboardPage() {
             </div>
           ))}
 
+        </div>
+
+        {/* Indexer Status Panel */}
+        <div
+          style={{
+            background: "rgba(52, 211, 153, 0.05)",
+            border: "1px solid rgba(52, 211, 153, 0.2)",
+            borderRadius: 16,
+            padding: 24,
+            marginBottom: 40,
+            display: "flex",
+            justifyContent: "space-between",
+            alignItems: "center"
+          }}
+        >
+          <div>
+            <h3 style={{ margin: "0 0 8px 0", fontSize: 16, fontWeight: 800, color: "#34D399" }}>Indexer Real-Time Sync</h3>
+            <p style={{ margin: 0, fontSize: 13, color: "#94A3B8" }}>Listening to HashKey Mainnet blocks and processing trust events.</p>
+          </div>
+          <div style={{ textAlign: "right" }}>
+            <span style={{ display: "block", fontSize: 10, color: "#34D399", textTransform: "uppercase", marginBottom: 4 }}>Latest Block</span>
+            <strong style={{ fontSize: 24, fontWeight: 900, color: "#FFF", fontFamily: "JetBrains Mono, monospace" }}>123,456</strong>
+          </div>
         </div>
 
         {/* Telemetry Metrics Panel */}

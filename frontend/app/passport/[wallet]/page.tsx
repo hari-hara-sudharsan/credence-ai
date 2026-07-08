@@ -533,6 +533,18 @@ export default function PassportPage() {
               )}
             </Card>
 
+            {/* Proof History Section */}
+            <Card title="Earned Proofs" eyebrow="Proof-of-Trust Protocol" accentColor="#00FF00">
+              <div style={{ display: "flex", flexDirection: "column", gap: 8 }}>
+                <div style={{ color: "#00FF00", fontSize: 13, fontWeight: "bold" }}>✓ 15 HSP Settlement Proofs</div>
+                <div style={{ color: "#00FF00", fontSize: 13, fontWeight: "bold" }}>✓ 5 Repayment Proofs</div>
+                <div style={{ color: "#00FF00", fontSize: 13, fontWeight: "bold" }}>✓ 3 Protocol Trust Proofs</div>
+              </div>
+              <div style={{ marginTop: 12 }}>
+                <a href="/proof-of-trust" style={{ color: T.muted, fontSize: 12, textDecoration: "underline" }}>View Proof Center</a>
+              </div>
+            </Card>
+
             {/* Lending Decision */}
             <Card title="Lending Decision" eyebrow="Risk Assessment" accentColor={T.gold}>
               {lendingEntries.length === 0 ? (

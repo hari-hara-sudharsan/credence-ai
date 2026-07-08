@@ -1,103 +1,25 @@
-# Credence AI — Security Architecture
+# Security Policy & Architecture
 
-## Attack Protection Matrix
+## Access Control Model
+Credence relies on OpenZeppelin's `AccessControl` for strict role separation:
+- `DEFAULT_ADMIN_ROLE`: Upgrades and emergency pauses. Managed via a Timelock multisig.
+- `ORACLE_ROLE`: Can only submit `TrustProof` attestations.
+- `LENDER_ROLE`: Can provision capital into the `LendingPool`.
 
-| Attack Vector | Protection | Implementation |
-|---|---|---|
-| **Replay Attack** | ✅ Protected | Nonce tracking per borrower + `usedAttestations` mapping |
-| **Reentrancy** | ✅ Protected | `ReentrancyGuard` on all state-changing functions |
-| **Unauthorized Access** | ✅ Protected | `AccessControl` with role-based permissions |
-| **Expired Signature** | ✅ Protected | `block.timestamp < expiry` check on all attestations |
-| **Oracle Abuse** | ✅ Protected | Multi-oracle consensus + threshold validation |
-| **Emergency Halt** | ✅ Protected | `Pausable` on all new contracts |
-| **Integer Overflow** | ✅ Protected | Solidity 0.8.28 built-in overflow checks |
-| **ERC20 Return Value** | ✅ Protected | `SafeERC20` wrapper for all token transfers |
+## Oracle Trust Assumptions
+The Oracle is an off-chain AI engine that scores users. 
+**Assumption:** The Oracle's private key is kept strictly within a secure enclave (TEE). If compromised, the Oracle can submit false trust scores, but **cannot** move capital directly.
 
----
+## AI Boundaries
+The AI Trust Engine provides risk probabilities. It has **no** direct access to the Settlement Manager. Lenders configure their own risk tolerance thresholds which the smart contracts enforce, guaranteeing AI cannot override lender safety boundaries.
 
-## EIP-712 Credit Attestation Flow
+## Emergency Controls
+All critical contracts implement OpenZeppelin's `Pausable`. The multisig can trigger `pause()` instantly across the ecosystem to halt new loans and proofs if a vulnerability is detected. Withdrawals remain open for users to retrieve capital.
 
-```
-AI Credit Engine generates score
-        ↓
-Oracle signs EIP-712 typed data
-        ↓
-OracleRegistry.verifyCreditAttestation()
-        ↓
-Checks: signer ✓ | expiry ✓ | nonce ✓ | not-reused ✓
-        ↓
-LoanManager trusts verified result
-```
+## Financial Attack Prevention
+- **Flash Loans:** Interest rate and credit score snapshots prevent flash loan manipulation of reputation points.
+- **Sybil Attacks:** Diminishing returns on rapid trust actions prevent farming.
+- **Reentrancy:** `ReentrancyGuard` applied on all external capital flow functions.
 
-**Why this matters:**
-- Backend alone CANNOT approve money movement
-- Every credit decision requires a cryptographic oracle signature
-- Signatures are single-use (replay protection via nonce + used-hash tracking)
-
----
-
-## Access Control Roles
-
-| Role | Contract | Permissions |
-|---|---|---|
-| `DEFAULT_ADMIN_ROLE` | All | Grant/revoke roles, pause/unpause |
-| `ORACLE_ROLE` | ReputationRegistry | Record repayments and defaults |
-| `POOL_ROLE` | LendingPool | Allocate loans, record repayments |
-| `SETTLEMENT_ROLE` | SettlementManager | Create and execute settlements |
-| `governor` | OracleRegistry | Register oracles, set threshold |
-
----
-
-## Contract Security Features
-
-### LendingPool.sol
-- `AccessControl` — only POOL_ROLE can allocate loans
-- `Pausable` — emergency halt on all operations
-- `ReentrancyGuard` — prevents reentrancy on deposit/withdraw/allocate
-- Share-based accounting prevents rounding exploits
-
-### SettlementManager.sol
-- `AccessControl` — only SETTLEMENT_ROLE can create/execute
-- `SafeERC20` — safe token transfers for ERC20 mode
-- Double-execute prevention (state machine: CREATED → EXECUTED)
-- Excess ETH refund on native settlements
-- `Pausable` + `ReentrancyGuard`
-
-### ReputationRegistry.sol
-- `AccessControl` — only ORACLE_ROLE can update scores
-- Score bounded: 0 ≤ score ≤ 1000 (no overflow)
-- Streak reset on default (prevents gaming)
-- `Pausable` + `ReentrancyGuard`
-
-### OracleRegistry.sol
-- Multi-oracle consensus (threshold signatures)
-- EIP-712 typed data verification
-- Nonce-based replay protection
-- Expiry checking on all attestations
-- Duplicate signer detection in consensus
-
----
-
-## Testing Evidence
-
-```
-68 passing Solidity tests covering:
-- ReputationRegistry:  16 tests (scoring, access control, pausable, events)
-- SettlementManager:   17 tests (lifecycle, access control, refunds, events)
-- LendingPool:         16 tests (shares, interest, access control, pausable)
-- P2PLendingMarket:    18 tests (full lifecycle)
-- Counter:              1 test + 256 fuzz runs
-```
-
----
-
-## 🛡️ Trust Manipulation Threat Model
-
-Credence AI implements an active defense threat model to protect the trust scoring network against adversarial manipulation:
-
-| Attack Vector | Threat Description | Mitigation Strategy |
-|---|---|---|
-| **Sybil Farming** | Creating large clusters of dummy wallets to simulate transaction activity. | **detectSybilRisk**: Analyzes funding overlaps, counterparties diversity, and cluster correlations. Calibrates Authenticity Factor penalties. |
-| **Fake Volume (Wash Trading)** | Artificially inflated balances / transaction volumes without economic risk. | **detectCircularTransactions**: Flag-checks repeated counterparty loops (A ➔ B ➔ C ➔ A) and penalizes scores. |
-| **Micro-Repayment Farming** | Executing hundreds of $0.01 repayments to raise streak count and score. | **detectReputationFarming**: Applies frequency limits on low-value transactions. Score increments are blocked. |
-| **Reputation Tampering** | Manipulating off-chain parameters to fake credit profiles. | **Defense Oracle Verification**: The `TrustDefenseRegistry` smart contract logs and validates check hashes on-chain before updates. |
+## Reporting a Vulnerability
+Please email security@credence.ai. We offer a bug bounty up to $50,000 for critical smart contract vulnerabilities leading to loss of funds.

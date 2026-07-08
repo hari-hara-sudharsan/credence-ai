@@ -43,6 +43,13 @@ export class CredenceClient {
   }
 
   /**
+   * Fast, reliable read from the Production Indexer database.
+   */
+  public async getProfile(wallet: string): Promise<any> {
+    return this.request("GET", `/api/profile/${wallet}`);
+  }
+
+  /**
    * Alias / wrapper to query protocol-specific adapter mappings.
    */
   public async getProtocolProfiles(protocol: string, wallet: string): Promise<any> {
@@ -92,6 +99,43 @@ export class CredenceClient {
       predict: async (wallet: string) => {
         return this.request("GET", `/api/ai/risk/${wallet}`);
       }
+    };
+  }
+
+  /**
+   * AI Decision Explainability namespace.
+   */
+  public get ai() {
+    return {
+      explain: async (wallet: string) => {
+        // First get recent decision
+        const history = await this.request("GET", `/api/ai/history/${wallet}`);
+        const latest = history[history.length - 1];
+        if (!latest) throw new Error("No AI decision found for wallet.");
+        
+        // Fetch explain details
+        const explanations = await this.request("POST", `/api/ai/explain`, {
+          score: latest.confidence,
+          inputs: latest.inputs
+        });
+
+        return {
+          decision: latest,
+          reasoning: explanations
+        };
+      }
+    };
+  }
+
+  /**
+   * Verifies the Proof-of-Trust (PoT) for a wallet to grant ecosystem access.
+   */
+  public async verifyProof(wallet: string): Promise<any> {
+    const history = await this.request("GET", `/api/pot/${wallet}`);
+    return {
+      trusted: history && history.trustVerified === true,
+      totalProofs: history?.totalProofs || 0,
+      details: history
     };
   }
 }

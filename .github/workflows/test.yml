@@ -1,0 +1,38 @@
+name: Credence CI/CD
+
+on:
+  push:
+    branches: [ "main" ]
+  pull_request:
+    branches: [ "main" ]
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    
+    steps:
+    - uses: actions/checkout@v3
+    
+    - name: Setup Node.js
+      uses: actions/setup-node@v3
+      with:
+        node-version: 18.x
+        cache: 'npm'
+        
+    - name: Install Dependencies
+      run: npm ci
+      
+    - name: Compile Contracts
+      run: npx hardhat compile
+      
+    - name: Run Test Suite (150+ Tests)
+      run: npx hardhat test tests/**/*.ts backend/tests/*.ts
+      
+    - name: Generate Coverage Report
+      run: npx hardhat coverage
+      
+    - name: Archive Coverage
+      uses: actions/upload-artifact@v3
+      with:
+        name: coverage-report
+        path: coverage/
