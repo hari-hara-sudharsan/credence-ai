@@ -28,6 +28,26 @@ export default function FundingModal({ requestId, borrower, amount, interestRate
     setError("");
 
     try {
+      if (typeof window !== "undefined" && (window as any).ethereum) {
+        const { ethers } = await import("ethers");
+        const provider = new ethers.BrowserProvider((window as any).ethereum);
+        const signer = await provider.getSigner();
+
+        const p2pMarketAddress = "0xF1CecB4757fdD9dbE22cDb4e965300cA129b84CF";
+        const abi = ["function fundLoan(uint256 requestId) external"];
+        const contract = new ethers.Contract(p2pMarketAddress, abi, signer);
+        
+        const numericId = parseInt(requestId.replace(/\D/g, "") || requestId);
+        if (isNaN(numericId)) {
+          console.warn("Could not parse requestId as a number:", requestId);
+        } else {
+          const tx = await contract.fundLoan(numericId);
+          await tx.wait();
+        }
+      } else {
+        console.warn("No Web3 wallet found. Proceeding with backend mock funding only.");
+      }
+
       await onConfirm(requestId, lenderWallet);
       setStep("success");
     } catch (err: any) {
