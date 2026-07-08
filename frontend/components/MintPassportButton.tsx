@@ -2,7 +2,7 @@
 
 import { ethers } from "ethers";
 import { useState } from "react";
-import { useWallet, HASHKEY_MAINNET_CHAIN_ID_HEX, HASHKEY_MAINNET_PARAMS } from "@/context/WalletContext";
+import { useWallet } from "@/context/WalletContext";
 
 import {
   CONTRACT_ADDRESS,
@@ -21,11 +21,13 @@ export default function MintPassportButton({
   const { switchToMainnet } = useWallet();
   const [status, setStatus] = useState<"idle" | "minting" | "success" | "error">("idle");
   const [txHash, setTxHash] = useState<string | null>(null);
+  const [errorMsg, setErrorMsg] = useState<string | null>(null);
 
   const mint = async () => {
     if (!window.ethereum) return;
 
     setStatus("minting");
+    setErrorMsg(null);
 
     try {
       // Ensure user is on HashKey Chain Mainnet
@@ -49,14 +51,24 @@ export default function MintPassportButton({
         network: "HSK",
       });
 
-      const tx = await contract.mintPassport(wallet, metadata);
+      const tx = await contract.mintPassport(
+        wallet,
+        metadata,
+        score,
+        rating,
+        1, // identityId
+        0, // txVolume
+        0, // loanCount
+        0  // repaymentRate
+      );
       await tx.wait();
 
       setTxHash(tx.hash);
       setStatus("success");
-    } catch (e) {
+    } catch (e: any) {
       console.error(e);
       setStatus("error");
+      setErrorMsg(e.message || "Transaction failed");
     }
   };
 
@@ -150,7 +162,7 @@ export default function MintPassportButton({
             {txHash}
           </div>
           <a
-            href={`https://hashkey-testnet.blockscout.com/tx/${txHash}`}
+            href={`https://hashkey.blockscout.com/tx/${txHash}`}
             target="_blank"
             rel="noopener noreferrer"
             style={{
@@ -177,7 +189,7 @@ export default function MintPassportButton({
             fontFamily: "JetBrains Mono, monospace",
           }}
         >
-          Mint failed. Please try again.
+          {errorMsg || "Mint failed. Please try again."}
         </div>
       )}
     </div>

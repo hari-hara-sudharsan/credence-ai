@@ -9,19 +9,19 @@ declare global {
   }
 }
 
-const HASHKEY_MAINNET_CHAIN_ID = 133;
-const HASHKEY_MAINNET_CHAIN_ID_HEX = "0x85";
+const HASHKEY_MAINNET_CHAIN_ID = 177;
+const HASHKEY_MAINNET_CHAIN_ID_HEX = "0xB1";
 
 const HASHKEY_MAINNET_PARAMS = {
   chainId: HASHKEY_MAINNET_CHAIN_ID_HEX,
-  chainName: "HashKey Chain Testnet",
-  rpcUrls: ["https://hashkey-chain-testnet.rpc.thirdweb.com"],
+  chainName: "HashKey Chain Mainnet",
+  rpcUrls: ["https://mainnet.hsk.xyz"],
   nativeCurrency: {
     name: "HSK",
     symbol: "HSK",
     decimals: 18,
   },
-  blockExplorerUrls: ["https://hashkey-testnet.blockscout.com"],
+  blockExplorerUrls: ["https://hashkey.blockscout.com"],
 };
 
 type WalletContextType = {
@@ -79,7 +79,7 @@ export function WalletProvider({
 
   const activeWallet = wallet || localWallet;
 
-  const isCorrectChain = chainId === HASHKEY_MAINNET_CHAIN_ID;
+  const isCorrectChain = chainId === parseInt(HASHKEY_MAINNET_CHAIN_ID_HEX, 16);
 
   const switchToMainnet = useCallback(async (): Promise<boolean> => {
     if (!window.ethereum) return false;
