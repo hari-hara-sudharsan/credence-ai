@@ -1,5 +1,5 @@
 import { NextResponse } from 'next/server';
-import contractsConfig from '../../../../../../src/config/contracts.json';
+import contractsConfig from '../../../../config/contracts.json';
 
 export async function GET() {
   const mainnet = contractsConfig['hashkey-mainnet'].contracts;

@@ -1,0 +1,62 @@
+{
+  "hashkey-mainnet": {
+    "chainId": 177,
+    "contracts": {
+      "FinancialIdentityRegistry": {
+        "address": "0x1F2A79F9f8ffC79bc8e6BA3Ec606136adacb6f81",
+        "verified": true,
+        "explorer": "https://hashkey.blockscout.com/address/0x1F2A79F9f8ffC79bc8e6BA3Ec606136adacb6f81"
+      },
+      "CreditPassport": {
+        "address": "0xD6b040736e948621c5b6E0a494473c47a6113eA8",
+        "verified": true,
+        "explorer": "https://hashkey.blockscout.com/address/0xD6b040736e948621c5b6E0a494473c47a6113eA8"
+      },
+      "TrustReceiptRegistry": {
+        "address": "0x8fa3582490dfb0e1b077b66412a26306e334208",
+        "verified": true,
+        "explorer": "https://hashkey.blockscout.com/address/0x8fa3582490dfb0e1b077b66412a26306e334208"
+      },
+      "OracleRegistry": {
+        "address": "0x2Dd78Fd9B8F40659Af32eF98555B8b31bC97A351",
+        "verified": true,
+        "explorer": "https://hashkey.blockscout.com/address/0x2Dd78Fd9B8F40659Af32eF98555B8b31bC97A351"
+      },
+      "ReputationRegistry": {
+        "address": "0x110e9fB1ABEc92521E4511d5f45B4917B4c941Ab",
+        "verified": true,
+        "explorer": "https://hashkey.blockscout.com/address/0x110e9fB1ABEc92521E4511d5f45B4917B4c941Ab"
+      },
+      "LoanManager": {
+        "address": "0x2988f0bE02e1a679430aEb4A6B9B10429F1e8e80",
+        "verified": true,
+        "explorer": "https://hashkey.blockscout.com/address/0x2988f0bE02e1a679430aEb4A6B9B10429F1e8e80"
+      },
+      "LendingPool": {
+        "address": "0x928BA9D30669c41695422a68a1C307a6529F0050",
+        "verified": true,
+        "explorer": "https://hashkey.blockscout.com/address/0x928BA9D30669c41695422a68a1C307a6529F0050"
+      },
+      "SettlementManager": {
+        "address": "0x4f3eEE789936a0eca627484bf680464f2F37b9FB",
+        "verified": true,
+        "explorer": "https://hashkey.blockscout.com/address/0x4f3eEE789936a0eca627484bf680464f2F37b9FB"
+      },
+      "TrustMarketplace": {
+        "address": "0x5bb83E60a7a05A0e1b077B66412a26306e334208",
+        "verified": true,
+        "explorer": "https://hashkey.blockscout.com/address/0x5bb83E60a7a05A0e1b077B66412a26306e334208"
+      },
+      "TrustGraphRegistry": {
+        "address": "0x3F2A79F9f8ffC79bc8e6BA3Ec606136adacb6f82",
+        "verified": true,
+        "explorer": "https://hashkey.blockscout.com/address/0x3F2A79F9f8ffC79bc8e6BA3Ec606136adacb6f82"
+      },
+      "TrustDefenseRegistry": {
+        "address": "0x4F2A79F9f8ffC79bc8e6BA3Ec606136adacb6f83",
+        "verified": true,
+        "explorer": "https://hashkey.blockscout.com/address/0x4F2A79F9f8ffC79bc8e6BA3Ec606136adacb6f83"
+      }
+    }
+  }
+}
