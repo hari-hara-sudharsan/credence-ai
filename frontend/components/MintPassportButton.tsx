@@ -48,21 +48,8 @@ export default function MintPassportButton({
         rating,
         network: "HSK",
       });
-      
-      const passportHash = ethers.id(wallet + Date.now().toString());
-      const attestationHash = ethers.ZeroHash;
-      const expiresAt = Math.floor(Date.now() / 1000) + 86400 * 365; // 1 year expiry
 
-      const tx = await contract.mintPassport(
-        passportHash,
-        attestationHash,
-        wallet,
-        metadata,
-        expiresAt,
-        "USER",
-        score,
-        rating
-      );
+      const tx = await contract.mintPassport(wallet, metadata);
       await tx.wait();
 
       setTxHash(tx.hash);
