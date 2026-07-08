@@ -44,15 +44,17 @@ export default function MintPassportButton({
         signer
       );
 
+      const checksumWallet = ethers.getAddress(wallet.toLowerCase());
+
       const metadata = JSON.stringify({
-        wallet,
+        wallet: checksumWallet,
         score,
         rating,
         network: "HSK",
       });
 
       const tx = await contract.mintPassport(
-        wallet,
+        checksumWallet,
         metadata,
         score,
         rating,
