@@ -60,7 +60,6 @@ export default function LendPage() {
 
   const handleFund = async (requestId: string, lenderWallet: string) => {
     await API.post(`/p2p/fund/${requestId}`, { lender_wallet: lenderWallet });
-    setFundingRequest(null);
     loadOpportunities();
   };
 
