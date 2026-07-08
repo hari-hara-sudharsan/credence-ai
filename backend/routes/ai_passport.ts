@@ -9,7 +9,7 @@ router.get('/decision/:id', (req: Request, res: Response): any => {
   // Mock finding decision across all histories for demo purposes
   let found = null;
   for (const [wallet, decisions] of (aiDecisionEngine as any).decisionHistory.entries()) {
-    const d = decisions.find((x: any) => x.id === req.params.id);
+    const d = decisions.find((x: any) => x.id === (req.params.id as string));
     if (d) found = d;
   }
   
@@ -19,7 +19,7 @@ router.get('/decision/:id', (req: Request, res: Response): any => {
 
 // GET /api/ai/history/:wallet
 router.get('/history/:wallet', (req: Request, res: Response): any => {
-  const history = aiDecisionEngine.getDecisionHistory(req.params.wallet);
+  const history = aiDecisionEngine.getDecisionHistory(req.params.wallet as string);
   return res.json(history);
 });
 
