@@ -10,3 +10,5 @@ class CreditProfile(BaseModel):
     confidence: int
 
     probability_of_default: float
+
+    segment: str = "UNKNOWN"

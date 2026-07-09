@@ -27,18 +27,28 @@ def ensure_data_dir():
                 except Exception as e:
                     print(f"Failed to copy seed file {filename} to {dest_path}: {e}")
 
+_DB_CACHE = {}
+
 def read_json(filename: str, default_value):
+    if filename in _DB_CACHE:
+        return _DB_CACHE[filename]
+        
     ensure_data_dir()
     filepath = os.path.join(DATA_DIR, filename)
     if not os.path.exists(filepath):
+        _DB_CACHE[filename] = default_value
         return default_value
     try:
         with open(filepath, "r", encoding="utf-8") as f:
-            return json.load(f)
+            data = json.load(f)
+            _DB_CACHE[filename] = data
+            return data
     except Exception:
+        _DB_CACHE[filename] = default_value
         return default_value
 
 def write_json(filename: str, data):
+    _DB_CACHE[filename] = data
     ensure_data_dir()
     filepath = os.path.join(DATA_DIR, filename)
     try:
