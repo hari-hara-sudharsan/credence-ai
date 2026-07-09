@@ -28,11 +28,15 @@ class CreditEngine:
             credit_score
         )
 
+        from app.services.segment_engine import SegmentEngine
+        segment = SegmentEngine.classify(wallet_features)
+
         return CreditProfile(
             credit_score=credit_score,
             rating=rating,
             confidence=confidence,
-            probability_of_default=prob_default
+            probability_of_default=prob_default,
+            segment=segment
         )
 
     def longevity_score(
