@@ -79,35 +79,35 @@ Every financial application depends on trust.
 
 Instead of rebuilding trust independently, every protocol consumes the same Credence infrastructure.
 
-                    HashKey Applications
-
-     Lending • PayFi • RWA • Insurance • DAOs • AI Agents
-
-                           │
-                           ▼
-
-              CREDENCE FINANCIAL TRUST LAYER
-
-                           │
-        ┌──────────────────┼──────────────────┐
-        │                  │                  │
-        ▼                  ▼                  ▼
-
-    Financial Identity   Trust Intelligence   Reputation
-
-        │                  │                  │
-        └──────────────────┼──────────────────┘
-                           ▼
-
-              Oracle Verification (EIP-712)
-
-                           ▼
-
-        Settlement Infrastructure (HashKey)
-
-                           ▼
-
-                    HashKey Chain Mainnet
+                                          HashKey Applications
+                      
+                           Lending • PayFi • RWA • Insurance • DAOs • AI Agents
+                      
+                                                 │
+                                                 ▼
+                      
+                                    CREDENCE FINANCIAL TRUST LAYER
+                      
+                                                 │
+                              ┌──────────────────┼──────────────────┐
+                              │                  │                  │
+                              ▼                  ▼                  ▼
+                      
+                          Financial Identity   Trust Intelligence   Reputation
+                      
+                              │                  │                  │
+                              └──────────────────┼──────────────────┘
+                                                 ▼
+                      
+                                    Oracle Verification (EIP-712)
+                      
+                                                 ▼
+                      
+                              Settlement Infrastructure (HashKey)
+                      
+                                                 ▼
+                      
+                                          HashKey Chain Mainnet
 
 
 ### Introducing Credence
@@ -118,27 +118,27 @@ Instead of every application independently evaluating users...
 
 Every application consumes the same trust infrastructure.
 
-              Wallet
-              
-              ↓
-              
-              Financial Activity
-              
-              ↓
-              
-              Credence Trust Layer
-              
-              ↓
-              
-              Verified Financial Identity
-              
-              ↓
-              
-              Reusable Proof-of-Trust
-              
-              ↓
-              
-              HashKey Applications
+                                    Wallet
+                                    
+                                    ↓
+                                    
+                                    Financial Activity
+                                    
+                                    ↓
+                                    
+                                    Credence Trust Layer
+                                    
+                                    ↓
+                                    
+                                    Verified Financial Identity
+                                    
+                                    ↓
+                                    
+                                    Reusable Proof-of-Trust
+                                    
+                                    ↓
+                                    
+                                    HashKey Applications
 
               
 ## One Financial Identity
@@ -150,28 +150,28 @@ One financial history.
 One reputation.
 
 Unlimited applications.
-
-                    Credit Passport
-          
-                           |
-          
-           ┌───────────────┬───────────────┬
-          
-           ▼               ▼               ▼
-          
-         Lending         PayFi          Insurance
-          
-           ▼               ▼               ▼
-          
-        Better          Instant           Lower
-          
-        Terms           Credit          Premium
-          
-           └───────────────┼───────────────┘
-          
-                           ▼
-          
-               Same Trust Infrastructure
+                          
+                                              Credit Passport
+                                    
+                                                     |
+                                    
+                                     ┌───────────────┬───────────────┬
+                                    
+                                     ▼               ▼               ▼
+                                    
+                                   Lending         PayFi          Insurance
+                                    
+                                     ▼               ▼               ▼
+                                    
+                                  Better          Instant           Lower
+                                    
+                                  Terms           Credit          Premium
+                                    
+                                     └───────────────┼───────────────┘
+                                    
+                                                     ▼
+                                    
+                                         Same Trust Infrastructure
 
                
               
@@ -229,43 +229,43 @@ Unlike black-box ML credit scores, every recommendation is derived from five pub
 
 Every financial decision follows the exact same verification pipeline.
 
-                Wallet Activity
-                
-                ↓
-                
-                Feature Extraction
-                
-                ↓
-                
-                Transparent Underwriting Engine
-                
-                ↓
-                
-                Credit Report Generated
-                
-                ↓
-                
-                Oracle Signs Decision
-                
-                ↓
-                
-                EIP-712 Signature
-                
-                ↓
-                
-                OracleRegistry Verification
-                
-                ↓
-                
-                Smart Contract Validation
-                
-                ↓
-                
-                Settlement Execution
-                
-                ↓
-
-                Trust Receipt Generated
+                                      Wallet Activity
+                                      
+                                      ↓
+                                      
+                                      Feature Extraction
+                                      
+                                      ↓
+                                      
+                                      Transparent Underwriting Engine
+                                      
+                                      ↓
+                                      
+                                      Credit Report Generated
+                                      
+                                      ↓
+                                      
+                                      Oracle Signs Decision
+                                      
+                                      ↓
+                                      
+                                      EIP-712 Signature
+                                      
+                                      ↓
+                                      
+                                      OracleRegistry Verification
+                                      
+                                      ↓
+                                      
+                                      Smart Contract Validation
+                                      
+                                      ↓
+                                      
+                                      Settlement Execution
+                                      
+                                      ↓
+                      
+                                      Trust Receipt Generated
 
 Every stage can be independently verified.
 
@@ -496,39 +496,39 @@ Most protocols use settlement to complete transactions.
 Credence uses settlement to continuously strengthen financial infrastructure.
 
 ---
-            Traditional DeFi
-            
-            Loan
-            
-            ↓
-            
-            Settlement
-            
-            ↓
-            
-            Finished
-            
-            
-            
-            Credence
-            
-            Loan
-            
-            ↓
-            
-            Settlement
-            
-            ↓
-            
-            Trust Updated
-            
-            ↓
-            
-            Financial Identity Improved
-            
-            ↓
-            
-            Future Opportunities Increased
+                                        Traditional DeFi
+                                        
+                                        Loan
+                                        
+                                        ↓
+                                        
+                                        Settlement
+                                        
+                                        ↓
+                                        
+                                        Finished
+                                        
+                                        
+                                        
+                                        Credence
+                                        
+                                        Loan
+                                        
+                                        ↓
+                                        
+                                        Settlement
+                                        
+                                        ↓
+                                        
+                                        Trust Updated
+                                        
+                                        ↓
+                                        
+                                        Financial Identity Improved
+                                        
+                                        ↓
+                                        
+                                        Future Opportunities Increased
 
 ---
 
@@ -568,50 +568,50 @@ This creates a compounding ecosystem effect rather than isolated financial appli
 ## Security Architecture
 
 Rather than depending on one security mechanism, Credence protects financial execution through multiple independent layers
-
-                   User
-
-                    │
-
-                    ▼
-
-             Input Validation
-
-                    │
-
-                    ▼
-
-            Oracle Verification
-
-                    │
-
-                    ▼
-
-            Signature Validation
-
-                    │
-
-                    ▼
-
-            Smart Contract Rules
-
-                    │
-
-                    ▼
-
-             Role Authorization
-
-                    │
-
-                    ▼
-
-           Secure Asset Transfer
-
-                    │
-
-                    ▼
-
-            Reputation Update
+                              
+                                                 User
+                              
+                                                  │
+                              
+                                                  ▼
+                              
+                                           Input Validation
+                              
+                                                  │
+                              
+                                                  ▼
+                              
+                                          Oracle Verification
+                              
+                                                  │
+                              
+                                                  ▼
+                              
+                                          Signature Validation
+                              
+                                                  │
+                              
+                                                  ▼
+                              
+                                          Smart Contract Rules
+                              
+                                                  │
+                              
+                                                  ▼
+                              
+                                           Role Authorization
+                              
+                                                  │
+                              
+                                                  ▼
+                              
+                                         Secure Asset Transfer
+                              
+                                                  │
+                              
+                                                  ▼
+                              
+                                          Reputation Update
 
 ### Key Controls
 - **Role-Based Access Control** via OpenZeppelin AccessControl (e.g. `ADMIN_ROLE`, `ORACLE_ROLE`, `SETTLEMENT_ROLE`, `POOL_ROLE`) — each role scoped to only what it needs.
