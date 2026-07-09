@@ -673,9 +673,9 @@ TESTING.md
 
       |         |         |
 
- Access     Oracle    Runtime
+  Access     Oracle    Runtime
 
-Control   Security   Protection
+ Control   Security   Protection
 
 
       ---------------------
@@ -686,7 +686,7 @@ Control   Security   Protection
                  v
 
 
-            HashKey Chain
+           HashKey Chain
 ```
 
 
