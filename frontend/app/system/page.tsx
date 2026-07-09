@@ -62,12 +62,13 @@ export default function SystemConsolidatedPage() {
   const loadSystemData = async () => {
     setLoading(true);
     try {
-      const [hResp, mResp, cResp, iResp, rResp] = await Promise.all([
+      const [hResp, mResp, cResp, iResp, rResp, oResp] = await Promise.all([
         API.get("/system/health"),
         API.get("/system/metrics"),
         API.get("/system/contracts"),
         API.get("/system/incidents"),
-        API.get("/system/readiness")
+        API.get("/system/readiness"),
+        API.get("/system/operations")
       ]);
 
       setHealth(hResp.data);
@@ -75,6 +76,9 @@ export default function SystemConsolidatedPage() {
       setContracts(cResp.data || []);
       setIncidents(iResp.data);
       setReadiness(rResp.data);
+      if (oResp.data) {
+        setOperationsStats(oResp.data);
+      }
     } catch (err) {
       console.error("Failed to load system dashboard telemetry:", err);
     } finally {

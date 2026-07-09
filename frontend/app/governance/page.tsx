@@ -85,7 +85,7 @@ export default function GovernanceOracleHubPage() {
     setLoadingProof(true);
     setErrorMessage("");
     try {
-      const res = await API.get(`/hsp/proof/${id}`);
+      const res = await API.get(`/hsp/proof/${id}${wallet ? `?wallet=${wallet}` : ''}`);
       setSelectedProof(res.data);
     } catch (err: any) {
       console.error(err);
