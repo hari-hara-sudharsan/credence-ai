@@ -751,7 +751,7 @@ Every claim in this document is backed by deployed, inspectable infrastructure â
 
 | Resource | Link |
 |---|---|
-| Production App | https://frontend-git-final-proof-hardening-first-intern.vercel.app/ |
+| Production App | https://frontend-kohl-psi-76.vercel.app/ |
 | Documentation | https://frontend-kohl-psi-76.vercel.app/docs |
 | GitHub Repository | https://github.com/hari-hara-sudharsan/credence-ai |
 | Demo Video | https://youtu.be/rczer5cuPpc |
