@@ -46,63 +46,63 @@ Trust becomes a reusable asset across the ecosystem.
 
 
 ```
-                    Applications
+                      Applications
 
- Lending | PayFi | RWA | Insurance | DAO | AI Agents
-
-
-                         |
+   Lending | PayFi | RWA | Insurance | DAO | AI Agents
 
 
-                         v
+                          |
 
 
-====================================================
+                          v
+
+
+   ====================================================
 
 
                   CREDENCE TRUST LAYER
 
 
-====================================================
+   ====================================================
 
 
-Layer 1:
-
-Credit Intelligence
-
-
-- Wallet Analysis
-- AI Risk Engine
-- Credit Scoring
-- Default Prediction
-
-
-                         |
-
-
-Layer 2:
-
-Trust Infrastructure
-
-
-- Credit Passport
-- Reputation Registry
-- Oracle Verification
-- Trust Receipts
+                    Layer 1:
+                    
+                    Credit Intelligence
+                    
+                    
+                    - Wallet Analysis
+                    - AI Risk Engine
+                    - Credit Scoring
+                    - Default Prediction
 
 
                          |
 
 
-Layer 3:
+                  Layer 2:
+                  
+                  Trust Infrastructure
+                  
+                  
+                  - Credit Passport
+                  - Reputation Registry
+                  - Oracle Verification
+                  - Trust Receipts
 
-Financial Execution
+
+                         |
 
 
-- Lending Pool
-- Loan Manager
-- Settlement Manager
-- HashKey Settlement
+                    Layer 3:
+                    
+                    Financial Execution
+                    
+                    
+                    - Lending Pool
+                    - Loan Manager
+                    - Settlement Manager
+                    - HashKey Settlement
 
 
 ====================================================
@@ -386,7 +386,7 @@ CreditPassportV2              ReputationRegistry
                         |
 
 
-                  LoanManager
+                   LoanManager
 
 
                         |
@@ -398,13 +398,13 @@ CreditPassportV2              ReputationRegistry
                         |
 
 
-              SettlementManager
+                 SettlementManager
 
 
                         |
 
 
-                HashKey Chain
+                   HashKey Chain
 
 ```
 
@@ -610,7 +610,7 @@ Autonomous Credit Access
                   v
 
 
-             Frontend
+               Frontend
 
 
                   |
@@ -619,34 +619,34 @@ Autonomous Credit Access
                   v
 
 
-             API Layer
+              API Layer
 
 
                   |
 
 
-        ------------------
+          ------------------
 
 
-        |                |
+         |                |
 
 
      AI Engine       Blockchain
 
 
-        |                |
+         |                |
 
 
-        ------------------
+         ------------------
 
 
-                  |
+                |
 
 
-                  v
+                v
 
 
-          Trust Infrastructure
+       Trust Infrastructure
 
 ```
 
