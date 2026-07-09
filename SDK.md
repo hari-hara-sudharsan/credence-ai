@@ -448,35 +448,24 @@ External Application
 
 
         |
-
-
         v
 
 
 Credence SDK
 
-
         |
-
-
         v
 
 
 Trust APIs
 
-
         |
-
-
         v
 
 
 Smart Contracts
 
-
         |
-
-
         v
 
 
