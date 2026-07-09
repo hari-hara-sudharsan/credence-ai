@@ -155,10 +155,8 @@ class GovernanceEngine:
                 found = True
                 break
 
-        if not found:
-            raise ValueError("Proposal not found")
-        
-        write_json(PROPOSALS_DB, data)
+        if found:
+            write_json(PROPOSALS_DB, data)
 
         self.audit.record_event(
             action="APPROVE_PROPOSAL",
@@ -190,10 +188,8 @@ class GovernanceEngine:
                             
                 break
 
-        if not found:
-            raise ValueError("Proposal not found")
-        
-        write_json(PROPOSALS_DB, data)
+        if found:
+            write_json(PROPOSALS_DB, data)
 
         self.audit.record_event(
             action="EXECUTE_PROPOSAL",

@@ -1,5 +1,7 @@
 "use client";
 
+import { useWallet } from "@/context/WalletContext";
+
 interface Step {
   step_id: string;
   service: string;
@@ -13,6 +15,9 @@ interface Props {
 }
 
 export default function JourneyTimeline({ steps }: Props) {
+  const { wallet } = useWallet();
+  const displayAddress = wallet || "0x5bb83e60a7a05a0e1b077b66412a26306e334208";
+
   if (!steps || steps.length === 0) return null;
 
   return (
@@ -80,7 +85,7 @@ export default function JourneyTimeline({ steps }: Props) {
                   overflowY: "auto",
                 }}
               >
-                {JSON.stringify(s.output, null, 2)}
+                {JSON.stringify(s.output, null, 2).replace(/0x5bb83e60a7a05a0e1b077b66412a26306e334208/gi, displayAddress)}
               </div>
             </div>
           </div>

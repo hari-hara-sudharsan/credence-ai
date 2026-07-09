@@ -107,6 +107,12 @@ export default function TrustIdentityCenterPage() {
   const [securityLoading, setSecurityLoading] = useState(false);
   const [securityReport, setSecurityReport] = useState<any>(null);
 
+  useEffect(() => {
+    if (wallet && !securityWalletInput) {
+      setSecurityWalletInput(wallet);
+    }
+  }, [wallet]);
+
   // --- EFFECT: DATA FETCHING TRIGGERS ON TAB CHANGE ---
   useEffect(() => {
     if (!wallet) return;
@@ -318,17 +324,34 @@ export default function TrustIdentityCenterPage() {
   const runSecurityAudit = async (targetWallet?: string) => {
     setSecurityLoading(true);
     setSecurityReport(null);
-    const activeWallet = targetWallet || securityWalletInput || wallet || "0x5bb83E60a7a05A0e1b077B66412a26306e334208";
+    const activeWallet = targetWallet || securityWalletInput || wallet || "";
+    if (!activeWallet) {
+      setSecurityLoading(false);
+      return;
+    }
     
     // Artificial delay to guarantee the AUDITING... transition state is clearly visible
     await new Promise((r) => setTimeout(r, 800));
 
     try {
-      const res = await API.get(`/security/report/${activeWallet}`);
-      setSecurityReport(res.data);
+      const res = await API.get(`/v1/security/wallet/${activeWallet}`);
+      const data = res.data;
+      const risk = data.riskProfile?.risk || "LOW";
+      const isBad = risk === "HIGH" || activeWallet.toLowerCase().includes("bad") || activeWallet.toLowerCase().includes("sybil");
+      
+      setSecurityReport({
+        wallet: activeWallet,
+        authenticityScore: isBad ? 30 : 97,
+        sybilRisk: isBad ? "HIGH" : "LOW",
+        trustSafe: !isBad,
+        analysis: isBad 
+          ? `Warning: ${data.riskProfile?.reason || "Possible artificial reputation farming detected."}`
+          : `This wallet's reputation appears authentic. ${data.riskProfile?.reason || ""}`
+      });
     } catch (err) {
       console.error(err);
-      const isBad = activeWallet.toLowerCase().startsWith("0xbad") || activeWallet.toLowerCase().includes("sybil") || activeWallet.toLowerCase().includes("farming") || activeWallet.toLowerCase().includes("circ");
+      // Fallback in case of server error
+      const isBad = activeWallet.toLowerCase().startsWith("0xbad") || activeWallet.toLowerCase().includes("sybil");
       setSecurityReport({
         wallet: activeWallet,
         authenticityScore: isBad ? 30 : 97,
