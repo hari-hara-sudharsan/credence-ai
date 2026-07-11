@@ -393,7 +393,98 @@ That is exactly what these seven contracts provide.
 ### Consistent Security Baseline (all contracts)
 Role-Based Access Control · Reentrancy Protection · SafeERC20 · Oracle Authentication · Replay Protection · Signature Expiry · Pausable Emergency Stop · Input Validation
 
+## HSP-Centric Financial Lifecycle
 
+Every financial action follows the same deterministic lifecycle.
+
+                                    Borrower Requests Credit
+                                                │
+                                                ▼
+                                    Transparent AI Underwriting
+                                                │
+                                                ▼
+                                    Oracle Generates EIP-712 Attestation
+                                                │
+                                                ▼
+                                    Settlement Authorization
+                                                │
+                                                ▼
+                                    SettlementManager Validates
+                                     • Oracle Signature
+                                     • Nonce
+                                     • Expiry
+                                     • Roles
+                                                │
+                                                ▼
+                                    Native HashKey Settlement (HSP)
+                                                │
+                                                ▼
+                                    Settlement Proof Generated
+                                                │
+                                                ▼
+                                    Trust Receipt Created
+                                                │
+                                                ▼
+                                    ReputationRegistry Updated
+                                                │
+                                                ▼
+                                    Credit Passport Updated
+                                                │
+                                                ▼
+                                    Better Future Financial Access
+                                    
+
+Notice that financial trust is created only after a successful HSP settlement.
+
+## Why HSP Is Fundamental
+
+HSP is not integrated as an optional payment rail.
+
+It is the protocol's source of financial truth.
+
+Every reputation update depends on HSP.
+
+Every Credit Passport improvement depends on HSP.
+
+Every lending decision depends on HSP.
+
+Every institutional trust score depends on HSP.
+
+Without HSP, Credence cannot generate financial trust.
+
+Without financial trust, the protocol cannot function.
+
+This makes HSP a foundational protocol dependency rather than an external integration.
+
+## HSP as Shared Infrastructure
+
+Every verified settlement immediately becomes reusable financial infrastructure.
+
+                          Native HSP Settlement
+                                      │
+                                      ▼
+                          Settlement Proof
+                                      │
+                                      ▼
+                          Trust Receipt
+                                      │
+                                      ▼
+                          Reputation Registry
+                                      │
+                                      ▼
+                          Credit Passport
+                                      │
+                                      ▼
+                          Developer Trust APIs
+                                      │
+                                      ├────────► Lending
+                                      ├────────► PayFi
+                                      ├────────► Insurance
+                                      ├────────► Real World Assets
+                                      ├────────► DAO Treasury
+                                      └────────► AI Agents
+
+            
 ## Why This Matters for HashKey Chain
 
 HashKey is not building another blockchain.
